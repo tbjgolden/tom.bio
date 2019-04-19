@@ -27,7 +27,6 @@
     "fs-extra": "^7.0.1",
     "gm": "^1.23.1",
     "html-webpack-plugin": "2.29.0",
-    "husky": "^1.1.4",
     "marked": "^0.5.1",
     "node-sass": "^4.9.0",
     "object-assign": "4.1.1",
@@ -64,10 +63,5 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "node build.js && git add --all"
-    }
   }
 }
