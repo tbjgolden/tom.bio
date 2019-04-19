@@ -2,7 +2,7 @@
   "name": "tomgolden",
   "version": "1.0.0",
   "private": true,
-  "homepage": "tbjgolden.com",
+  "homepage": "https://tbjgolden.com",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
