@@ -2,6 +2,7 @@
   "name": "tomgolden",
   "version": "1.0.0",
   "private": true,
+  "homepage": "tbjgolden.com",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
@@ -25,6 +26,7 @@
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
     "fs-extra": "^7.0.1",
+    "gh-pages": "^2.0.1",
     "gm": "^1.23.1",
     "html-webpack-plugin": "2.29.0",
     "marked": "^0.5.1",
@@ -54,7 +56,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "blog": "node scripts/blog.js",
-    "push": "sh release.sh"
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build -b master"
   },
   "babel": {
     "presets": [
