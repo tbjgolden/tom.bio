@@ -6,4 +6,4 @@ cd $DIR
 rm -f build.zip
 yarn build
 zip -r build.zip build
-git checkout dev && git add . && git commit -m "Update ($DATE)" && git push && git checkout mastersh pop
+git checkout dev && git add . && git commit -m "Update ($DATE)" && git push && git checkout master
