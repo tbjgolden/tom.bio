@@ -1,0 +1,23 @@
+.Jumbotron .App-row-title {
+  font-size: 80px;
+  font-weight: 600;
+  line-height: 1.0625;
+
+  letter-spacing: -.025em;
+}
+
+@media (max-width: 1068px) {
+  .Jumbotron .App-row-title {
+    font-size: 59px;
+    line-height: 1.10227;
+  }
+}
+
+@media (max-width: 735px) {
+  .Jumbotron .App-row-title {
+    font-size: 38px;
+    line-height: 1.15825;
+
+    letter-spacing: .009em;
+  }
+}

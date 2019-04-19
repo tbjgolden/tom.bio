@@ -1,0 +1,44 @@
+.Experience-jumbotron {
+  height: 65vh;
+}
+
+.Experience .App-row-description {
+  display: inline-block;
+}
+
+.Experience .App-row-header:empty {
+  display: none;
+}
+
+.Experience .Experience-block .App-row-description {
+  max-width: 36ex;
+}
+
+.Experience .Experience-foreword .App-row-description {
+  max-width: none;
+}
+
+.Experience-block .Columns {
+  align-items: center;
+}
+
+.Experience-block:nth-child(2n+1) .Columns {
+  flex-direction: row-reverse;
+}
+
+.Experience-block .App-row-title {
+  margin: 0 0 .5ex;
+  min-width: 15ex;
+}
+
+.Experience-block .App-row-title,
+.Experience-block .App-row-header,
+.Experience-block .App-row-description {
+  white-space: pre-wrap;
+}
+
+@media (max-width: 735px) {
+  .Experience .App-row-sizer {
+    padding: 24px;
+  }
+}

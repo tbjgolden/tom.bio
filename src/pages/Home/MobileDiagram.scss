@@ -1,0 +1,129 @@
+.MobileDiagram {
+  display: inline-block;
+
+  width: 93.75px;
+  max-width: 100%;
+}
+
+.MobileDiagram-screen-container {
+  position: relative;
+
+  padding: 200% 0 0;
+
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+}
+
+.MobileDiagram-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #fff;
+}
+
+.MobileDiagram-menu-button {
+  position: absolute;
+  right: 7.5%;
+  bottom: 3.75%;
+
+  width: 20%;
+  padding: 20% 0 0;
+
+  border-radius: 9999px;
+  background-color: #eee;
+  box-shadow: 0 .5px 3px rgba(0,0,0,.12), 0 .5px 2px rgba(0,0,0,.24);
+}
+
+.MobileDiagram-body {
+  position: absolute;
+  top: 0;
+
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+}
+
+.MobileDiagram-body-header {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 10%;
+
+  background-color: #555;
+  box-shadow: 0 .5px 3px rgba(0,0,0,.12), 0 .5px 2px rgba(0,0,0,.24);
+}
+
+.MobileDiagram-body-title {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+
+  width: 60%;
+  height: 50%;
+
+  background-color: #eee;
+}
+
+.MobileDiagram-body-paragraph {
+  position: absolute;
+  left: 5%;
+
+  width: 90%;
+  max-width: 180px;
+  height: 18%;
+}
+
+.MobileDiagram-body-paragraph:nth-child(2) {
+  top: 18%;
+}
+
+.MobileDiagram-body-paragraph:nth-child(3) {
+  top: 44%;
+}
+
+.MobileDiagram-body-paragraph:nth-child(4) {
+  top: 70%;
+}
+
+.MobileDiagram-body-paragraph-line {
+  position: absolute;
+  left: 0;
+
+  width: 100%;
+  height: 24%;
+
+  background-color: #888;
+}
+
+.MobileDiagram-body-paragraph-line:nth-child(1) {
+  top: 0;
+}
+
+.MobileDiagram-body-paragraph-line:nth-child(2) {
+  top: 38%;
+}
+
+.MobileDiagram-body-paragraph-line:nth-child(3) {
+  top: 76%;
+}
+
+.MobileDiagram-body-paragraph:nth-child(2) .MobileDiagram-body-paragraph-line:last-child {
+  width: 50%;
+}
+
+.MobileDiagram-body-paragraph:nth-child(3) .MobileDiagram-body-paragraph-line:last-child {
+  width: 75%;
+}
+
+.MobileDiagram-body-paragraph:nth-child(4) .MobileDiagram-body-paragraph-line:last-child {
+  width: 25%;
+}
