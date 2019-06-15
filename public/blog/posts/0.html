@@ -1,0 +1,243 @@
+<!-- post-title: Why I quit Atom and went back to Sublime -->
+<!-- post-timestamp: 1515821753107 -->
+
+<h1 id="i-blame-google-chrome">I blame Google Chrome</h1>
+<p>It&#39;s a browser.</p>
+<p>It&#39;s pretty good, I suppose. Aside from missing very few features, and
+covering the spec, it has great developer tools. It also the only
+browser that you can easily get on most popular devices today... by the
+virtue of having a monopoly on Chrome OS. Still, it is largely a good
+custodian of progressing the web and it&#39;s responsibilities. [Enter
+cheap joke about Microsoft here]</p>
+<p>It is still just about the quickest browser too, as of right now...
+<strong><em>Wait a second...</em></strong> Why is my computer lagging? I&#39;ve only got Atom
+and Chrome open.</p>
+<p>(<em>opens system dashboard</em>)</p>
+<p><img src="images/monitor_chrome.360.jpg" srcset="images/monitor_chrome.360.jpg 360w, images/monitor_chrome.540.jpg 540w, images/monitor_chrome.800.jpg 800w, images/monitor_chrome.jpg 862w" sizes="(max-width: 780px) 100vw, 680px" alt="Chrome using 2.5GB of RAM"></p>
+<p><strong>UN. I. DEAL.</strong> My RAM is getting wrecked. Chrome&#39;s using 2.5GB,
+Slack&#39;s using 1.5GB and Atom&#39;s using 3GB.</p>
+<p>That&#39;s 7GB. For 3 programs. I mean, technically you can make <a href="https://en.wikipedia.org/wiki/List_of_web_browsers#Text-based">web
+browsers</a>,
+<a href="https://github.com/erroneousboat/slack-term">Slack clients</a> and <a href="https://en.wikipedia.org/wiki/List_of_text_editors#Text_user_interface">text
+editors</a>
+that work in the terminal. And yet, these three apps need 7GB between
+them?</p>
+<pre><code class="language-none">1969 Apollo 11 Memory:
+  AGC Total RAM:
+    1 kiloword = 1,024 * word = 1,024 * 16 bits = 16,384 bits.
+
+2018 Slack Memory:
+  Slack Approx RAM Usage:
+    1.5GB = 1,500,000,000 bytes = 1,500,000,000 * 8 bits = 12,000,000,000 bits.
+
+Number of spaceships needed to run Slack&#39;s desktop app:
+  ceil(12,000,000,000 / 16,384) = 732,422 spaceships</code></pre>
+<p>(For more desktop Slack tips, see this article:
+<a href="https://malloc.fi/weird-tip-saves-slack-ram">https://malloc.fi/weird-tip-saves-slack-ram</a>)</p>
+<h1 id="electron">Electron</h1>
+<p>Why does Slack use all this RAM? Well, it runs on <a href="">Electron</a>, which is
+a Chrome window with some native system access, similar in concept to
+Apache Cordova. The benefit for Slack is that it can be written once to
+work on Windows, Mac and Linux. It also means reduced platform-specific
+bugs, easier and more maintainable development.
+<a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">D.R.Y.</a> af.</p>
+<p>However, it has 2 main problems.</p>
+<ol>
+<li>It uses a lot of memory as Chrome uses a lot of memory.</li>
+<li>It has a slow startup time.</li>
+</ol>
+<p>The random delays while it tries to find some memory, and the startup
+time are frankly, really annoying.</p>
+<h1 id="atom-also-uses-electron">Atom also uses Electron</h1>
+<p>I visited Github&#39;s office in San Francisco in 2017 and was surprised to
+learn that the Atom only had 4 developers. Which speaks to their immense
+talent and also the developer-friendliness of Electron (which Github is
+also behind).</p>
+<p>But running a web browser in the background is, surely, overkill. Lots
+of web developer tools use Electron as you need only be a web developer
+to make them. They include:</p>
+<ul>
+<li>Atom</li>
+<li>Visual Studio Code</li>
+<li>Hyper (Terminal)</li>
+<li>Postman (for HTTP requests)</li>
+<li>MongoDB Compass</li>
+<li><a href="https://electronjs.org/apps">many more...</a></li>
+</ul>
+<h1 id="atom-is-slow-at-basic-text-editor-things">Atom is slow at basic text-editor things</h1>
+<p>The following numbers are from <a href="https://github.com/jhallen/joes-sandbox/tree/master/editor-perf">this Github
+repo</a>.
+There are more tests and results on that page.</p>
+<h2 id="file-1-">File 1:</h2>
+<p><code>hello.c</code></p>
+<pre><code class="language-c">include &lt;stdio.h&gt;
+
+int main()
+{
+    printf(&quot;Hello, world!\n&quot;);
+}</code></pre>
+<table>
+<thead>
+<tr>
+<th align="center">Editor</th>
+<th align="right">RAM used (kB)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">vim</td>
+<td align="right"><code>5,336</code></td>
+</tr>
+<tr>
+<td align="center">emacs -nw</td>
+<td align="right"><code>17,060</code></td>
+</tr>
+<tr>
+<td align="center"><em>sublime</em></td>
+<td align="right"><code>45,800</code></td>
+</tr>
+<tr>
+<td align="center"><em>atom</em></td>
+<td align="right"><code>250,404</code></td>
+</tr>
+<tr>
+<td align="center"><em>vscode</em></td>
+<td align="right"><code>339,512</code></td>
+</tr>
+</tbody></table>
+<h2 id="file-2-">File 2:</h2>
+<p><code>test.xml</code> (5.8MB XML File)</p>
+<table>
+<thead>
+<tr>
+<th align="center">Editor</th>
+<th align="right">RAM used (kB)</th>
+<th align="right">RAM used (no highlighting) (kB)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">vim</td>
+<td align="right"><code>11,952</code></td>
+<td align="right"><code>11,824</code></td>
+</tr>
+<tr>
+<td align="center">emacs -nw</td>
+<td align="right"><code>23,216</code></td>
+<td align="right"><code>21,320</code></td>
+</tr>
+<tr>
+<td align="center"><em>sublime</em></td>
+<td align="right"><code>64,608</code></td>
+<td align="right"><code>63,800</code></td>
+</tr>
+<tr>
+<td align="center"><em>vscode</em></td>
+<td align="right"><code>391,496</code></td>
+<td align="right"><code>383,440</code></td>
+</tr>
+<tr>
+<td align="center"><em>atom</em></td>
+<td align="right">n/a*</td>
+<td align="right"><code>825,232</code></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">Editor</th>
+<th align="right">Highlight test time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><em>sublime</em></td>
+<td align="right"><code>5s</code></td>
+</tr>
+<tr>
+<td align="center">emacs -nw</td>
+<td align="right"><code>8s</code></td>
+</tr>
+<tr>
+<td align="center">vim</td>
+<td align="right"><code>10s</code></td>
+</tr>
+<tr>
+<td align="center"><em>vscode</em></td>
+<td align="right"><code>28s</code></td>
+</tr>
+<tr>
+<td align="center"><em>atom</em></td>
+<td align="right"><code>1m 22s</code></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">Editor</th>
+<th align="right">Find and replace time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">vim</td>
+<td align="right"><code>4.6s</code></td>
+</tr>
+<tr>
+<td align="center"><em>sublime</em></td>
+<td align="right"><code>6s</code></td>
+</tr>
+<tr>
+<td align="center">emacs -nw</td>
+<td align="right"><code>9.7s</code></td>
+</tr>
+<tr>
+<td align="center"><em>vscode</em></td>
+<td align="right"><code>1m 12s</code></td>
+</tr>
+<tr>
+<td align="center"><em>atom</em></td>
+<td align="right"><code>over 10m</code></td>
+</tr>
+</tbody></table>
+<p>*Atom won&#39;t highlight large files by default.</p>
+<h1 id="wow-sublime-is-fast-">Wow. Sublime is fast.</h1>
+<p>Who knew? It can even open a 3GB file.</p>
+<p>Not even command line editors <code>emacs</code>, <code>vim</code> or even <code>nano</code> could open
+it, yet Sublime managed it in a not completely unreasonable 75 seconds,
+and even has a cute progress bar.</p>
+<h1 id="isn-t-sublime-the-one-with-the-please-buy-me-popup-">Isn&#39;t Sublime the one with the please buy me popup?</h1>
+<p>Yes. But you could actually buy it. I think we&#39;re programmed to ignore
+that popup from the WinRAR era... 😂</p>
+<p>It costs $80. For that, you get <strong>no more popups</strong>, get <strong>access to the
+latest developer builds</strong>, and the option to <strong>suggest new features</strong>.
+It is a <strong>buy once, keep forever</strong> deal. Indeed, they may seek to follow
+the emerging trend of charging on a recurring basis in the future so
+buying it now might not be the worst idea.</p>
+<p>The worst thing about Sublime is it&#39;s appearance, but that&#39;s easily
+remediable.</p>
+<p>I use the delightful &quot;Monokai Pro&quot; theme and color scheme, check it out
+<a href="https://www.monokai.pro/">here</a>. It has been getting a lot of jealous
+looks from my Atom-equipped colleagues. It&#39;s only 10 euros, though of
+course 10 euros more that most available themes.</p>
+<p>Otherwise the best options seem to be:</p>
+<ul>
+<li><a href="https://github.com/ihodev/sublime-boxy">https://github.com/ihodev/sublime-boxy</a></li>
+<li><a href="https://github.com/dempfi/ayu">https://github.com/dempfi/ayu</a></li>
+</ul>
+<h1 id="sublime-isn-t-quite-perfect">Sublime isn&#39;t quite perfect</h1>
+<ul>
+<li>You can&#39;t do basic file renaming, deleting and moving in the
+tree-view without the extension
+<a href="https://github.com/SideBarEnhancements-org/SideBarEnhancements">SideBarEnhancements</a></li>
+<li>Atom and VS Code work much nicer with version control, like Git
+(<a href="https://forum.sublimetext.com/t/api-suggestions/20640/26#post_26">Sublime Suggestion
+Thread</a>)</li>
+<li>If you don&#39;t like something, you can&#39;t just hack away at it like you
+can in Atom</li>
+<li>The find and replace through multiple files is weird, the results
+screen is a bit dated and finding the</li>
+</ul>
+<p>But the speed advantage really does make up for a lot, and
+(subjectively) improves coding focus.</p>
+<p>There really aren&#39;t many multi-platform alternatives to Electron-based
+editors besides Sublime Text, but one with a lot of promise is xi-editor
+(<a href="https://github.com/google/xi-editor">https://github.com/google/xi-editor</a>), which I am very excited about.
+It&#39;s relatively early stages and it takes quite a bit of setting up, but
+it <em>could</em> end up being very, very good. Fingers crossed.</p>

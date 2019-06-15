@@ -7,7 +7,7 @@ import Matrix from './Matrix';
 import Jumbotron from './Jumbotron';
 import './index.scss';
 
-const Home = ({ screenWidth }) => (
+const Home = () => (
   <div>
     <Jumbotron />
     <div className='App-row-sizer'>
@@ -18,7 +18,7 @@ const Home = ({ screenWidth }) => (
     </div>
     <hr className='x4' />
     <div className='App-row' style={{ height: 'calc(300px + 15vw)' }}>
-      <Matrix screenWidth={screenWidth} />
+      <Matrix />
       <div className='App-row-sizer'>
         <div className='App-row-title'>Revolutionary algorithms.</div>
         <div className='App-row-description'>
@@ -32,12 +32,12 @@ const Home = ({ screenWidth }) => (
         <Columns>
           <div>
             <div className='App-row-header'>Web</div>
-            <div className='App-row-description'>React, Angular, JavaScript, etc.</div>
+            <div className='App-row-description'>React, Angular, ES*, *.js</div>
             <WebDiagram />
           </div>
           <div>
             <div className='App-row-header'>Mobile</div>
-            <div className='App-row-description'>Ionic, React&nbsp;Native, Android</div>
+            <div className='App-row-description'>Flutter, React&nbsp;Native, Ionic, Android</div>
             <MobileDiagram />
           </div>
         </Columns>

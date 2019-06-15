@@ -6,16 +6,17 @@
   padding: 40px 0;
 }
 
+.App-row.white-text {
+  background-color: #888;
+  color: #fff;
+}
+
 .App-row.white {
   background: linear-gradient(to bottom, #f7f7f7 0%, #fff 100%);
 }
 
 .App-row.white-reverse {
   background: linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);
-}
-
-.App-row.white-text {
-  color: #fff;
 }
 
 .App-row-sizer {

@@ -28,16 +28,16 @@ const Contact = () => (
           tbjgolden
         </div>
         <div className='App-row-smallprint'>
-          <a href='https://www.facebook.com/tbjgolden' target='_blank' rel='noopener noreferrer'>
-            Facebook
+          <a href='https://t.me/tbjgolden' target='_blank' rel='noopener noreferrer'>
+            Telegram
+          </a>
+          {', '}
+          <a href='https://www.github.com/tbjgolden' target='_blank' rel='noopener noreferrer'>
+            Github
           </a>
           {', '}
           <a href='https://www.twitter.com/tbjgolden' target='_blank' rel='noopener noreferrer'>
             Twitter
-          </a>
-          {', '}
-          <a href='https://www.instagram.com/tbjgolden' target='_blank' rel='noopener noreferrer'>
-            Instagram
           </a>
           {', '}
           <a href='https://www.snapchat.com/add/tbjgolden' target='_blank' rel='noopener noreferrer'>

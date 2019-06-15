@@ -28,8 +28,13 @@ body {
 
 :focus {
   outline: 0;
+}
 
-  filter: drop-shadow(0 0 .2ex);
+body.show-focus {
+  :focus {
+    outline: 1px dashed #888;
+    z-index: 2;
+  }
 }
 
 :first-child {
@@ -38,6 +43,14 @@ body {
 
 :last-child {
   margin-bottom: 0;
+}
+
+[hidden] {
+  visibility: visible;
+}
+
+.hidden-block[hidden] {
+  display: block;
 }
 
 h1,

@@ -31,11 +31,27 @@ const Portfolio = () => (
     <Gallery>
       <GalleryItem>
         <GalleryText>
-          <div className='Gallery-title'>willtheygo.com</div>
-          <div className='Gallery-description'>Analytical-engine predicting football's biggest transfers.</div>
+          <div className='Gallery-title'>shop.shipt.com</div>
+          <div className='Gallery-description'>Built the Shipt mobile and web apps.</div>
         </GalleryText>
-        {createPortfolioGalleryImage('images/portfolio/willtheygo.com.png')}
+        {createPortfolioGalleryImage('images/portfolio/shop.shipt.com.png')}
       </GalleryItem>
+      <GalleryRow>
+        <GalleryItem>
+          <GalleryText>
+            <div className='Gallery-title'>willtheygo.com</div>
+            <div className='Gallery-description'>Analytical-engine predicting big football transfers.</div>
+          </GalleryText>
+          {createPortfolioGalleryImage('images/portfolio/willtheygo.com.png')}
+        </GalleryItem>
+        <GalleryItem>
+          <GalleryText>
+            <div className='Gallery-title'>prevent.rip</div>
+            <div className='Gallery-description'>An interactive infographic to encourage good giving.</div>
+          </GalleryText>
+          {createPortfolioGalleryImage('images/portfolio/prevent.rip.png')}
+        </GalleryItem>
+      </GalleryRow>
       <GalleryRow>
         <GalleryItem>
           <GalleryText>
@@ -46,26 +62,26 @@ const Portfolio = () => (
         </GalleryItem>
         <GalleryItem>
           <GalleryText>
-            <div className='Gallery-title'>tbjgolden.website</div>
-            <div className='Gallery-description'>Landing page for my rapid website service.</div>
+            <div className='Gallery-title'>codingcatalyst.com</div>
+            <div className='Gallery-description'>Made the website for a coding bootcamp.</div>
           </GalleryText>
-          {createPortfolioGalleryImage('images/portfolio/tbjgolden.website.png')}
+          {createPortfolioGalleryImage('images/portfolio/codingcatalyst.com.png')}
         </GalleryItem>
       </GalleryRow>
       <GalleryRow>
         <GalleryItem>
           <GalleryText>
             <div className='Gallery-title'>live.gobiapp.com</div>
-            <div className='Gallery-description'>Gobi{'’'}s premium live feed of snaps.</div>
+            <div className='Gallery-description'>Gobi{'’'}s live streaming feed of snaps.</div>
           </GalleryText>
           {createPortfolioGalleryImage('images/portfolio/live.gobiapp.com.png')}
         </GalleryItem>
         <GalleryItem>
           <GalleryText>
-            <div className='Gallery-title'>shop.shipt.com</div>
-            <div className='Gallery-description'>One of the front-end projects at Shipt.</div>
+            <div className='Gallery-title'>tbjgolden.website</div>
+            <div className='Gallery-description'>Landing page for my rapid website service.</div>
           </GalleryText>
-          {createPortfolioGalleryImage('images/portfolio/shop.shipt.com.png')}
+          {createPortfolioGalleryImage('images/portfolio/tbjgolden.website.png')}
         </GalleryItem>
       </GalleryRow>
     </Gallery>

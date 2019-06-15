@@ -31,7 +31,7 @@ export const GalleryImage = ({ src, className, bgProps: { src: bgSrc, ...bgStyle
         className='Gallery-image'
         alt={altify(src)}
         src={src}
-        srcset={srcsetify(src)}
+        srcSet={srcsetify(src)}
         sizes={
           doubleWidth
             ? `(max-width: 960px) 100vw, 960px`

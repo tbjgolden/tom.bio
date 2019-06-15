@@ -4,7 +4,7 @@ import { routes } from './Header';
 import { Link } from 'react-router-dom';
 import './Footer.scss';
 
-const blogRoot = (window.location.protocol || 'https:') + '//tbjgolden.com/blog';
+const blogUrl = `${process.env.PUBLIC_URL}/blog`;
 
 class Footer extends Component {
   constructor (props) {
@@ -13,7 +13,7 @@ class Footer extends Component {
       blogPosts: []
     };
 
-    window.fetch(`${blogRoot}/posts/index.json`)
+    window.fetch(`${blogUrl}/posts/index.json`)
       .then(res => res.json())
       .then(blogPosts => {
         if (Array.isArray(blogPosts)) this.setState({ blogPosts });
@@ -37,10 +37,10 @@ class Footer extends Component {
                 <div><Link to='/'>Home</Link></div>
                 {
                   routes
-                    .map(({ title, url }) =>
+                    .map(({ title, url, external }) =>
                       <div key={url}>
                         {
-                          (url[0] === '/' && url[1] === '/')
+                          external
                             ? <a href={url} alt={title}>{title}</a>
                             : <Link to={url}>{title}</Link>
                         }
@@ -57,7 +57,7 @@ class Footer extends Component {
                         ? (
                           blogPosts.reverse().slice(0, Math.min(blogPosts.length, 2)).map(post =>
                             <div key={post.id}>
-                              <a href={`${blogRoot}/#/posts/${post.id}`}>
+                              <a href={`${blogUrl}/posts/${post.id}`}>
                                 {`${post.title} – ${new Date(post.timestamp).toLocaleDateString()}`}
                               </a>
                             </div>
@@ -69,7 +69,7 @@ class Footer extends Component {
                       <div>
                         There should be a blog at
                         <br />
-                        <a href={blogRoot}>{blogRoot}</a>
+                        <a href={blogUrl}>{blogUrl}</a>
                         <br />
                         but I can't get the posts.
                       </div>
@@ -78,15 +78,22 @@ class Footer extends Component {
               </div>
               <div>
                 <div>About This Site</div>
-                <div>This website was written using React.</div>
-                <div>There is a lot of fun stuff going on under the surface.</div>
+                <div>React, SCSS, Canvas API, Hooks, Custom HOCs, Custom CMS, Mostly Accessible</div>
+                <div>
+                  <a
+                    href='https://github.com/tbjgolden/tbjgolden.github.io'
+                    target='_blank' rel='noopener noreferrer'
+                  >
+                    See the source code
+                  </a>
+                </div>
               </div>
               <div>
                 <div>Friends</div>
                 {
                   [
                     ['Aaron Conway', 'https://aaronconway.co.uk', 'Aaron is an amazing designer'],
-                    ['Jamie Mahoney', 'https://mahoneyj2.github.io/', 'Jamie is an amazing programmer']
+                    ['Jamie Mahoney', 'https://mahoneyj2.github.io', 'Jamie is an amazing programmer']
                   ].map(([text, address, description]) => (
                     <div key={text}>
                       <div>

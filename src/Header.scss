@@ -15,14 +15,6 @@
   color: #fff;
 }
 
-.Header :focus {
-  filter: drop-shadow(0 0 .1ex) drop-shadow(0 0 .3ex);
-}
-
-.Header .Header-menu-nav-list-item-link:focus {
-  filter: drop-shadow(0 0 .3ex);
-}
-
 .Header::after {
   position: absolute;
   z-index: -9999;
@@ -34,9 +26,7 @@
 
   content: '';
 
-  background: rgba(0,0,0,.8);
-
-  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(45,45,45,0.98);
 }
 
 .Header > .App-row-sizer {
@@ -212,12 +202,12 @@
 
 .Header-menu-nav-list-item-link:hover {
   text-decoration: none;
-
   color: #b4b4b4;
 }
 
 .Header-menu-nav-list-item-link.active {
   color: #b4b4b4;
+  cursor: default;
 }
 
 @media (max-width: 767px) {

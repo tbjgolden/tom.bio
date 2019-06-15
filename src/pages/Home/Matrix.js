@@ -1,32 +1,22 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import withWindowWidth from '../../withWindowWidth';
 import './Matrix.scss';
 
-export default class Matrix extends Component {
-  constructor (props) {
-    super(props);
-
-    this.state = { screenWidth: props.screenWidth };
-  }
-
+class Matrix extends PureComponent {
   componentDidMount () {
     this.ctx = this.canvas.getContext("2d");
-    this.height = this.canvas.height = this.canvas.clientHeight;
-    this.width = this.canvas.width = this.canvas.clientWidth;
-
     this.startCanvas();
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.state.screenWidth !== nextProps.screenWidth) {
-      this.setState({ screenWidth: nextProps.screenWidth });
-      this.width = this.canvas.width = this.canvas.clientWidth;
-      this.height = this.canvas.height = this.canvas.clientHeight;
-      this.startCanvas();
-    }
+  componentDidUpdate () {
+    this.startCanvas();
   }
 
   startCanvas () {
     clearInterval(this.interval);
+
+    this.height = this.canvas.height = this.canvas.clientHeight;
+    this.width = this.canvas.width = this.canvas.clientWidth;
 
     const cols = Math.ceil(this.width / 24);
     const rows = Math.ceil(this.height / 24);
@@ -103,3 +93,5 @@ const emojis = [
 function randomEmoji () {
   return emojis[~~(emojis.length * Math.random())];
 }
+
+export default withWindowWidth(Matrix);

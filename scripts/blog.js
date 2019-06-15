@@ -2,16 +2,11 @@ const fs = require('fs-extra');
 const { join, sep } = require('path');
 const gm = require('gm');
 const marked = require('marked');
+const chokidar = require('chokidar');
 
 const ROOT_DIR = join(__dirname, '..');
 
 function buildBlog() {
-  if (!fs.existsSync(join(ROOT_DIR, 'build'))) {
-    console.error(new Error("No build directory present. Use `yarn build` instead."));
-    process.exit(1);
-  }
-
-  // async methods
   const getDimensions = imagePath => {
     return new Promise((resolve, reject) => {
       gm(imagePath).size((err, value) => {
@@ -41,24 +36,24 @@ function buildBlog() {
     });
   };
 
-  (async () => {
-    // fs+
-    const removeDirRecursively = (dirPath, removeSelf = true) => {
-      const files = fs.readdirSync(dirPath);
-      for (let i = 0; i < files.length; i++) {
-        const filePath = join(dirPath, files[i]);
-        if (fs.statSync(filePath).isFile()) fs.unlinkSync(filePath);
-        else removeDirRecursively(filePath);
-      }
-      if (removeSelf) fs.rmdirSync(dirPath);
-    };
+  // fs+
+  const removeDirRecursively = (dirPath, removeSelf = true) => {
+    const files = fs.readdirSync(dirPath);
+    for (let i = 0; i < files.length; i++) {
+      const filePath = join(dirPath, files[i]);
+      if (fs.statSync(filePath).isFile()) fs.unlinkSync(filePath);
+      else removeDirRecursively(filePath);
+    }
+    if (removeSelf) fs.rmdirSync(dirPath);
+  };
 
-    const createDirIfNotExists = dirPath => {
-      if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath);
-    };
+  const createDirIfNotExists = dirPath => {
+    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath);
+  };
 
+  return Promise.resolve().then(() => {
     // reset build directory
-    const distDir = join(ROOT_DIR, 'build/blog');
+    const distDir = join(ROOT_DIR, 'public/blog');
     createDirIfNotExists(distDir);
     removeDirRecursively(distDir, false);
     createDirIfNotExists(distDir);
@@ -69,7 +64,7 @@ function buildBlog() {
     // extract comments from source md
     const postsDir = fs.readdirSync(join(ROOT_DIR, 'blogSrc/posts'))
       .filter(name => (name.indexOf('.md') > 0))
-      .sort((a, b) => (parseInt(a) - parseInt(b)));
+      .sort((a, b) => (parseInt(a, 10) - parseInt(b, 10)));
 
     // generate posts.json
     const files = postsDir.map(filename => fs.readFileSync(join(ROOT_DIR, `blogSrc/posts/${filename}`), 'utf8'));
@@ -145,11 +140,10 @@ function buildBlog() {
       fs.readFileSync(join(ROOT_DIR, 'blogSrc/index.template.html'), 'utf8').replace('\/*[INJECT]*\/', postsJson)
     );
 
-    await Promise.all(
+    return Promise.all(
       Object.keys(localImages)
-        .map(async localImagePath => {
+        .map(localImagePath => {
           const fullPath = join(ROOT_DIR, `blogSrc/${localImagePath}`);
-          const { width } = await getDimensions(fullPath);
           const baseImageDir = join(distDir, 'images');
           const outputDir = join(distDir, localImagePath);
 
@@ -165,7 +159,6 @@ function buildBlog() {
           }
 
           let extension = filename.substring(filename.lastIndexOf('.'));
-          const filenameNoExt = filename.substring(0, filename.length - extension.length);
           const outputNoExt = outputDir.substring(0, outputDir.length - extension.length);
 
           // resize images
@@ -178,59 +171,89 @@ function buildBlog() {
             Promise.resolve(), // 1200
             Promise.resolve()  // original
           ];
-          if (width > 360) {
-            resizes[0] = convertImage(fullPath, `${outputNoExt}.360.jpg`, 360);
-            imageWidths.push([360, `${localImagePath.substring(0, localImagePath.length - extension.length)}.360.jpg`]);
-          }
-          if (width > 540) {
-            resizes[1] = convertImage(fullPath, `${outputNoExt}.540.jpg`, 540);
-            imageWidths.push([540, `${localImagePath.substring(0, localImagePath.length - extension.length)}.540.jpg`]);
-          }
-          if (width > 800) {
-            resizes[2] = convertImage(fullPath, `${outputNoExt}.800.jpg`, 800);
-            imageWidths.push([800, `${localImagePath.substring(0, localImagePath.length - extension.length)}.800.jpg`]);
-          }
-          if (width > 1200) {
-            resizes[3] = convertImage(fullPath, `${outputNoExt}.1200.jpg`, 1200);
-            imageWidths.push([1200, `${localImagePath.substring(0, localImagePath.length - extension.length)}.1200.jpg`]);
-          }
-          resizes[4] = convertImage(fullPath, `${outputNoExt}.jpg`);
-          imageWidths.push([width, `${localImagePath.substring(0, localImagePath.length - extension.length)}.jpg`]);
 
-          await Promise.all(resizes);
+          return getDimensions(fullPath)
+            .then(({ width }) => {
+              if (width > 360) {
+                resizes[0] = convertImage(fullPath, `${outputNoExt}.360.jpg`, 360);
+                imageWidths.push([360, `${localImagePath.substring(0, localImagePath.length - extension.length)}.360.jpg`]);
+              }
+              if (width > 540) {
+                resizes[1] = convertImage(fullPath, `${outputNoExt}.540.jpg`, 540);
+                imageWidths.push([540, `${localImagePath.substring(0, localImagePath.length - extension.length)}.540.jpg`]);
+              }
+              if (width > 800) {
+                resizes[2] = convertImage(fullPath, `${outputNoExt}.800.jpg`, 800);
+                imageWidths.push([800, `${localImagePath.substring(0, localImagePath.length - extension.length)}.800.jpg`]);
+              }
+              if (width > 1200) {
+                resizes[3] = convertImage(fullPath, `${outputNoExt}.1200.jpg`, 1200);
+                imageWidths.push([1200, `${localImagePath.substring(0, localImagePath.length - extension.length)}.1200.jpg`]);
+              }
+              resizes[4] = convertImage(fullPath, `${outputNoExt}.jpg`);
+              imageWidths.push([width, `${localImagePath.substring(0, localImagePath.length - extension.length)}.jpg`]);
 
-          localImages[localImagePath] = imageWidths.reduce((s, [w, p], i) => {
-            return `${s}${i ? ', ' : ''}${p} ${w}w`;
-          }, '');
+              return Promise.all(resizes)
+                .then(() => {
+                  localImages[localImagePath] = imageWidths.reduce((s, [w, p], i) => {
+                    return `${s}${i ? ', ' : ''}${p} ${w}w`;
+                  }, '');
+                });
+            });
         })
-    );
-
-    postsList.forEach(post => {
-      // replace image html with sexy srcset magic
-      post.images.forEach(imagePath => {
-        post.html = post.html.replace(
-          new RegExp(
-            `<img src="${imagePath}"`.replace(
-              /[-\/\\^$*+?.()|[\]{}]/g,
-              '\\$&'
+    ).then(() => {
+      postsList.forEach(post => {
+        // replace image html with sexy srcset magic
+        post.images.forEach(imagePath => {
+          post.html = post.html.replace(
+            new RegExp(
+              `<img src="${imagePath}"`.replace(
+                /[-/\\^$*+?.()|[\]{}]/g,
+                '\\$&'
+              ),
+              'g'
             ),
-            'g'
-          ),
-          `<img src="${localImages[imagePath].split(' ')[0]}" srcset="${localImages[imagePath]}" sizes="(max-width: 780px) 100vw, 680px"`
-        );
+            `<img src="${localImages[imagePath].split(' ')[0]}" srcset="${localImages[imagePath]}" sizes="(max-width: 780px) 100vw, 680px"`
+          );
+        });
+
+        fs.writeFileSync(join(distDir, `posts/${post.id}.html`), post.html);
       });
-
-      fs.writeFileSync(join(distDir, `posts/${post.id}.html`), post.html);
-    });
-
-    // copy assets
-    await fs.copy(
-      join(ROOT_DIR, 'blogSrc/assets'),
-      join(distDir, 'assets')
+    }).then(() =>
+      fs.copy(
+        join(ROOT_DIR, 'blogSrc/assets'),
+        join(distDir, 'assets')
+      )
     );
-  })();
+  });
 }
 
 module.exports = buildBlog;
 
-if (require.main === module) buildBlog();
+if (require.main === module) {
+  const watcher = chokidar.watch(
+    join(__dirname, '../blogSrc'),
+    {
+      ignored: /^\./,
+      persistent: true
+    }
+  );
+
+  const startTime = Date.now() - 1000;
+  let current = Promise.resolve();
+  let queued = false;
+
+  watcher.on('all', (event, path, stats) => {
+    // ignore initial events
+    if (!event.indexOf("add") && stats.mtime.getTime() < startTime) return;
+
+    if (!queued) {
+      queued = true;
+      current.then(() => {
+        queued = false;
+        console.log("updating blog");
+        current = buildBlog().then(() => console.log("finished update"));
+      })
+    }
+  });
+}
