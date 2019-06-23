@@ -28,16 +28,19 @@ const HR = ({ chars }) => new Array(chars).fill("-").join("");
 
 const LR = ({ l, r, chars }) => `${l.padEnd(chars - r.length - 1, " ")} ${r}`;
 
-const P = ({ children, chars, indent }) => generateLineBreaks(children, chars, indent);
+const P = ({ children, chars, indent }) =>
+  generateLineBreaks(children, chars, indent);
 
 const Plaintext = ({ xp }) => {
   const pre = useRef(null);
   const [chars, setChars] = useState(80);
-  const [timeline] = useState(xp.timeline.reduce((t, { parts, ...rest }) => {
-    if (parts) t.push(...parts.map(part => ({ ...rest, ...part })));
-    else t.push(rest);
-    return t;
-  }, []));
+  const [timeline] = useState(
+    xp.timeline.reduce((t, { parts, ...rest }) => {
+      if (parts) t.push(...parts.map(part => ({ ...rest, ...part })));
+      else t.push(rest);
+      return t;
+    }, [])
+  );
 
   useEffect(() => {
     if (pre.current) {
@@ -50,7 +53,10 @@ const Plaintext = ({ xp }) => {
     }
   });
 
-  const Block = ({ cause, parts, title, start, end, description, location, using }, i) => {
+  const Block = (
+    { cause, parts, title, start, end, description, location, using },
+    i
+  ) => {
     const dateString = `${start} - ${end || "current"}`;
     if (i !== timeline.length - 1 && cause === timeline[i + 1].cause) {
       if (!~timeline[i + 1].description.indexOf(description)) {
@@ -68,16 +74,16 @@ const Plaintext = ({ xp }) => {
       <React.Fragment key={i}>
         <BR />
         <LR
-          l={[title, cause, location]
-            .filter(x => x)
-            .join(" · ")}
+          l={[title, cause, location].filter(x => x).join(" · ")}
           r={dateString}
           chars={chars}
         />
         <BR />
         <HR chars={chars} />
         <BR />
-        <P chars={Math.min(68, chars)} indent={2}>{description}</P>
+        <P chars={Math.min(68, chars)} indent={2}>
+          {description}
+        </P>
         {using && (
           <React.Fragment>
             <BR />
@@ -96,9 +102,17 @@ const Plaintext = ({ xp }) => {
       <code>
         <H1>{xp.name}</H1>
         <BR />
-        {[xp.website, xp.email, xp.phone, xp.address]
-          .filter(x => x)
-          .join(" | ")}
+        {xp.website}
+        {" | "}
+        {window.obfs(xp.email)}
+        {" | "}
+        {window.obfs(xp.phone)}
+        {xp.address && (
+          <React.Fragment>
+            {" | "}
+            {xp.address}
+          </React.Fragment>
+        )}
         <BR />({xp.legalStatus})
         <BR />
         <BR />

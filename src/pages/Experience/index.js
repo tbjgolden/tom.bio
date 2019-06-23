@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-import LocationContext from "../../LocationContext";
+import TomContext from "../../TomContext";
 import Jumbotron from "../../Jumbotron";
-import experience from "./experience.json";
 import "./index.scss";
 
 // import Timeline from "./Timeline";
@@ -17,9 +16,10 @@ const styles = {
 };
 
 const Experience = () => {
-  const location = useContext(LocationContext);
+  const { location, tom } = useContext(TomContext);
   const [activeStyle, setActiveStyle] = useState("Plain Text");
-  const [xp] = useState(compileExperience(experience, location));
+  
+  console.log({ location, tom });
 
   const Format = styles[activeStyle];
 
@@ -39,7 +39,7 @@ const Experience = () => {
         >
           <div className="App-row-sizer">
             <div className="App-row-title">
-              {location === "us" ? "Résumé" : "CV"}
+              {location === "US" ? "Résumé" : "CV"}
             </div>
           </div>
         </div>
@@ -61,28 +61,11 @@ const Experience = () => {
             ))}
           </div>
 
-          <Format xp={xp} />
+          <Format xp={tom} />
         </div>
       </div>
     </div>
   );
-};
-
-function compileExperience (xp, location) {
-  if (Array.isArray(xp)) {
-    return xp.map(x => compileExperience(x, location));
-  } else if (xp && typeof xp === "object") {
-    return typeof xp[location] !== "undefined"
-      ? xp[location]
-      : Object.keys(xp)
-          .map(k => [k, compileExperience(xp[k], location)])
-          .reduce((o, [k, v]) => {
-            o[k] = v;
-            return o;
-          }, {});
-  } else {
-    return xp;
-  }
 };
 
 export default Experience;
