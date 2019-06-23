@@ -1,53 +1,88 @@
-import React from 'react';
-import Jumbotron from '../../Jumbotron';
-import Columns from '../../Columns';
-import Filters from './Filters';
-import './index.scss';
+import React, { useContext, useState } from "react";
+import LocationContext from "../../LocationContext";
+import Jumbotron from "../../Jumbotron";
+import experience from "./experience.json";
+import "./index.scss";
 
-const Experience = () => (
-  <div className='Experience'>
-    <Jumbotron>
-      <div className='App-row background-cover white-text Experience-jumbotron' style={{
-        backgroundImage: `url('images/experience.jpg')`
-      }}>
-        <div className='App-row-sizer'>
-          <div className='App-row-title'>Experience</div>
-        </div>
-      </div>
-    </Jumbotron>
+// import Timeline from "./Timeline";
+// import Normal from "./Normal";
+import Plaintext from "./Plaintext";
+import Json from "./Json";
 
-    <div className='App-row Experience-foreword white'>
-      <div className='App-row-sizer'>
-        <div className='App-row-header'>
-          A quick summary
+const styles = {
+  // "timeline": Timeline,
+  // "normal": Normal,
+  "Plain Text": Plaintext,
+  "JSON": Json
+};
+
+const Experience = () => {
+  const location = useContext(LocationContext);
+  const [activeStyle, setActiveStyle] = useState("Plain Text");
+  const [xp] = useState(compileExperience(experience, location));
+
+  const Format = styles[activeStyle];
+
+  if (!Format) {
+    setActiveStyle("Plain Text");
+    return null;
+  }
+
+  return (
+    <div className="Experience">
+      <Jumbotron>
+        <div
+          className="App-row background-cover white-text Experience-jumbotron"
+          style={{
+            backgroundImage: `url('images/experience.jpg')`
+          }}
+        >
+          <div className="App-row-sizer">
+            <div className="App-row-title">
+              {location === "us" ? "Résumé" : "CV"}
+            </div>
+          </div>
         </div>
-        <Columns>
-          <div>
-            <div className='App-row-description'>
-              My main expertise as a programmer is with web technologies, particularly the design and
-              user experience of websites.
-            </div>
+      </Jumbotron>
+
+      <div className="App-row Experience-foreword white">
+        <div className="App-row-sizer">
+          <div className="App-row-description">
+            {Object.keys(styles).map(style => (
+              <button
+                key={style}
+                onClick={() => setActiveStyle(style)}
+                className={`Experience-style-buttons ${
+                  style === activeStyle ? "active" : ""
+                }`}
+              >
+                {style}
+              </button>
+            ))}
           </div>
-          <div>
-            <div className='App-row-description'>
-              While I have a degree in computer science from a prestigious university and a strong
-              background in mathematics, my natural strength is making high-quality websites that scale
-              well and best achieve their purpose.
-            </div>
-          </div>
-          <div>
-            <div className='App-row-description'>
-              I have been working in various capacities on websites since I was 7, when I got my
-              hands on a copy of Dreamweaver that my father had for his early online business. Since then,
-              it has become a hobby, an obsession, and a career that I love doing.
-            </div>
-          </div>
-        </Columns>
+
+          <Format xp={xp} />
+        </div>
       </div>
     </div>
+  );
+};
 
-    <Filters />
-  </div>
-);
+function compileExperience (xp, location) {
+  if (Array.isArray(xp)) {
+    return xp.map(x => compileExperience(x, location));
+  } else if (xp && typeof xp === "object") {
+    return typeof xp[location] !== "undefined"
+      ? xp[location]
+      : Object.keys(xp)
+          .map(k => [k, compileExperience(xp[k], location)])
+          .reduce((o, [k, v]) => {
+            o[k] = v;
+            return o;
+          }, {});
+  } else {
+    return xp;
+  }
+};
 
 export default Experience;

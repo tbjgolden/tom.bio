@@ -2,39 +2,28 @@
   height: 65vh;
 }
 
-.Experience .App-row-description {
-  display: inline-block;
+.Experience-style-buttons {
+  padding: 4px 8px;
+  margin: 0 4px 4px 0;
+  background: #eee;
+  font-weight: 500;
+
+  &.active {
+    background: #bbb;
+    color: #000;
+  }
 }
 
-.Experience .App-row-header:empty {
-  display: none;
-}
-
-.Experience .Experience-block .App-row-description {
-  max-width: 36ex;
-}
-
-.Experience .Experience-foreword .App-row-description {
-  max-width: none;
-}
-
-.Experience-block .Columns {
-  align-items: center;
-}
-
-.Experience-block:nth-child(2n+1) .Columns {
-  flex-direction: row-reverse;
-}
-
-.Experience-block .App-row-title {
-  margin: 0 0 .5ex;
-  min-width: 15ex;
-}
-
-.Experience-block .App-row-title,
-.Experience-block .App-row-header,
-.Experience-block .App-row-description {
-  white-space: pre-wrap;
+.Experience {
+  pre {
+    background: #eee;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    line-height: 1.2;
+    letter-spacing: 0;
+    box-shadow: -8px -8px 0 #eee, 8px -8px 0 #eee, -8px 8px 0 #eee, 8px 8px 0 #eee;
+  }
 }
 
 @media (max-width: 735px) {

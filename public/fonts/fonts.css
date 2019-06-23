@@ -22,9 +22,10 @@
   font-weight: 600;
   src: url("sf/600.woff2") format("woff2"), url("sf/600.woff") format("woff");
 }
+
 @font-face {
-  font-family: 'SF';
+  font-family: 'Mono';
   font-style: normal;
-  font-weight: 700;
-  src: url("sf/600.woff2") format("woff2"), url("sf/600.woff") format("woff");
+  font-weight: 400;
+  src: url("mono/400.woff2") format("woff2");
 }

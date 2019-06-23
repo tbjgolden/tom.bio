@@ -53,6 +53,10 @@ body.show-focus {
   display: block;
 }
 
+code, .mono {
+  font-family: "Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
 h1,
 h2,
 h3,
@@ -111,6 +115,8 @@ strong {
 }
 
 button {
+  cursor: pointer;
+
   font: inherit;
   line-height: normal;
 
