@@ -6,7 +6,7 @@ import "./Header.scss";
 export const routes = [
   { title: "Portfolio", url: "/portfolio" },
   {
-    title: localStorage.getItem("loc") === "us" ? "Résumé" : "CV",
+    title: localStorage.getItem("loc") === "US" ? "Résumé" : "CV",
     url: "/experience"
   },
   { title: "Contact", url: "/contact" },
