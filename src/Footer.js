@@ -4,8 +4,6 @@ import RoutesContext from "./RoutesContext";
 import { Link } from 'react-router-dom';
 import './Footer.scss';
 
-const routes = [];
-
 const blogUrl = `${process.env.PUBLIC_URL}/blog`;
 
 const Footer = () => {
