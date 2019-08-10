@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
+import Lion from "./Lion";
 import RoutesContext from "./RoutesContext";
 import withWindowWidth from "./withWindowWidth";
 import "./Header.scss";
@@ -31,7 +32,9 @@ const Header = ({ location, w }) => {
           to="/"
           className="Header-logo"
           onClick={() => toggleMenu(false)}
-        />
+        >
+          <Lion />
+        </Link>
         <nav
           className="Header-menu-nav hidden-block"
           hidden={!menuOpen || w < 768}

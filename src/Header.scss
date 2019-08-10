@@ -49,29 +49,16 @@
 }
 
 .Header-logo {
-  display: inline-block;
-}
-
-.Header-logo::after {
   position: relative;
-  top: 2px;
-
+  top: 6px;
   display: inline-block;
-
-  width: 17px;
-  height: 17px;
+  width: 24px;
+  height: 24px;
   margin: 0 16px;
-
-  content: '';
-  cursor: pointer;
-  transition: background-color .2s ease-in-out;
-
-  border-radius: 9999px;
-  background-color: #fff;
 }
 
-.Header-logo:hover::after {
-  background-color: #b4b4b4;
+.Header-logo svg {
+
 }
 
 .Header-menu-button {
