@@ -186,6 +186,15 @@
         padding: .1em;
       }
 
+      .pb.post-body :not(pre) > code {
+        background-color: #f1f1f1;
+        box-shadow:
+          2px 2px 0 #f1f1f1,
+          2px -2px 0 #f1f1f1,
+          -2px 2px 0 #f1f1f1,
+          -2px -2px 0 #f1f1f1;
+      }
+
       .pb.post-body strong,
       .pb.post-body b {
         font-weight: 600;
@@ -539,7 +548,7 @@
       var searchEl = document.getElementById('search');
       var docEl = document.documentElement;
 
-      window.blogPosts = /*[INJECT]*/;
+      window.blogPosts = /*[INJECT]*/
       window.blogPostsMap = {};
       for (var i = window.blogPosts.length - 1; i >= 0; i--) {
         var post = window.blogPosts[i];

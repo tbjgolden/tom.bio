@@ -1,16 +1,9 @@
 <!-- post-title: Why I quit Atom and went back to Sublime -->
 <!-- post-timestamp: 1515821753107 -->
 
-<h1 id="i-blame-google-chrome">I blame Google Chrome</h1>
-<p>It&#39;s a browser.</p>
-<p>It&#39;s pretty good, I suppose. Aside from missing very few features, and
-covering the spec, it has great developer tools. It also the only
-browser that you can easily get on most popular devices today... by the
-virtue of having a monopoly on Chrome OS. Still, it is largely a good
-custodian of progressing the web and it&#39;s responsibilities. [Enter
-cheap joke about Microsoft here]</p>
-<p>It is still just about the quickest browser too, as of right now...
-<strong><em>Wait a second...</em></strong> Why is my computer lagging? I&#39;ve only got Atom
+<h1 id="but-first-google-chrome">But first, Google Chrome</h1>
+<p>It is still just about the quickest browser too, as of right now...</p>
+<p><strong><em>Wait a second...</em></strong> Why is my computer lagging? I&#39;ve only got Atom
 and Chrome open.</p>
 <p>(<em>opens system dashboard</em>)</p>
 <p><img src="images/monitor_chrome.360.jpg" srcset="images/monitor_chrome.360.jpg 360w, images/monitor_chrome.540.jpg 540w, images/monitor_chrome.800.jpg 800w, images/monitor_chrome.jpg 862w" sizes="(max-width: 780px) 100vw, 680px" alt="Chrome using 2.5GB of RAM"></p>
@@ -35,27 +28,28 @@ Number of spaceships needed to run Slack&#39;s desktop app:
 <p>(For more desktop Slack tips, see this article:
 <a href="https://malloc.fi/weird-tip-saves-slack-ram">https://malloc.fi/weird-tip-saves-slack-ram</a>)</p>
 <h1 id="electron">Electron</h1>
-<p>Why does Slack use all this RAM? Well, it runs on <a href="">Electron</a>, which is
-a Chrome window with some native system access, similar in concept to
-Apache Cordova. The benefit for Slack is that it can be written once to
-work on Windows, Mac and Linux. It also means reduced platform-specific
-bugs, easier and more maintainable development.
+<p>I guess I can understand why Chrome uses all this RAM, but why do Slack or Atom
+need that much?</p>
+<p>Both Atom and Slack&#39;s desktop app are built with
+<a href="https://github.com/electron/electron">Electron</a>, made by the folks
+at Github.</p>
+<p>Electron is a Chrome window with some native system access, similar in
+concept to Apache Cordova. That means that a project uses a single code source
+and then can work on Windows, Mac and Linux. Ergo less platform-specific
+bugs and faster development.
 <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">D.R.Y.</a> af.</p>
 <p>However, it has 2 main problems.</p>
 <ol>
-<li>It uses a lot of memory as Chrome uses a lot of memory.</li>
-<li>It has a slow startup time.</li>
+<li>It uses a lot of memory, as Chrome uses a lot of memory.</li>
+<li>It has a slow startup time, as Chrome has a slow startup time.</li>
 </ol>
 <p>The random delays while it tries to find some memory, and the startup
-time are frankly, really annoying.</p>
-<h1 id="atom-also-uses-electron">Atom also uses Electron</h1>
-<p>I visited Github&#39;s office in San Francisco in 2017 and was surprised to
-learn that the Atom only had 4 developers. Which speaks to their immense
-talent and also the developer-friendliness of Electron (which Github is
-also behind).</p>
-<p>But running a web browser in the background is, surely, overkill. Lots
-of web developer tools use Electron as you need only be a web developer
-to make them. They include:</p>
+time often stop me from using them for quick tasks.</p>
+<p>When I visited Github&#39;s office in San Francisco in 2017, I was surprised to
+learn that the Atom team (Atom is also made by Github) was only 4 developers.</p>
+<p>Running a web browser to run a text editor is surely overkill.</p>
+<p>It&#39;s not just Atom either. Many web developer tools use Electron as you need
+only be a web developer to make them. They include:</p>
 <ul>
 <li>Atom</li>
 <li>Visual Studio Code</li>
@@ -201,22 +195,20 @@ int main()
 <p>Who knew? It can even open a 3GB file.</p>
 <p>Not even command line editors <code>emacs</code>, <code>vim</code> or even <code>nano</code> could open
 it, yet Sublime managed it in a not completely unreasonable 75 seconds,
-and even has a cute progress bar.</p>
+and even has a cute progress bar. Awwh.</p>
 <h1 id="isn-t-sublime-the-one-with-the-please-buy-me-popup-">Isn&#39;t Sublime the one with the please buy me popup?</h1>
 <p>Yes. But you could actually buy it. I think we&#39;re programmed to ignore
-that popup from the WinRAR era... 😂</p>
+that popup from the WinRAR era...</p>
 <p>It costs $80. For that, you get <strong>no more popups</strong>, get <strong>access to the
-latest developer builds</strong>, and the option to <strong>suggest new features</strong>.
-It is a <strong>buy once, keep forever</strong> deal. Indeed, they may seek to follow
-the emerging trend of charging on a recurring basis in the future so
-buying it now might not be the worst idea.</p>
-<p>The worst thing about Sublime is it&#39;s appearance, but that&#39;s easily
-remediable.</p>
-<p>I use the delightful &quot;Monokai Pro&quot; theme and color scheme, check it out
-<a href="https://www.monokai.pro/">here</a>. It has been getting a lot of jealous
-looks from my Atom-equipped colleagues. It&#39;s only 10 euros, though of
-course 10 euros more that most available themes.</p>
-<p>Otherwise the best options seem to be:</p>
+latest developer builds</strong>, and the option to <strong>suggest new features</strong>.</p>
+<p>Personally, $80 to make you a more efficient developer for years is a
+price worth paying, and helps to guarantee some level of product support.</p>
+<h1 id="-but-sublime-text-is-ugly-">...but Sublime Text is ugly...</h1>
+<p>True... but that&#39;s just the default theme.</p>
+<p>I&#39;m using the delightful &quot;Monokai Pro&quot; theme and color scheme (check it out
+<a href="https://www.monokai.pro/">here</a>)  and it has been getting a lot of jealous
+looks from my Atom-equipped colleagues. It&#39;s 10 EUR.</p>
+<p>Other options include:</p>
 <ul>
 <li><a href="https://github.com/ihodev/sublime-boxy">https://github.com/ihodev/sublime-boxy</a></li>
 <li><a href="https://github.com/dempfi/ayu">https://github.com/dempfi/ayu</a></li>
@@ -227,17 +219,18 @@ course 10 euros more that most available themes.</p>
 tree-view without the extension
 <a href="https://github.com/SideBarEnhancements-org/SideBarEnhancements">SideBarEnhancements</a></li>
 <li>Atom and VS Code work much nicer with version control, like Git
-(<a href="https://forum.sublimetext.com/t/api-suggestions/20640/26#post_26">Sublime Suggestion
-Thread</a>)</li>
-<li>If you don&#39;t like something, you can&#39;t just hack away at it like you
-can in Atom</li>
-<li>The find and replace through multiple files is weird, the results
-screen is a bit dated and finding the</li>
+(Update 2019) It&#39;s got it now :D</li>
+<li>If you don&#39;t like something, you can&#39;t just hack some JS &amp; CSS together like
+you can in Atom</li>
+<li>Sublime&#39;s documentation is very not good at all</li>
+<li>The directory recursive find and replace is either very restrictive with how to
+find the files with glob search, and the results screen is basic</li>
 </ul>
-<p>But the speed advantage really does make up for a lot, and
-(subjectively) improves coding focus.</p>
-<p>There really aren&#39;t many multi-platform alternatives to Electron-based
-editors besides Sublime Text, but one with a lot of promise is xi-editor
-(<a href="https://github.com/google/xi-editor">https://github.com/google/xi-editor</a>), which I am very excited about.
-It&#39;s relatively early stages and it takes quite a bit of setting up, but
-it <em>could</em> end up being very, very good. Fingers crossed.</p>
+<p>The find and replace UI definitely needs work &ndash; but it is a lot faster than
+other editors, and in front-end, where languages are often not friendly to IDE
+functionality, find and replace is typically the most effective way of finding
+where something is coming from.</p>
+<p>There really aren&#39;t many multi-platform GUI alternatives to Electron-based
+editors besides Sublime Text, but one that may end up veing popular
+<a href="https://github.com/xi-editor/xi-editor">xi-editor</a>, which is open-source
+and written in Rust 😄</p>
