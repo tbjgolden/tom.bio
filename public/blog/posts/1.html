@@ -16,60 +16,40 @@ all.</p>
 <p><code>1ex</code> is equal to the height of the letter &#39;x&#39; relative to the element&#39;s
 font-size and font-family. If these are unspecified, they take the
 closest defined ancestor&#39;s values.</p>
-<div style="font-size: 20px; font-family: Courier;">
-
-<div style="font-size: 14px; font-family: Arial;">
-
-<p>Arial
-14px</p>
-<div style="height: 1ex; width: 200px; background: red; display: inline-block;">
-
-</div>
-
-</div>
-
 <div>
-
-<p>Courier
-20px</p>
-<div style="height: 1ex; width: 200px; background: blue; display: inline-block;">
-
+<div style="font-size: 14px; font-family: Arial;">
+  Arial 14px<div style="margin-left: .5ex; height: 1ex; width: 200px; background: red; display: inline-block;"></div>
+</div>
+<div style="font-size: 30px; font-family: Courier;">
+  Courier 30px<div style="margin-left: .5ex; height: 1ex; width: 200px; background: blue; display: inline-block;"></div>
+</div>
 </div>
 
-</div>
-
-</div>
-
-<pre><code class="language-html">&lt;div style=&#39;font-size: 20px; font-family: Courier;&#39;&gt;
-  &lt;div style=&#39;font-size: 14px; font-family: Arial;&#39;&gt;
-    Arial 14px
-    &lt;div style=&#39;height: 1ex; width: 200px; background: red; display: inline-block;&#39;&gt;&lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div&gt;
-    &lt;!-- (inherited) --&gt;
-    Courier 20px
-    &lt;div style=&#39;height: 1ex; width: 200px; background: blue; display: inline-block;&#39;&gt;&lt;/div&gt;
-  &lt;/div&gt;
+<pre><code class="language-html">&lt;div style=&quot;font-size: 14px; font-family: Arial;&quot;&gt;
+  Arial 14px
+  &lt;div style=&quot;height: 1ex; width: 200px; background: red; display: inline-block;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style=&quot;font-size: 30px; font-family: Courier;&quot;&gt;
+  Courier 30px
+  &lt;div style=&quot;height: 1ex; width: 200px; background: blue; display: inline-block;&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <h3 id="why-is-it-useful-">Why is it useful?</h3>
 <p>On the surface, it is very similar to the <code>em</code> unit, as it is relative
 to the active font-size of the element.</p>
-<p>The key perks being:</p>
+<p>The key perks are:</p>
 <ul>
 <li><code>2ex</code> is often the best CSS approximation of the actual height of
 the text as it is font specific, rather than the invisible box
 containing the glyph, known as the &#39;em-square&#39; in typography.</li>
-<li>Use <code>ex</code> in letter-spacing if you want it to be relative to the
-font-size (<code>ch</code> probably better but doesn&#39;t have universal support).</li>
-<li>Some people who use <code>em</code> don&#39;t know what it is, so they&#39;ll look up
-<code>ex</code>.</li>
+<li>Some people who use <code>em</code> don&#39;t know what it is, but they might look up <code>ex</code>.</li>
+<li>It&#39;s useful for custom superscript text.</li>
 <li>You can be a length unit elitist hipster.</li>
 </ul>
 <hr>
-<p>Here&#39;s some actual examples:</p>
+<p>Here&#39;s some (highly constrived) examples:</p>
 <ul>
 <li><p>You can use it to produce a simple cross-browser coloured
-underline:<br><a href="#">Link 1</a><br><a href="#">Link 2</a><br><a href="#">Link 3</a></p>
+underline:<br><a href='#' style='all:unset;font-size:12px;border-bottom:.12ex solid red;'>Link 1</a><br><a href='#' style='all:unset;font-size:18px;border-bottom:.12ex solid red;'>Link 2</a><br><a href='#' style='all:unset;font-size:24px;border-bottom:.12ex solid red;'>Link 3</a></p>
 <pre><code class="language-css">a[href] {
   text-decoration: none;
   border-bottom: .12ex solid red;
@@ -78,20 +58,23 @@ underline:<br><a href="#">Link 1</a><br><a href="#">Link 2</a><br><a href="#">Li
 &lt;a href=&#39;#&#39; style=&#39;font-size: 18px&#39;&gt;Link 2&lt;/a&gt;
 &lt;a href=&#39;#&#39; style=&#39;font-size: 24px&#39;&gt;Link 3&lt;/a&gt;</code></pre>
 </li>
-<li><p>Superscript:<br><span style="font-size: 12px">x<span style="position: relative; bottom: 2ex; font-size: 1ex;">2</span></span><br><span style="font-size: 18px">x<span style="position: relative; bottom: 2ex; font-size: 1ex;">2</span></span><br><span style="font-size: 24px">x<span style="position: relative; bottom: 2ex; font-size: 1ex;">2</span></span></p>
-<pre><code class="language-css">.superscript {
+<li><p>Superscript:  </p>
+<p><span style="font-size: 12px">x<span class="super-me">2</span></span><br><span style="font-size: 18px">x<span class="super-me">2</span></span><br><span style="font-size: 24px">x<span class="super-me">2</span></span>  </p>
+<style>.super-me{font-size:50%;bottom:2ex;position:relative}</style>
+
+<pre><code class="language-css">.super-me {
+  font-size: 50%; /* half the size */
+  bottom: 2ex; /* twice the x-height, as the x is now half the size ^ */ 
   position: relative;
-  bottom: 2ex;
-  font-size: 1ex;
 }</code></pre>
 </li>
-<li><p>Letter spacing should be in <code>ex</code>:<br><span style="font-size: 12px; letter-spacing: .5ex;">BRAND</span><br><span style="font-size: 18px; letter-spacing: .5ex;">BRAND</span><br><span style="font-size: 24px; letter-spacing: .5ex;">BRAND</span></p>
+<li><p>Letter spacing could be in <code>ex</code>:<br><span style="font-size: 12px; letter-spacing: .5ex;">BRAND</span><br><span style="font-size: 18px; letter-spacing: .5ex;">BRAND</span><br><span style="font-size: 24px; letter-spacing: .5ex;">BRAND</span></p>
 <pre><code class="language-css">.brand {
   letter-spacing: .5ex;
 }</code></pre>
 </li>
-<li><p>Copy linebreaks (e.g. landing page multiline
-headers)<br><span style="font-size: 12px; max-width: 14ex; letter-spacing: 0; display: block;">Break
+<li><p><del>Copy linebreaks (e.g. landing page multiline headers)</del><br>I have learnt since that it behaves inconsistently across browsers
+(<a href="https://sbpoley.home.xs4all.nl/webmatters/emex.html">Source</a>)<br><span style="margin-top: 8px; font-size: 12px; max-width: 14ex; letter-spacing: 0; display: block;">Break
 line here and no later.</span>
 <span style="font-size: 18px; max-width: 14ex; letter-spacing: 0; display: block;">Break
 line here and no later.</span>
@@ -113,4 +96,4 @@ line here and no later.</span></p>
 }</code></pre>
 </li>
 </ul>
-<p>And much more! So... go and &#39;ex&#39;-plore! 🤣</p>
+<p><code>flex-end</code></p>
