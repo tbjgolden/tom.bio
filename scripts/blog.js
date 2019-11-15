@@ -72,8 +72,8 @@ function buildBlog() {
     const postsList = [];
     const localImages = {};
 
-    const commentRegex = /<!-- post-[^>]*>/g;
-    const imageRegex = /<img [^>]*>/g;
+    const commentRegex = /<!-- post-.*?(?:-->)/g;
+    const imageRegex = /<img [\s\S]*?>/g;
     const wordRegex = /\b\W+\b/;
     files.forEach((file, postId) => {
       const postComments = file.match(commentRegex);
@@ -213,7 +213,7 @@ function buildBlog() {
               ),
               'g'
             ),
-            `<img src="${localImages[imagePath].split(' ')[0]}" srcset="${localImages[imagePath]}" sizes="(max-width: 780px) 100vw, 680px"`
+            `<img src="${localImages[imagePath].split(' ')[0]}" srcset="${localImages[imagePath]}" sizes="(max-width: 780px) 100vw, 680px" loading="lazy"`
           );
         });
 

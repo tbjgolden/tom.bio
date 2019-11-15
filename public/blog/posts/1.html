@@ -1,7 +1,7 @@
 <!-- post-title: It's time to get back with your ex (units) -->
 <!-- post-timestamp: 1524743871265 -->
 
-<h1 id="have-you-ever-looked-up-the-available-css-units-">Have you ever looked up the available CSS units?</h1>
+<h1 id="have-you-ever-looked-up-the-available-css-units">Have you ever looked up the available CSS units?</h1>
 <p>Well, you must have. But have you looked up <strong><em>all</em></strong> of them?</p>
 <p>The basic ones, <code>px, %, em</code>, are mostly very well known. But there are
 some that have been there since CSS1, that you probably don&#39;t know at
@@ -11,8 +11,8 @@ all.</p>
 <h3 id="browser-support">Browser support</h3>
 <p>Everything, right back to IE3.</p>
 <p>For reference, this is what IE3 looks like:</p>
-<p><img src="images/ie3.360.jpg" srcset="images/ie3.360.jpg 360w, images/ie3.540.jpg 540w, images/ie3.jpg 800w" sizes="(max-width: 780px) 100vw, 680px" alt="Internet Explorer 3"></p>
-<h3 id="what-does-it-mean-">What does it mean?</h3>
+<p><img src="images/ie3.360.jpg" srcset="images/ie3.360.jpg 360w, images/ie3.540.jpg 540w, images/ie3.jpg 800w" sizes="(max-width: 780px) 100vw, 680px" loading="lazy" alt="Internet Explorer 3"></p>
+<h3 id="what-does-it-mean">What does it mean?</h3>
 <p><code>1ex</code> is equal to the height of the letter &#39;x&#39; relative to the element&#39;s
 font-size and font-family. If these are unspecified, they take the
 closest defined ancestor&#39;s values.</p>
@@ -33,7 +33,7 @@ closest defined ancestor&#39;s values.</p>
   Courier 30px
   &lt;div style=&quot;height: 1ex; width: 200px; background: blue; display: inline-block;&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h3 id="why-is-it-useful-">Why is it useful?</h3>
+<h3 id="why-is-it-useful">Why is it useful?</h3>
 <p>On the surface, it is very similar to the <code>em</code> unit, as it is relative
 to the active font-size of the element.</p>
 <p>The key perks are:</p>
@@ -68,13 +68,15 @@ underline:<br><a href='#' style='all:unset;font-size:12px;border-bottom:.12ex so
   position: relative;
 }</code></pre>
 </li>
-<li><p>Letter spacing could be in <code>ex</code>:<br><span style="font-size: 12px; letter-spacing: .5ex;">BRAND</span><br><span style="font-size: 18px; letter-spacing: .5ex;">BRAND</span><br><span style="font-size: 24px; letter-spacing: .5ex;">BRAND</span></p>
+<li><p>Letter spacing could be in <code>ex</code>:  
+<span style="font-size: 12px; letter-spacing: .5ex;">BRAND</span><br><span style="font-size: 18px; letter-spacing: .5ex;">BRAND</span><br><span style="font-size: 24px; letter-spacing: .5ex;">BRAND</span></p>
 <pre><code class="language-css">.brand {
   letter-spacing: .5ex;
 }</code></pre>
 </li>
 <li><p><del>Copy linebreaks (e.g. landing page multiline headers)</del><br>I have learnt since that it behaves inconsistently across browsers
-(<a href="https://sbpoley.home.xs4all.nl/webmatters/emex.html">Source</a>)<br><span style="margin-top: 8px; font-size: 12px; max-width: 14ex; letter-spacing: 0; display: block;">Break
+(<a href="https://sbpoley.home.xs4all.nl/webmatters/emex.html">Source</a>)  
+<span style="margin-top: 8px; font-size: 12px; max-width: 14ex; letter-spacing: 0; display: block;">Break
 line here and no later.</span>
 <span style="font-size: 18px; max-width: 14ex; letter-spacing: 0; display: block;">Break
 line here and no later.</span>
