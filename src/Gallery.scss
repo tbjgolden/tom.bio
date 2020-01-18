@@ -68,10 +68,21 @@
   height: auto;
 }
 
-.Gallery-item .Gallery-image {
+.Gallery-item .Gallery-image-wrapper {
   position: relative;
   z-index: 2;
   width: 100%;
+  padding: 62.5% 0 0;
+  height: 0;
+}
+
+.Gallery-image-wrapper .Gallery-image {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
 }
 
 .Gallery-item .Gallery-title {

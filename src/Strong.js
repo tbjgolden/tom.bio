@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-export default class Strong extends Component {
-  state = {
-    fontWeight: 'bolder'
-  };
+const Strong = ({ children }) => {
+  const [fontWeight, setFontWeight] = useState('bolder');
+  const spanEl = useRef(null);
 
-  componentDidMount () {
-    this.setState({
-      fontWeight: `${Math.min(900, 200 + ~~window.getComputedStyle(this.el.parentNode).fontWeight)}`
-    });
-  }
+  useEffect(() => {
+    if (spanEl.current) {
+      setFontWeight(
+        `${Math.min(900, 200 + ~~window.getComputedStyle(spanEl.current.parentNode).fontWeight)}`
+      );
+    }
+  }, []);
 
-  render () {
-    const { children } = this.props;
-    const { fontWeight } = this.state;
-
-    return <span ref={span => { this.el = span; }} style={{ fontWeight }}>{ children }</span>;
-  }
+  return <span ref={spanEl} style={{ fontWeight }}>{ children }</span>;
 }
+
+export default Strong;

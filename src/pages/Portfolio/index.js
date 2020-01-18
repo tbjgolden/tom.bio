@@ -3,20 +3,6 @@ import Jumbotron from '../../Jumbotron';
 import Gallery, { GalleryItem, GalleryRow, GalleryText, GalleryImage } from '../../Gallery';
 import './index.scss';
 
-const createPortfolioGalleryImage = (src, doubleWidth = false) => (
-  <GalleryImage
-    src={src}
-    doubleWidth={!!doubleWidth}
-    bgProps={{
-      src: 'images/fruitbookpro.png',
-      top: '-5%',
-      left: '-15%',
-      width: '130%',
-      maxWidth: 'none'
-    }}
-  />
-);
-
 const Portfolio = () => (
   <div className='Portfolio'>
     <Jumbotron>
@@ -34,7 +20,7 @@ const Portfolio = () => (
           <div className='Gallery-title'>shop.shipt.com</div>
           <div className='Gallery-description'>Built the Shipt mobile and web apps.</div>
         </GalleryText>
-        {createPortfolioGalleryImage('images/portfolio/shop.shipt.com.png')}
+        <GalleryImage src='images/portfolio/shop.shipt.com.png' />
       </GalleryItem>
       <GalleryRow>
         <GalleryItem>
@@ -42,14 +28,14 @@ const Portfolio = () => (
             <div className='Gallery-title'>willtheygo.com</div>
             <div className='Gallery-description'>Analytical-engine predicting big football transfers.</div>
           </GalleryText>
-          {createPortfolioGalleryImage('images/portfolio/willtheygo.com.png')}
+          <GalleryImage src='images/portfolio/willtheygo.com.png' />
         </GalleryItem>
         <GalleryItem>
           <GalleryText>
             <div className='Gallery-title'>prevent.rip</div>
             <div className='Gallery-description'>An interactive infographic to encourage good giving.</div>
           </GalleryText>
-          {createPortfolioGalleryImage('images/portfolio/prevent.rip.png')}
+          <GalleryImage src='images/portfolio/prevent.rip.png' />
         </GalleryItem>
       </GalleryRow>
       <GalleryRow>
@@ -58,14 +44,14 @@ const Portfolio = () => (
             <div className='Gallery-title'>theboar.org</div>
             <div className='Gallery-description'>Award-winning website for student newspaper.</div>
           </GalleryText>
-          {createPortfolioGalleryImage('images/portfolio/theboar.org.png')}
+          <GalleryImage src='images/portfolio/theboar.org.png' />
         </GalleryItem>
         <GalleryItem>
           <GalleryText>
             <div className='Gallery-title'>codingcatalyst.com</div>
             <div className='Gallery-description'>Made the website for a coding bootcamp.</div>
           </GalleryText>
-          {createPortfolioGalleryImage('images/portfolio/codingcatalyst.com.png')}
+          <GalleryImage src='images/portfolio/codingcatalyst.com.png' />
         </GalleryItem>
       </GalleryRow>
       <GalleryRow>
@@ -74,14 +60,14 @@ const Portfolio = () => (
             <div className='Gallery-title'>live.gobiapp.com</div>
             <div className='Gallery-description'>Gobi{'’'}s live streaming feed of snaps.</div>
           </GalleryText>
-          {createPortfolioGalleryImage('images/portfolio/live.gobiapp.com.png')}
+          <GalleryImage src='images/portfolio/live.gobiapp.com.png' />
         </GalleryItem>
         <GalleryItem>
           <GalleryText>
             <div className='Gallery-title'>tbjgolden.website</div>
             <div className='Gallery-description'>Landing page for my rapid website service.</div>
           </GalleryText>
-          {createPortfolioGalleryImage('images/portfolio/tbjgolden.website.png')}
+          <GalleryImage src='images/portfolio/tbjgolden.website.png' />
         </GalleryItem>
       </GalleryRow>
     </Gallery>
