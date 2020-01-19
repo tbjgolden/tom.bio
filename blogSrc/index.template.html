@@ -594,9 +594,7 @@
           document.body.style.overflow = 'auto';
           browseLink.textContent = 'Browse posts';
 
-          if (!hash || hash.length <= 1) {
-            window.location.hash = '/';
-          } else if (hash === '#/') {
+          if (!hash || hash.length <= 1 || hash === '#/') {
             var post = window.blogPosts[window.blogPosts.length - 1];
             if (post) showArticle(post);
           } else if (/^#\/posts\/[0-9]+/.test(hash)) {

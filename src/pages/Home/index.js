@@ -32,7 +32,7 @@ const Home = () => (
         <Columns>
           <div>
             <div className='App-row-header'>Web</div>
-            <div className='App-row-description'>React, Angular, ES*, *.js</div>
+            <div className='App-row-description'>React, Angular, ES6+</div>
             <WebDiagram />
           </div>
           <div>
