@@ -8,10 +8,9 @@ const withWindowWidth = WrappedComponent => props => {
   });
 
   useEffect(() => {
-    window.addEventListener('resize', callback.current);
-    return () => {
-      window.removeEventListener('resize', callback.current);
-    }
+    const cb = callback.current;
+    window.addEventListener('resize', cb);
+    return () => window.removeEventListener('resize', cb);
   }, []);
 
   return <WrappedComponent w={w} {...props} />;

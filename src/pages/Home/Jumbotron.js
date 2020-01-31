@@ -75,13 +75,13 @@ const HomeJumbotron = () => {
           </a>
         </div>
 
+        {/*
         <div className="HomeJumbotron-square-outer">
           <div className="HomeJumbotron-square-inner">
-            <div className="HomeJumbotron-square">
-              
-            </div>
+            <div className="HomeJumbotron-square" />
           </div>
         </div>
+        */}
       </div>
     </Jumbotron>
   );
