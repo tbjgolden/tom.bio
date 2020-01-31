@@ -521,7 +521,7 @@
         <div class="header-inner">
           <h1 id="title">Blog, Inkorporated</h1>
           <p class="links">
-            <a href="../">Website</a>&hairsp;&middot;
+            <a href="http://tom.bio">Website</a>&hairsp;&middot;
             <a href="https://linkedin.com/in/tbjgolden">LinkedIn</a>&hairsp;&middot;
             <a href="https://github.com/tbjgolden">Github</a>&hairsp;&middot;
             <a href="../misc">Misc</a>
@@ -594,7 +594,9 @@
           document.body.style.overflow = 'auto';
           browseLink.textContent = 'Browse posts';
 
-          if (!hash || hash.length <= 1 || hash === '#/') {
+          if (!hash || hash.length <= 1) {
+            window.location.hash = '/';
+          } else if (hash === '#/') {
             var post = window.blogPosts[window.blogPosts.length - 1];
             if (post) showArticle(post);
           } else if (/^#\/posts\/[0-9]+/.test(hash)) {
