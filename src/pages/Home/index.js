@@ -16,7 +16,6 @@ const Home = () => (
         Developer. Designer. Creator&nbsp;of&nbsp;<a href='http://willtheygo.com' target='_blank' rel='noopener noreferrer'>willtheygo.com</a> and&nbsp;<a href='//prevent.rip' target='_blank' rel='noopener noreferrer'>prevent.rip</a>.
       </div>
     </div>
-    <hr className='x4' />
     <div className='App-row' style={{ height: 'calc(300px + 15vw)' }}>
       <Matrix />
       <div className='App-row-sizer'>

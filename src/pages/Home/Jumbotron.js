@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useSpring, animated } from "react-spring";
 import "./Jumbotron.scss";
 import Jumbotron from "../../Jumbotron";
+import Me from '../../images/me.png';
 
 const HomeJumbotron = () => {
   const [stage, setStage] = useState(0);
@@ -74,6 +75,8 @@ const HomeJumbotron = () => {
             </svg>
           </a>
         </div>
+
+        <img src={Me} alt="me" className={`me stage-${stage}`} />
 
         {/*
         <div className="HomeJumbotron-square-outer">

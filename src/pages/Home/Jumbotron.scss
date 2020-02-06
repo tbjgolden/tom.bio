@@ -10,6 +10,7 @@
   .App-row-sizer {
     padding-left: 0;
     padding-right: 0;
+    padding-bottom: 0;
   }
 }
 
@@ -25,11 +26,72 @@
   line-height: 1.45455;
 
   letter-spacing: .016em;
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 }
 
 .chevron-icon {
   display: inline-block;
   vertical-align: -4px;
+}
+
+@keyframes party {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  17% {
+    transform: translate(0px, -4px);
+  }
+  32% {
+    transform: translate(2px, 3px);
+  }
+  48% {
+    transform: translate(-3px, 1px);
+  }
+  63% {
+    transform: translate(3px, 1px);
+  }
+  79% {
+    transform: translate(-2px, 3px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.me {
+  margin: 16px;
+  width: 300px;
+  max-width: calc(100% - 32px);
+  border-radius: 16px;
+  transition: all 1s ease;
+  transition-property: filter, box-shadow;
+
+  $stage-1: 0 0 24px #ff1c73;
+  $stage-2: grayscale(1) sepia(1) hue-rotate(300deg) saturate(3);
+  $stage-3: contrast(10);
+
+  &.stage-1 {
+    box-shadow: $stage-1;
+  }
+
+  &.stage-2 {
+    box-shadow: $stage-1;
+    filter: $stage-2;
+  }
+
+  &.stage-3 {
+    box-shadow: $stage-1;
+    filter: $stage-2 $stage-3;
+  }
+
+  &.stage-4 {
+    box-shadow: $stage-1;
+    filter: $stage-2 $stage-3;
+    animation: party .2s infinite;
+  }
 }
 
 .HomeJumbotron-square-outer {
