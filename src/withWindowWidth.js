@@ -1,19 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const withWindowWidth = WrappedComponent => props => {
-  const [w, setW] = useState(window.innerWidth);
-  const callback = useRef(() => {
-    const { innerWidth } = window;
-    if (w !== innerWidth) setW(innerWidth);
-  });
+  const [W, setW] = useState(window.innerWidth);
 
   useEffect(() => {
-    const cb = callback.current;
-    window.addEventListener('resize', cb);
-    return () => window.removeEventListener('resize', cb);
+    const setWidth = () => setW(window.innerWidth);
+    window.addEventListener('resize', setWidth);
+    return () => window.removeEventListener('resize', setWidth);
   }, []);
 
-  return <WrappedComponent w={w} {...props} />;
+  return <WrappedComponent W={W} {...props} />;
 };
 
 export default withWindowWidth;

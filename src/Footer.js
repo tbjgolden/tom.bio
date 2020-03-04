@@ -76,7 +76,7 @@ const Footer = () => {
               <div>React, SCSS, Canvas API, Hooks, Custom HOCs, Custom CMS, Mostly Accessible</div>
               <div>
                 <a
-                  href='https://github.com/tbjgolden/tbjgolden.github.io'
+                  href='https://github.com/tom/tbjgolden.github.io'
                   target='_blank' rel='noopener noreferrer'
                 >
                   See the source code

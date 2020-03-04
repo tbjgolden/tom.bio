@@ -3,6 +3,7 @@ import Columns from '../../Columns';
 import Strong from '../../Strong';
 import WebDiagram from './WebDiagram';
 import MobileDiagram from './MobileDiagram';
+import ServerDiagram from './ServerDiagram';
 import Matrix from './Matrix';
 import Jumbotron from './Jumbotron';
 import './index.scss';
@@ -11,9 +12,9 @@ const Home = () => (
   <div>
     <Jumbotron />
     <div className='App-row-sizer'>
-      <div className='App-row-title centre'>The best TomGolden&nbsp;yet.</div>
+      <div className='App-row-title centre'>but a stand aint one</div>
       <div className='App-row-description centre'>
-        Developer. Designer. Creator&nbsp;of&nbsp;<a href='http://willtheygo.com' target='_blank' rel='noopener noreferrer'>willtheygo.com</a> and&nbsp;<a href='//prevent.rip' target='_blank' rel='noopener noreferrer'>prevent.rip</a>.
+        Tom Golden makes websites and apps, like <a href='http://willtheygo.com' target='_blank' rel='noopener noreferrer'>willtheygo.com</a> and&nbsp;<a href='//prevent.rip' target='_blank' rel='noopener noreferrer'>prevent.rip</a>.
       </div>
     </div>
     <div className='App-row' style={{ height: 'calc(300px + 15vw)' }}>
@@ -31,13 +32,18 @@ const Home = () => (
         <Columns>
           <div>
             <div className='App-row-header'>Web</div>
-            <div className='App-row-description'>React, Angular, ES6+</div>
+            <div className='App-row-description'>React, SCSS, ES6+, Angular</div>
             <WebDiagram />
           </div>
           <div>
             <div className='App-row-header'>Mobile</div>
-            <div className='App-row-description'>Flutter, React&nbsp;Native, Ionic, Android</div>
+            <div className='App-row-description'>Flutter, React&nbsp;Native, Ionic, KaiOS</div>
             <MobileDiagram />
+          </div>
+          <div>
+            <div className='App-row-header'>Server</div>
+            <div className='App-row-description'>Node, Rust, GraphQL</div>
+            <ServerDiagram />
           </div>
         </Columns>
       </div>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge; chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <title>Tom Golden - Miscellaneous</title>
+    <meta name="robots" content="noindex, nofollow, noodp, noydir, noarchive" />
+    <meta name="theme-color" content="#034694" />
+    <style>
+      @font-face {
+        font-family: "Mono";
+        font-style: normal;
+        font-weight: 400;
+        src: url("../fonts/mono/400.woff2") format("woff2");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        box-sizing: border-box;
+        background: inherit;
+        font: inherit;
+        color: inherit;
+      }
+      :focus {
+        outline: 0;
+      }
+      body {
+        background: #000;
+        color: #fff;
+        font-family: Mono, monospace;
+        font-size: 18px;
+        line-height: 1.2;
+      }
+      pre {
+        position: fixed;
+        white-space: pre-wrap;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 4px 4px 8px;
+        overflow-y: auto;
+        font: inherit;
+      }
+      small {
+        font: inherit;
+        color: #888;
+      }
+      strong {
+        font-weight: bold;
+        color: #66f;
+      }
+      button {
+        text-decoration: none;
+        font-weight: bold;
+        color: #299;
+      }
+      button:not([disabled]) {
+        color: #6ff;
+      }
+      button:not([disabled]):hover,
+      button:not([disabled]):focus,
+      button:not([disabled]):active {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <pre id="pre" style="display: none;"></pre>
+    &nbsp;
+    <script>
+      /* eslint-disable */
+
+      // Promise polyfill
+      !(function(e, n) {
+        "object" == typeof exports && "undefined" != typeof module
+          ? n()
+          : "function" == typeof define && define.amd
+          ? define(n)
+          : n();
+      })(0, function() {
+        "use strict";
+        function e(e) {
+          var n = this.constructor;
+          return this.then(
+            function(t) {
+              return n.resolve(e()).then(function() {
+                return t;
+              });
+            },
+            function(t) {
+              return n.resolve(e()).then(function() {
+                return n.reject(t);
+              });
+            }
+          );
+        }
+        function n(e) {
+          return !(!e || "undefined" == typeof e.length);
+        }
+        function t() {}
+        function o(e) {
+          if (!(this instanceof o))
+            throw new TypeError("Promises must be constructed via new");
+          if ("function" != typeof e) throw new TypeError("not a function");
+          (this._state = 0),
+            (this._handled = !1),
+            (this._value = undefined),
+            (this._deferreds = []),
+            c(e, this);
+        }
+        function r(e, n) {
+          for (; 3 === e._state; ) e = e._value;
+          0 !== e._state
+            ? ((e._handled = !0),
+              o._immediateFn(function() {
+                var t = 1 === e._state ? n.onFulfilled : n.onRejected;
+                if (null !== t) {
+                  var o;
+                  try {
+                    o = t(e._value);
+                  } catch (r) {
+                    return void f(n.promise, r);
+                  }
+                  i(n.promise, o);
+                } else (1 === e._state ? i : f)(n.promise, e._value);
+              }))
+            : e._deferreds.push(n);
+        }
+        function i(e, n) {
+          try {
+            if (n === e)
+              throw new TypeError("A promise cannot be resolved with itself.");
+            if (n && ("object" == typeof n || "function" == typeof n)) {
+              var t = n.then;
+              if (n instanceof o)
+                return (e._state = 3), (e._value = n), void u(e);
+              if ("function" == typeof t)
+                return void c(
+                  (function(e, n) {
+                    return function() {
+                      e.apply(n, arguments);
+                    };
+                  })(t, n),
+                  e
+                );
+            }
+            (e._state = 1), (e._value = n), u(e);
+          } catch (r) {
+            f(e, r);
+          }
+        }
+        function f(e, n) {
+          (e._state = 2), (e._value = n), u(e);
+        }
+        function u(e) {
+          2 === e._state &&
+            0 === e._deferreds.length &&
+            o._immediateFn(function() {
+              e._handled || o._unhandledRejectionFn(e._value);
+            });
+          for (var n = 0, t = e._deferreds.length; t > n; n++)
+            r(e, e._deferreds[n]);
+          e._deferreds = null;
+        }
+        function c(e, n) {
+          var t = !1;
+          try {
+            e(
+              function(e) {
+                t || ((t = !0), i(n, e));
+              },
+              function(e) {
+                t || ((t = !0), f(n, e));
+              }
+            );
+          } catch (o) {
+            if (t) return;
+            (t = !0), f(n, o);
+          }
+        }
+        var a = setTimeout;
+        (o.prototype["catch"] = function(e) {
+          return this.then(null, e);
+        }),
+          (o.prototype.then = function(e, n) {
+            var o = new this.constructor(t);
+            return (
+              r(
+                this,
+                new (function(e, n, t) {
+                  (this.onFulfilled = "function" == typeof e ? e : null),
+                    (this.onRejected = "function" == typeof n ? n : null),
+                    (this.promise = t);
+                })(e, n, o)
+              ),
+              o
+            );
+          }),
+          (o.prototype["finally"] = e),
+          (o.all = function(e) {
+            return new o(function(t, o) {
+              function r(e, n) {
+                try {
+                  if (n && ("object" == typeof n || "function" == typeof n)) {
+                    var u = n.then;
+                    if ("function" == typeof u)
+                      return void u.call(
+                        n,
+                        function(n) {
+                          r(e, n);
+                        },
+                        o
+                      );
+                  }
+                  (i[e] = n), 0 == --f && t(i);
+                } catch (c) {
+                  o(c);
+                }
+              }
+              if (!n(e))
+                return o(new TypeError("Promise.all accepts an array"));
+              var i = Array.prototype.slice.call(e);
+              if (0 === i.length) return t([]);
+              for (var f = i.length, u = 0; i.length > u; u++) r(u, i[u]);
+            });
+          }),
+          (o.resolve = function(e) {
+            return e && "object" == typeof e && e.constructor === o
+              ? e
+              : new o(function(n) {
+                  n(e);
+                });
+          }),
+          (o.reject = function(e) {
+            return new o(function(n, t) {
+              t(e);
+            });
+          }),
+          (o.race = function(e) {
+            return new o(function(t, r) {
+              if (!n(e))
+                return r(new TypeError("Promise.race accepts an array"));
+              for (var i = 0, f = e.length; f > i; i++)
+                o.resolve(e[i]).then(t, r);
+            });
+          }),
+          (o._immediateFn =
+            ("function" == typeof setImmediate &&
+              function(e) {
+                setImmediate(e);
+              }) ||
+            function(e) {
+              a(e, 0);
+            }),
+          (o._unhandledRejectionFn = function(e) {
+            void 0 !== console &&
+              console &&
+              console.warn("Possible Unhandled Promise Rejection:", e);
+          });
+        var l = (function() {
+          if ("undefined" != typeof self) return self;
+          if ("undefined" != typeof window) return window;
+          if ("undefined" != typeof global) return global;
+          throw Error("unable to locate global object");
+        })();
+        "Promise" in l
+          ? l.Promise.prototype["finally"] ||
+            (l.Promise.prototype["finally"] = e)
+          : (l.Promise = o);
+      });
+
+      /* eslint-enable */
+      var pre = document.getElementById("pre");
+      var mean = 20;
+      var rand = 10;
+      var cwd = "/";
+      var dirs = {
+        ".README.txt": [
+          "cat %",
+          "I've made this part of my website \tterminal-esque purely to scare away normal \tfolk and recruiters. If you are normal, or a recruiter, \tplease withhold your judgment, I don't have social media so I have to have *somewhere* to put my weird thoughts <3"
+        ],
+        quotes: {
+          "meta-1.md": [
+            "cat %",
+            "It's not the repetition in the quote, it's the quote in repetition.\t\n - Author of repetitive quotes"
+          ],
+          "meta-2.md": [
+            "cat %",
+            "Nothing is absolute, including this quote.\t\n - A. Hypocrite"
+          ],
+          "meta-3.md": [
+            "cat %",
+            "Meta quotes are meaningless.\t\n - Meaningless person"
+          ],
+          "fave-1.md": ["cat %", "Lorem ipsum dolor sit amet\t\n  - Anonymous"]
+        },
+        diary: {
+          "2019-07-03.md": [
+            "cat %",
+            "Working on my misc section of my website. This is to have a place to dump my thoughts and feels without it being too easy to find.\n\nHopefully the scary terminal interface will deter\t\t\t...\t\t\t you know\t\t\t...\t\t\t normal people.\n\nOne of the fun bits is that it's using tabs in the source data to indicate a pause in the output\t\t\t\t - a thing that I suspect makes reading plaintext a marginally better experience."
+          ],
+          "2019-08-09.md": [
+            "cat %",
+            "For the last month I've been hyper focused on my job.\t\t\t\n\n Right now, it's end of day Friday and I'm a little bit tired and stressed out at the moment.\t\t\t Recently was told that I'll be moving into my first proper management role, which is exciting but I'm also a little apprehensive.\t\t\t\n\nMoving down to AL in 3 weeks, and hoping that working remote will make it slightly easier to manage the team... 😁"
+          ],
+          "2019-12-04.md": [
+            "cat %",
+            "Moved to Birmingham, Alabama.\t\t\t\n\nIt reminds me of a piece of classic high quality music:\t\t\t\t\t\t\t\t\nKaty Perry - Hot N Cold\t\t\t\t\t\t\t\t\t\n\n'Cause you're hot \t\tthen\t\t you're cold\t\t\t\nYou're yes \t\tthen\t\t you're no\t\t\t\nYou're in \t\tthen\t\t you're out\t\t\t\nYou're up \t\tthen\t\t you're down\t\t\t\nYou're wrong \t\twhen\t\t it's right\t\t\t\nIt's black \t\tand\t\t it's white\t\t\t\n\nBeen managing the team for a few months now and it's been good. But also tiring.\t\t\t\n\nI'm still writing code while managing - and it's difficult to focus on both.\t\t\t Started heavier on the organisation front but sometimes if you want something done you gotta do it yourself.\t\t\t\n\nThe code is a mess still. It needs cleaning up.\t\t\t Whenever I see some sketchy code, I pull out the `git blame`.\t\t\t\n\nIt's normally Filipe or Devin. \t\t\tThough sometimes it's me 😅.\t\t\t\n\nBut we're gonna make it!\t\t\t\n\nAlso released the second effort of my app \"Barcode Maker\" for KaiOS.\t\t\t\n\nHoping it will be useful to someone.\t\t\t They made me put code in to show ads so\nthey will approve it and add it to the app store\t\t\t - was kinda hoping it would be\ncompletely free but hey-ho.\t\t\t I've done it so it only shows them after they\nare created,\t\t hoping that it won't be too annoying!"
+          ]
+        }
+      };
+
+      function delay(ms) {
+        return new Promise(function(resolve) {
+          setTimeout(function() {
+            resolve();
+          }, ms);
+        });
+      }
+
+      function print(string, strings) {
+        if (string) strings = string.split("\t");
+        else if (!strings) return Promise.resolve();
+        string = strings.shift();
+        var span = document.createElement("SPAN");
+        span.innerHTML = string;
+        pre.appendChild(span);
+        pre.scrollTop = pre.scrollHeight;
+        return delay(~~(mean + rand * Math.random())).then(function() {
+          if (strings.length) return print(null, strings);
+        });
+      }
+
+      function cmd(command, stdout, delay) {
+        delay = delay || 25;
+        return new Promise(function(resolve) {
+          var $ = document.createElement("SMALL");
+          $.appendChild(document.createTextNode("$ "));
+          var cmd = document.createElement("STRONG");
+          cmd.appendChild(document.createTextNode(command.trim() + "\n"));
+          pre.appendChild($);
+          pre.appendChild(cmd);
+          setTimeout(function() {
+            return stdout ? print(stdout + "\n").then(resolve) : resolve();
+          }, delay);
+        });
+      }
+
+      function cd(dir) {
+        dir = dir || "/";
+
+        var nextCwd = cwd;
+
+        if (dir === "..") {
+          var parts = cwd.split("/");
+          nextCwd = "/" + parts.slice(1, parts.length - 1).join("/");
+        } else if (dir[0] === "/") {
+          nextCwd = dir;
+        } else if (dir !== ".") {
+          nextCwd += dir;
+        }
+
+        cwd = nextCwd;
+
+        return cmd("cd " + dir);
+      }
+
+      function ls() {
+        document.querySelectorAll("button[onclick]").forEach(function(el) {
+          el.setAttribute("disabled", "disabled");
+        });
+
+        return Promise.resolve(
+          cwd.split("/").filter(function(part) {
+            return part;
+          })
+        ).then(function(parts) {
+          var dir = parts.reduce(function(obj, part) {
+            return obj[part];
+          }, dirs);
+
+          var maxLength = Object.keys(dir).reduce(function(prevMax, filename) {
+            return Math.max(prevMax, filename.length);
+          }, 2);
+
+          cmd(
+            "pwd && ls -a",
+            "/misc" +
+              cwd +
+              "\n" +
+              "<span>" +
+              "<button onclick=\"cd('.').then(ls)\">.</button>" +
+              new Array(maxLength - 1).fill("&nbsp;").join("") +
+              "</span> " +
+              "<span>" +
+              '<button onclick="' +
+              (cwd === "/" ? "cmd('cd ..', 'nice try ;)')" : "cd('..')") +
+              '.then(ls)">..</button>' +
+              new Array(maxLength - 2).fill("&nbsp;").join("") +
+              "</span> " +
+              Object.keys(dir)
+                .sort()
+                .map(function(filename) {
+                  var value = dir[filename];
+                  var handler = "";
+                  if (Array.isArray(value)) {
+                    if (!Array.isArray(value[0])) value = [value];
+                    handler = value
+                      .map(function(args) {
+                        args[0] = args[0].replace(/%/g, filename);
+                        return (
+                          "cmd(" +
+                          args
+                            .map(function(arg) {
+                              if (typeof arg !== "string") return arg;
+                              arg = JSON.stringify(arg);
+                              arg = arg.substring(1, arg.length - 1);
+                              arg = arg.replace(/'/g, "\\'");
+                              return "'" + arg + "'";
+                            })
+                            .join(",") +
+                          ")"
+                        );
+                      })
+                      .join("}).then(function(){return ");
+                  } else {
+                    handler = "cd('/" + filename + "')";
+                  }
+                  return (
+                    "<span>" +
+                    '<button onclick="' +
+                    handler +
+                    '.then(ls)">' +
+                    filename +
+                    "</button>" +
+                    new Array(maxLength - filename.length)
+                      .fill("&nbsp;")
+                      .join("") +
+                    "</span>"
+                  );
+                })
+                .join(" ")
+          );
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+          pre.style.display = "block";
+          ls();
+        }, 300);
+      });
+    </script>
+  </body>
+</html>

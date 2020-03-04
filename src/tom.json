@@ -21,19 +21,30 @@
       "cause": "Hatched Labs",
       "type": "ftjob",
       "title": "Software Engineer II",
-      "using": ["React", "JavaScript", "Relay", "GraphQL", "Ruby", "Rails", "SCSS"],
+      "using": ["React", "Relay", "GraphQL", "Node", "SCSS", "DevOps"],
       "location": {
         "US": "San Francisco, CA",
         "GB": "San Francisco"
       },
-      "start": "11/18",
-      "description": "Lead front-end for a stealth mode startup, developing open-source projects with the company."
+      "parts": [
+        {
+          "title": "Software Engineer Manager",
+          "start": "08/19",
+          "description": "Managing a team of 7 engineers to create a shopping experience from scratch with the newest technology available."
+        },
+        {
+          "title": "Software Engineer II",
+          "start": "11/18",
+          "end": "08/19",
+          "description": "Front-end engineer for a technology startup, developing open-source projects with the company."
+        }
+      ]
     },
     {
       "cause": "willtheygo.com",
       "type": "business",
       "title": "Founder",
-      "using": ["React", "JavaScript", "Node", "Scraping", "Golang", "SCSS"],
+      "using": ["React", "JavaScript", "SCSS", "Node", "AWS", "Streams"],
       "location": {
         "US": "San Francisco, CA",
         "GB": "San Francisco"

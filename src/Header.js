@@ -5,7 +5,7 @@ import RoutesContext from "./RoutesContext";
 import withWindowWidth from "./withWindowWidth";
 import "./Header.scss";
 
-const Header = ({ location, w }) => {
+const Header = ({ location, W }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const routes = useContext(RoutesContext);
 
@@ -37,7 +37,7 @@ const Header = ({ location, w }) => {
         </Link>
         <nav
           className="Header-menu-nav hidden-block"
-          hidden={!menuOpen || w < 768}
+          hidden={!menuOpen || W < 768}
         >
           <ul className="Header-menu-nav-list">
             {
@@ -65,7 +65,7 @@ const Header = ({ location, w }) => {
         <Link
           to="/contact"
           className="Header-cart-button"
-          hidden={menuOpen && w < 768}
+          hidden={menuOpen && W < 768}
         />
       </div>
     </header>

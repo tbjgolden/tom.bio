@@ -1,0 +1,150 @@
+:root {
+  --row-container-max-width: 960px;
+  --header-height: 48px;
+  --spacing-unit: 24px;
+}
+
+body {
+  font-family: "SF", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Noto Emoji", "Twemoji",
+    "Emoji One", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.47384;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.018em;
+  color: #111;
+  background-color: #f2f2f2;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus {
+  outline: 0;
+}
+
+body.show-focus {
+  :focus {
+    outline: 1px dashed #888;
+    z-index: 2;
+  }
+}
+
+:first-child {
+  margin-top: 0;
+}
+
+:last-child {
+  margin-bottom: 0;
+}
+
+[hidden] {
+  visibility: visible;
+}
+
+.hidden-block[hidden] {
+  display: block;
+}
+
+code,
+.mono {
+  font-family: "Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+    Courier, monospace;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  margin: calc(0.6ex - 4px) 0;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child {
+  margin-top: 0;
+}
+
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child {
+  margin-bottom: 0;
+}
+
+hr {
+  margin: 0;
+  padding: 24px 0 0;
+  border: 0;
+}
+
+hr.x2 {
+  padding-top: calc(16px + 2%);
+}
+hr.x4 {
+  padding-top: calc(32px + 4%);
+}
+hr.x6 {
+  padding-top: calc(48px + 6%);
+}
+hr.x8 {
+  padding-top: calc(64px + 8%);
+}
+
+a {
+  text-decoration: none;
+  color: #0070c9;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: inherit;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  text-align: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: transparent;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+}
+
+.background-cover {
+  background-position: center;
+  background-size: cover;
+}
+
+.centre,
+.centre * {
+  text-align: center;
+}
+
+.Header,
+.Main,
+.Footer {
+  margin: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}

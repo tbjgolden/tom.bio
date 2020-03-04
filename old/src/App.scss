@@ -1,0 +1,140 @@
+.App-row {
+  position: relative;
+  overflow-x: auto;
+  padding: 40px 0;
+}
+
+.App-row.white-text {
+  background-color: #888;
+  color: #fff;
+}
+
+.App-row.white {
+  background: linear-gradient(to bottom, #f7f7f7 0%, #fff 100%);
+}
+
+.App-row.white-reverse {
+  background: linear-gradient(to bottom, #fff 0%, #f7f7f7 100%);
+}
+
+.App-row-sizer {
+  max-width: var(--row-container-max-width);
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.App-row-title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.08365;
+  text-align: center;
+  letter-spacing: -0.003em;
+}
+
+.App-row-subtitle {
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1.14815;
+  margin-top: 0.5ex;
+  text-align: center;
+  letter-spacing: 0.008em;
+}
+
+.App-row-description,
+.App-row-header {
+  font-size: 21px;
+  line-height: 1.38105;
+  text-align: center;
+  letter-spacing: 0.011em;
+}
+
+.App-row-description {
+  font-weight: 400;
+  color: #333;
+}
+
+.App-row-header {
+  font-weight: 500;
+}
+
+.App-row-smallprint {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  color: #333;
+}
+
+.App-row-description:not(:last-child) {
+  margin-bottom: 1.6ex;
+}
+
+.App-row-header:not(:last-child) {
+  margin-bottom: 1.3ex;
+}
+
+.App-row-title:not(:empty) + .App-row-description,
+.App-row-header:not(:empty) + .App-row-description {
+  padding-top: 0.5ex;
+}
+
+.App-notch > .App-row-description {
+  padding-top: 0.2ex;
+}
+
+@media (max-width: 1068px) {
+  .App-row-title {
+    font-size: 27px;
+    line-height: 1.2963;
+    letter-spacing: 0.008em;
+  }
+
+  .App-row-subtitle {
+    font-size: 24px;
+    line-height: 1.16667;
+    letter-spacing: 0.009em;
+  }
+
+  .App-row-description,
+  .App-row-header {
+    font-size: 19px;
+    line-height: 1.42115;
+    letter-spacing: 0.012em;
+  }
+
+  .jumbotron-tagline {
+    font-size: 59px;
+    font-weight: 500;
+    line-height: 1.10227;
+    letter-spacing: -0.025em;
+  }
+}
+
+@media (max-width: 735px) {
+  .App-row-title {
+    font-size: 24px;
+    line-height: 1.33349;
+    text-align: left;
+    letter-spacing: 0.009em;
+  }
+
+  .App-row-subtitle {
+    font-size: 19px;
+    line-height: 1.21053;
+    text-align: left;
+    letter-spacing: 0.012em;
+  }
+
+  .App-row-description,
+  .App-row-header {
+    font-size: 18px;
+    line-height: 1.4446;
+    text-align: left;
+    letter-spacing: 0.016em;
+  }
+
+  .App-row-smallprint {
+    text-align: left;
+  }
+}
