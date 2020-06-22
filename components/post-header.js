@@ -5,7 +5,7 @@ import CoverImage from "./cover-image";
 export default function PostHeader({ title, coverImage, date, author }) {
   return (
     <>
-      <h1>{title}</h1>
+      <h1 className="foszH2 fowB">{title}</h1>
       <div>
         <CoverImage
           title={title}

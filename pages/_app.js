@@ -4,6 +4,8 @@ import "../styles/markdown.scss";
 import { generate, embed } from "ainsley";
 import getAinsley from "ainsley/macro";
 
+///
+
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     embed(generate(getAinsley("../styles/index.ainsley")));

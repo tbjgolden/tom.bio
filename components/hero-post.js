@@ -12,7 +12,7 @@ export default function HeroPost({
   slug,
 }) {
   return (
-    <section>
+    <section className="mab30">
       <div>
         <CoverImage
           title={title}
