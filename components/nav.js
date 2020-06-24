@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/link";
 import Container from "./container";
 
 export default function Nav({ menuItems }) {

@@ -1,17 +1,14 @@
 import { Image } from "react-datocms";
-import cn from "classnames";
-import Link from "next/link";
+import Link from "@/components/link";
 
-export default function CoverImage({ title, responsiveImage, slug }) {
+export default function CoverImage({ title, responsiveImage, slug, ...props }) {
   const image = (
     <Image
       data={{
         ...responsiveImage,
         alt: `Cover Image for ${title}`,
       }}
-      className={cn("shadow-small", {
-        "hover:shadow-medium transition-shadow duration-200": slug,
-      })}
+      {...props}
     />
   );
   return (

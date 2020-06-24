@@ -91,6 +91,10 @@ $color-map: (
     font-size: size("font-max");
   }
 
+  a {
+    display: inline-block;
+  }
+
   header,
   main,
   footer,
@@ -169,7 +173,6 @@ $color-map: (
 
   p {
     margin: 1em 0;
-    hyphens: auto;
 
     &:first-child {
       margin-top: 0;
@@ -211,7 +214,8 @@ $color-map: (
 
   blockquote {
     margin: 0;
-    padding-left: 2.5em;
+    padding-left: 2em;
+    border-left: 1px solid #f2f2f2;
   }
 
   aside {

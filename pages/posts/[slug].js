@@ -32,13 +32,15 @@ export default function Post({ post, morePosts, layoutData, preview }) {
                 <title>{post.title} | Next.js Blog Example</title>
                 <meta property="og:image" content={post.ogImage.url} />
               </Head>
-              <PostHeader
-                title={post.title}
-                coverImage={post.coverImage}
-                date={post.date}
-                author={post.author}
-              />
-              <Markdown content={post.content} />
+              <div className="mat30 mab40">
+                <PostHeader
+                  title={post.title}
+                  coverImage={post.coverImage}
+                  date={post.date}
+                  author={post.author}
+                />
+                <Markdown content={post.content} />
+              </div>
             </article>
             <SectionSeparator />
             {morePosts.length > 0 && <MoreStories posts={morePosts} />}
