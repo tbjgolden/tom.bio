@@ -28,6 +28,7 @@
         ["bo", [["border-{direction}", "{scale} solid {colors}"]]],
         ["fl", [["flex", "{flexChange} {flexChange} {flexBasis}"]]],
         ["ov", [["overflow", "{overflow} {overflow}"]]],
+        ["gtc", [["grid-template-columns", "repeat({columns}, 1fr)"]]],
         [
           "Display",
           {
@@ -37,6 +38,8 @@
             n: "none",
             ib: "inline-block",
             ifx: "inline-flex",
+            g: "grid",
+            ig: "inline-grid",
           },
         ],
         ["Text-Decoration", { l: "line-through", u: "underline", n: "none" }],
@@ -131,6 +134,14 @@
         },
       ],
       variables: {
+        columns: {
+          "1": 1,
+          "2": 2,
+          "3": 3,
+          "4": 4,
+          "5": 5,
+          "6": 6,
+        },
         overflow: { h: "hidden", s: "scroll", a: "auto", v: "visible" },
         flexCrossAxes: {
           ai: "align-items",
@@ -149,6 +160,7 @@
         xLoc: { l: "left", r: "right", c: "center" },
         yLoc: { t: "top", b: "bottom", c: "center" },
         scalar: {
+          g: "gap",
           w: "width",
           xw: "max-width",
           nw: "min-width",
@@ -242,12 +254,7 @@
           ["o", ":focus"],
           ["o", ":active"],
         ],
-        [
-          ["s", "@media(min-width:384px)"],
-          ["m", "@media(min-width:768px)"],
-          ["l", "@media(min-width:1024px)"],
-          ["x", "@media(min-width:1536px)"],
-        ],
+        [["l", "@media(min-width:480px)"]],
       ],
     },
   ],

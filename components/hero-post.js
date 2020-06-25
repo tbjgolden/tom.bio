@@ -1,17 +1,11 @@
-import Date from "./date";
+import Date from "./formatted-date";
 import CoverImage from "./cover-image";
+import Excerpt from "./excerpt";
 import Link from "@/components/link";
 
-export default function HeroPost({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  author,
-  slug,
-}) {
+export default function HeroPost({ title, coverImage, date, excerpt, slug }) {
   return (
-    <section className="mab30">
+    <section className="mab35">
       <div>
         <CoverImage
           title={title}
@@ -21,17 +15,17 @@ export default function HeroPost({
       </div>
       <div>
         <div>
-          <h3>
-            <Link as={`/posts/${slug}`} href="/posts/[slug]">
-              <a>{title}</a>
+          <h3 className="foszH4">
+            <Link as={`/blog/${slug}`} href="/blog/[slug]">
+              {title}
             </Link>
           </h3>
           <div>
-            <Date dateString={date} />
+            <Date className="foszSM" dateString={date} />
           </div>
         </div>
         <div>
-          <p>{excerpt}</p>
+          <Excerpt>{excerpt}</Excerpt>
         </div>
       </div>
     </section>

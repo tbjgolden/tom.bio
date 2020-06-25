@@ -1,8 +1,10 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import NextLink from "next/link";
 
 export default function Link({
   href,
-  as,
+  as: _as,
   replace,
   scroll,
   shallow,
@@ -11,17 +13,23 @@ export default function Link({
   className,
   ...props
 }) {
+  const { asPath } = useRouter();
+  const isActive = (_as ?? href).startsWith(asPath);
+
   return (
     <NextLink
       href={href}
-      as={as}
+      as={_as}
       replace={replace}
       scroll={scroll}
       shallow={shallow}
       passHref={passHref}
       prefetch={prefetch}
     >
-      <a className={`dIB ${className ?? ""}`} {...props} />
+      <a
+        className={`dIB fowB ${isActive ? "" : "tdN o-tdU"} ${className ?? ""}`}
+        {...props}
+      />
     </NextLink>
   );
 }

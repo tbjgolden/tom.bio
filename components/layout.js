@@ -9,7 +9,7 @@ export default function Layout({ preview, layoutData, children }) {
       <Meta />
       <Nav menuItems={layoutData?.menu?.items ?? []} />
       {preview && <Alert />}
-      <main className="pa30">{children}</main>
+      <main className="pal30 par30 pat40 pab40">{children}</main>
       <Footer />
     </>
   );

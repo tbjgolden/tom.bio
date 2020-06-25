@@ -1,4 +1,4 @@
-import Date from "./date";
+import Date from "./formatted-date";
 import CoverImage from "./cover-image";
 
 export default function PostHeader({ title, coverImage, date, author }) {
