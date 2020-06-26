@@ -14,7 +14,7 @@ export default function Link({
   ...props
 }) {
   const { asPath } = useRouter();
-  const isActive = (_as ?? href).startsWith(asPath);
+  const isActive = (_as ?? href) === asPath;
 
   return (
     <NextLink
@@ -28,6 +28,9 @@ export default function Link({
     >
       <a
         className={`dIB fowB ${isActive ? "" : "tdN o-tdU"} ${className ?? ""}`}
+        style={{
+          textDecorationThickness: 2,
+        }}
         {...props}
       />
     </NextLink>
