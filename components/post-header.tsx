@@ -1,7 +1,20 @@
 import Date from "./formatted-date";
 import CoverImage from "./cover-image";
+import { ResponsiveImageType } from "react-datocms";
 
-export default function PostHeader({ title, coverImage, date, author }) {
+export default function PostHeader({
+  title,
+  coverImage,
+  date,
+  author,
+}: {
+  title: string;
+  coverImage: { responsiveImage: ResponsiveImageType };
+  date: string;
+  author: {
+    name: string;
+  };
+}) {
   return (
     <>
       <h1 className="foszH2 fowB mab30">{title}</h1>

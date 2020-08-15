@@ -2,8 +2,21 @@ import Date from "./formatted-date";
 import CoverImage from "./cover-image";
 import Excerpt from "./excerpt";
 import Link from "@/components/link";
+import { ResponsiveImageType } from "react-datocms";
 
-export default function MoreStories({ posts }) {
+export default function MoreStories({
+  posts,
+}: {
+  posts: {
+    title: string;
+    coverImage: {
+      responsiveImage: ResponsiveImageType;
+    };
+    date: string;
+    excerpt: string;
+    slug: string;
+  }[];
+}) {
   return (
     <section className="dG g30 gtc1 l-gtc2">
       {posts.map(({ title, coverImage, date, excerpt, slug }) => (

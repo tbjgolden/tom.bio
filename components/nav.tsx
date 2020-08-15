@@ -1,7 +1,14 @@
 import Link from "@/components/link";
 import Container from "./container";
 
-export default function Nav({ menuItems }) {
+export default function Nav({
+  menuItems,
+}: {
+  menuItems: {
+    name: string;
+    href: string;
+  }[];
+}) {
   return (
     <nav className="pal30 par30">
       <Container className="pat20 pab20 bob2B">

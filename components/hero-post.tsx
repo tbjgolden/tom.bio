@@ -2,8 +2,23 @@ import Date from "./formatted-date";
 import CoverImage from "./cover-image";
 import Excerpt from "./excerpt";
 import Link from "@/components/link";
+import { ResponsiveImageType } from "react-datocms";
 
-export default function HeroPost({ title, coverImage, date, excerpt, slug }) {
+export default function HeroPost({
+  title,
+  coverImage,
+  date,
+  excerpt,
+  slug,
+}: {
+  title: string;
+  coverImage: {
+    responsiveImage: ResponsiveImageType;
+  };
+  date: string;
+  excerpt: string;
+  slug: string;
+}) {
   return (
     <section className="mab35">
       <div>

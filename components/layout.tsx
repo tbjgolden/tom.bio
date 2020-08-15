@@ -3,7 +3,22 @@ import Nav from "./nav";
 import Footer from "./footer";
 import Meta from "./meta";
 
-export default function Layout({ preview, layoutData, children }) {
+export default function Layout({
+  preview,
+  layoutData,
+  children,
+}: {
+  preview: boolean;
+  layoutData?: {
+    menu?: {
+      items?: {
+        name: string;
+        href: string;
+      }[];
+    };
+  };
+  children: React.ReactNode;
+}) {
   return (
     <>
       <Meta />

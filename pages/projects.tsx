@@ -7,9 +7,7 @@ export default function Index({ layoutData }) {
     <Layout layoutData={layoutData}>
       <Container>
         <section>
-          <p>
-            This page is under construction.
-          </p>
+          <p>This page is under construction.</p>
         </section>
       </Container>
     </Layout>

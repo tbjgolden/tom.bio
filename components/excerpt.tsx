@@ -1,4 +1,10 @@
-export default function Excerpt({ children, ...props }) {
+export default function Excerpt({
+  children,
+  ...props
+}: {
+  children: React.ReactNode;
+  [key: string]: any;
+}) {
   let excerpt = children;
   if (typeof excerpt === "string" && excerpt.length > 100) {
     let slice = excerpt.slice(0, 100);

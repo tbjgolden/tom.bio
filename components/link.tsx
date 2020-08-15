@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import NextLink from "next/link";
+import NextLink, { LinkProps } from "next/link";
 
 export default function Link({
   href,
@@ -11,7 +11,7 @@ export default function Link({
   prefetch,
   className,
   ...props
-}) {
+}: LinkProps & { className?: string; children?: React.ReactNode }) {
   const { asPath } = useRouter();
   const isActive = (_as ?? href) === asPath;
 

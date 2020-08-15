@@ -1,6 +1,14 @@
 import Head from "next/head";
 
-export default function Meta({ title, description, ogImage }) {
+export default function Meta({
+  title,
+  description,
+  ogImage,
+}: {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}) {
   title = title ?? "";
   description = description ?? "";
   ogImage = ogImage ?? "";

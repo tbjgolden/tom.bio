@@ -1,4 +1,10 @@
-export default function Markdown({ content, className }) {
+export default function Markdown({
+  content,
+  className,
+}: {
+  content: string;
+  className?: string;
+}) {
   return (
     <div
       className={`markdown ${className ?? ""}`}
