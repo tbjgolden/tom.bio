@@ -7,13 +7,18 @@ import { getLayoutData, getPage, getAllPagesWithSlug } from "@/lib/api";
 import Head from "next/head";
 import markdownToHtml from "@/lib/markdownToHtml";
 import { GetStaticProps, GetStaticPaths } from "next";
+import { Fragment } from "react";
 
 export default function Page({
   page,
   layoutData,
   preview,
 }: {
-  page: any;
+  page: null | {
+    title: string;
+    slug: null | string;
+    content: string;
+  };
   layoutData: {
     menu: {
       items: {
@@ -31,16 +36,22 @@ export default function Page({
   return (
     <Layout preview={preview} layoutData={layoutData}>
       <Container>
-        {router.isFallback ? (
-          <h1>Loading…</h1>
-        ) : (
-          <article>
-            <Head>
-              <title>{page.title}</title>
-            </Head>
-            <Markdown content={page.content} />
-          </article>
-        )}
+        {router.isFallback
+          ? (
+            <h1>Loading…</h1>
+          )
+          : (
+            <article>
+              {page === null ? null : (
+                <Fragment>
+                  <Head>
+                    <title>{page.title}</title>
+                  </Head>
+                  <Markdown content={page.content} />
+                </Fragment>
+              )}
+            </article>
+          )}
       </Container>
     </Layout>
   );
@@ -68,6 +79,7 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allPages = await getAllPagesWithSlug();
+
   return {
     paths: allPages?.map((page: { slug: string }) => `/${page.slug}`) ?? [],
     fallback: true,

@@ -95,6 +95,14 @@ $color-map: (
     display: inline-block;
   }
 
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
   header,
   main,
   footer,

@@ -201,7 +201,7 @@ export async function getAllProjects() {
   return data?.allProjects;
 }
 
-export async function getPage(slug: string, preview: boolean) {
+export async function getPage(slug: string, preview = false) {
   const data = await fetchAPI(
     `
       query PageBySlug($slug: String) {
@@ -225,12 +225,13 @@ export async function getPage(slug: string, preview: boolean) {
 export async function getAllPagesWithSlug() {
   const data = await fetchAPI(`
     {
-      allPages {
+      allPages(filter: {slug: {neq: ""}}) {
         title
         slug
         content
       }
     }
   `);
+  console.log(data);
   return data?.allPages;
 }
