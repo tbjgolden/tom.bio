@@ -12,6 +12,9 @@ export default function PostHeader({
   coverImage: { responsiveImage: ResponsiveImageType };
   date: string;
   author: {
+    picture: {
+      url: string;
+    };
     name: string;
   };
 }) {
