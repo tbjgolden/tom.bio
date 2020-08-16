@@ -26,6 +26,9 @@ type DatoPost = {
   slug: string;
   excerpt: string;
   author: {
+    picture: {
+      url: string;
+    };
     name: string;
   };
   content: string;
