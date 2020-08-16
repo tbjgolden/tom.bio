@@ -85,7 +85,7 @@ export default function Index({
               {platforms.map(([platform, { linkUrl, imageUrl }]) =>
                 imageUrl ? (
                   <div className="mat30 pat30 bot1G80 dFX flwW" key={platform}>
-                    <div className="fl10a ovwA">
+                    <div className="fl100 ovwA nw55 pab30 par30">
                       {platform}
                       {linkUrl ? (
                         <span>
