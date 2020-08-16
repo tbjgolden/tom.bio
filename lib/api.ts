@@ -20,7 +20,13 @@ const responsiveImageFragment = `
 
 const cache = new Map();
 
-async function fetchAPI(query, { variables, preview } = {}) {
+async function fetchAPI(
+  query: string,
+  opts?: { variables?: Record<string, any>; preview?: boolean }
+): Promise<Record<string, any>> {
+  const variables = opts?.variables ?? {};
+  const preview = opts?.preview ?? false;
+
   const key = JSON.stringify([query, variables, preview]);
   let output = cache.get(key);
 
@@ -47,7 +53,7 @@ async function fetchAPI(query, { variables, preview } = {}) {
   return output.data;
 }
 
-export async function getPreviewPostBySlug(slug) {
+export async function getPreviewPostBySlug(slug: string) {
   const data = await fetchAPI(
     `
     query PostBySlug($slug: String) {
@@ -66,7 +72,7 @@ export async function getPreviewPostBySlug(slug) {
 }
 
 export async function getAllPostsWithSlug() {
-  const data = fetchAPI(`
+  const data = await fetchAPI(`
     {
       allPosts {
         slug
@@ -76,7 +82,7 @@ export async function getAllPostsWithSlug() {
   return data?.allPosts;
 }
 
-export async function getAllPostsForHome(preview) {
+export async function getAllPostsForHome(preview: boolean) {
   const data = await fetchAPI(
     `
     {
@@ -106,7 +112,7 @@ export async function getAllPostsForHome(preview) {
   return data?.allPosts;
 }
 
-export async function getPostAndMorePosts(slug, preview) {
+export async function getPostAndMorePosts(slug: string, preview: boolean) {
   const data = await fetchAPI(
     `
     query PostBySlug($slug: String) {
@@ -177,7 +183,7 @@ export async function getLayoutData() {
   );
 }
 
-export async function getPage(slug, preview) {
+export async function getPage(slug: string, preview: boolean) {
   const data = await fetchAPI(
     `
       query PageBySlug($slug: String) {
@@ -199,7 +205,7 @@ export async function getPage(slug, preview) {
 }
 
 export async function getAllPagesWithSlug() {
-  const data = fetchAPI(`
+  const data = await fetchAPI(`
     {
       allPages {
         title

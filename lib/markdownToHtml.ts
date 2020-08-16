@@ -1,5 +1,6 @@
 import marked from "marked";
 
-export default async function markdownToHtml(markdown) {
-  return marked(markdown);
-}
+const markdownToHtml = async (markdown: string): Promise<string> =>
+  marked(markdown);
+
+export default markdownToHtml;
