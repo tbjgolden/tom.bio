@@ -1,15 +1,14 @@
+import type { AppProps } from "next/app";
 import { useEffect } from "react";
 
 import "../styles/markdown.scss";
 import { generate, embed } from "ainsley";
 import getAinsley from "ainsley/macro";
 
-//////
-
 const hasUpperCaseRegex = /[A-Z]/;
 const removeNonUpperCaseRegex = /[^A-Z]+/g;
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     embed(
       generate(getAinsley("../styles/index.ainsley"), {

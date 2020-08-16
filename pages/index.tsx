@@ -1,8 +1,20 @@
+import { GetStaticProps } from "next";
 import Container from "@/components/container";
 import Layout from "@/components/layout";
 import { getLayoutData } from "@/lib/api";
 
-export default function Index({ layoutData }) {
+export default function Index({
+  layoutData,
+}: {
+  layoutData: {
+    menu: {
+      items: {
+        name: string;
+        href: string;
+      }[];
+    };
+  };
+}) {
   return (
     <Layout layoutData={layoutData}>
       <Container>
@@ -19,7 +31,7 @@ export default function Index({ layoutData }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const layoutData = await getLayoutData();
   return {
     props: {

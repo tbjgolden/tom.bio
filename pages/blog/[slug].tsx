@@ -14,8 +14,44 @@ import {
 import PostTitle from "@/components/post-title";
 import Head from "next/head";
 import markdownToHtml from "@/lib/markdownToHtml";
+import { ResponsiveImageType } from "react-datocms";
+import { GetStaticProps } from "next";
 
-export default function Post({ post, morePosts, layoutData, preview }) {
+type DatoPost = {
+  title: string;
+  coverImage: {
+    responsiveImage: ResponsiveImageType;
+  };
+  date: string;
+  slug: string;
+  excerpt: string;
+  author: {
+    name: string;
+  };
+  content: string;
+  ogImage: {
+    url: string;
+  };
+};
+
+export default function Post({
+  post,
+  morePosts,
+  layoutData,
+  preview,
+}: {
+  post: DatoPost;
+  morePosts: DatoPost[];
+  layoutData: {
+    menu: {
+      items: {
+        name: string;
+        href: string;
+      }[];
+    };
+  };
+  preview: boolean;
+}) {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
@@ -51,9 +87,15 @@ export default function Post({ post, morePosts, layoutData, preview }) {
   );
 }
 
-export async function getStaticProps({ params, preview = false }) {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
   const layoutData = await getLayoutData();
-  const data = await getPostAndMorePosts(params.slug, preview);
+  const data = await getPostAndMorePosts(
+    (params as { slug: string }).slug,
+    preview
+  );
   const content = await markdownToHtml(data?.post?.content || "");
 
   return {
@@ -67,12 +109,13 @@ export async function getStaticProps({ params, preview = false }) {
       morePosts: data?.morePosts ?? [],
     },
   };
-}
+};
 
 export async function getStaticPaths() {
   const allPosts = await getAllPostsWithSlug();
   return {
-    paths: allPosts?.map((post) => `/blog/${post.slug}`) || [],
+    paths:
+      allPosts?.map((post: { slug: string }) => `/blog/${post.slug}`) ?? [],
     fallback: true,
   };
 }

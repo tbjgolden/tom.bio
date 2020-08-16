@@ -8,7 +8,7 @@ export default function Layout({
   layoutData,
   children,
 }: {
-  preview: boolean;
+  preview?: boolean;
   layoutData?: {
     menu?: {
       items?: {

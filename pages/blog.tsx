@@ -1,10 +1,33 @@
+import { GetStaticProps } from "next";
 import Container from "@/components/container";
 import MoreStories from "@/components/more-stories";
 import HeroPost from "@/components/hero-post";
 import Layout from "@/components/layout";
 import { getLayoutData, getAllPostsForHome } from "@/lib/api";
+import { ResponsiveImageType } from "react-datocms";
 
-export default function Blog({ allPosts, layoutData }) {
+export default function Blog({
+  allPosts,
+  layoutData,
+}: {
+  allPosts: {
+    title: string;
+    coverImage: {
+      responsiveImage: ResponsiveImageType;
+    };
+    date: string;
+    slug: string;
+    excerpt: string;
+  }[];
+  layoutData: {
+    menu: {
+      items: {
+        name: string;
+        href: string;
+      }[];
+    };
+  };
+}) {
   const heroPost = allPosts[0];
   const morePosts = allPosts.slice(1);
   return (
@@ -15,7 +38,6 @@ export default function Blog({ allPosts, layoutData }) {
             title={heroPost.title}
             coverImage={heroPost.coverImage}
             date={heroPost.date}
-            author={heroPost.author}
             slug={heroPost.slug}
             excerpt={heroPost.excerpt}
           />
@@ -26,10 +48,10 @@ export default function Blog({ allPosts, layoutData }) {
   );
 }
 
-export async function getStaticProps({ preview = false }) {
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const layoutData = await getLayoutData();
   const allPosts = (await getAllPostsForHome(preview)) || [];
   return {
     props: { allPosts, layoutData },
   };
-}
+};

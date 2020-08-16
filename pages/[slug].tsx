@@ -6,8 +6,24 @@ import Markdown from "@/components/markdown";
 import { getLayoutData, getPage, getAllPagesWithSlug } from "@/lib/api";
 import Head from "next/head";
 import markdownToHtml from "@/lib/markdownToHtml";
+import { GetStaticProps, GetStaticPaths } from "next";
 
-export default function Page({ page, layoutData, preview }) {
+export default function Page({
+  page,
+  layoutData,
+  preview,
+}: {
+  page: any;
+  layoutData: {
+    menu: {
+      items: {
+        name: string;
+        href: string;
+      }[];
+    };
+  };
+  preview: boolean;
+}) {
   const router = useRouter();
   if (!router.isFallback && !page?.slug) {
     return <ErrorPage statusCode={404} />;
@@ -30,9 +46,12 @@ export default function Page({ page, layoutData, preview }) {
   );
 }
 
-export async function getStaticProps({ params, preview = false }) {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
   const layoutData = await getLayoutData();
-  const data = await getPage(params.slug, preview);
+  const data = await getPage((params as { slug: string }).slug, preview);
   const content = await markdownToHtml(data?.page?.content ?? "");
 
   return {
@@ -45,12 +64,12 @@ export async function getStaticProps({ params, preview = false }) {
       },
     },
   };
-}
+};
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const allPages = await getAllPagesWithSlug();
   return {
-    paths: allPages?.map((page) => `/${page.slug}`) ?? [],
+    paths: allPages?.map((page: { slug: string }) => `/${page.slug}`) ?? [],
     fallback: true,
   };
-}
+};
