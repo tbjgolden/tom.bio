@@ -85,6 +85,10 @@
           { r: "row", c: "column", rr: "row-reverse", cr: "column-reverse" },
         ],
         [
+          "FLex-Wrap",
+          { w: "wrap", n: "nowrap" }
+        ]
+        [
           "Justify-Content",
           {
             c: "center",

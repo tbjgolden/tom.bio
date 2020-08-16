@@ -183,6 +183,24 @@ export async function getLayoutData() {
   );
 }
 
+export async function getAllProjects() {
+  const data = await fetchAPI(
+    `
+      {
+        allProjects {
+          name
+          platform
+          url
+          media {
+            url(imgixParams: { crop: top, ar: "1:2", fit: crop, auto: format })
+          }
+        }
+      }
+    `
+  );
+  return data?.allProjects;
+}
+
 export async function getPage(slug: string, preview: boolean) {
   const data = await fetchAPI(
     `
