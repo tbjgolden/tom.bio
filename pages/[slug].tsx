@@ -8,6 +8,7 @@ import Head from "next/head";
 import markdownToHtml from "@/lib/markdownToHtml";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { Fragment } from "react";
+import { LayoutData } from "types";
 
 export default function Page({
   page,
@@ -19,14 +20,7 @@ export default function Page({
     slug: null | string;
     content: string;
   };
-  layoutData: {
-    menu: {
-      items: {
-        name: string;
-        href: string;
-      }[];
-    };
-  };
+  layoutData: LayoutData;
   preview: boolean;
 }) {
   const router = useRouter();

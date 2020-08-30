@@ -3,19 +3,13 @@ import Container from "@/components/container";
 import Layout from "@/components/layout";
 import { getLayoutData, getAllProjects } from "@/lib/api";
 import { useMemo } from "react";
+import { LayoutData } from "types";
 
 export default function Index({
   layoutData,
   allProjects,
 }: {
-  layoutData: {
-    menu: {
-      items: {
-        name: string;
-        href: string;
-      }[];
-    };
-  };
+  layoutData: LayoutData;
   allProjects: {
     name: string;
     platform: string;
@@ -66,8 +60,8 @@ export default function Index({
         {
           linkUrl: string | null;
           imageUrl: string | null;
-        }
-      ][]
+        },
+      ][],
     ][];
   }, [allProjects]);
 
@@ -83,22 +77,31 @@ export default function Index({
               <h2 className="foszLG fowB">{name}</h2>
               <hr />
               {platforms.map(([platform, { linkUrl, imageUrl }]) =>
-                imageUrl ? (
-                  <div className="mat30 pat30 bot1G80 dFX flwW" key={platform}>
-                    <div className="fl100 ovwA nw55 pab30 par30">
-                      {platform}
-                      {linkUrl ? (
-                        <span>
-                          {" "}
-                          [<a href={linkUrl}>link</a>]
-                        </span>
-                      ) : null}
+                imageUrl
+                  ? (
+                    <div
+                      className="mat30 pat30 bot1G80 dFX flwW"
+                      key={platform}
+                    >
+                      <div className="fl100 ovwA nw55 pab30 par30">
+                        {platform}
+                        {linkUrl
+                          ? (
+                            <span>
+                              {" "}
+                              [<a href={linkUrl}>link</a>]
+                            </span>
+                          )
+                          : null}
+                      </div>
+                      <div
+                        className="fl00a w70 bot1G80 bor1G80 bob1G80 bol1G80"
+                      >
+                        <img src={imageUrl} className="dB" />
+                      </div>
                     </div>
-                    <div className="fl00a w70 bot1G80 bor1G80 bob1G80 bol1G80">
-                      <img src={imageUrl} className="dB" />
-                    </div>
-                  </div>
-                ) : null
+                  )
+                  : null
               )}
             </div>
           ))}

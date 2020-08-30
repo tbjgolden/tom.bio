@@ -26,7 +26,7 @@ export default function PostHeader({
         title={title}
         responsiveImage={coverImage.responsiveImage}
       />
-      <div className="dFX jcFE aiC mab30">
+      <div className="dFL jcFE aiC mab30">
         <div>
           <img
             src={author.picture.url}

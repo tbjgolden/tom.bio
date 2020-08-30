@@ -2,6 +2,7 @@ import Alert from "./alert";
 import Nav from "./nav";
 import Footer from "./footer";
 import Meta from "./meta";
+import { LayoutData } from "types";
 
 export default function Layout({
   preview,
@@ -9,20 +10,13 @@ export default function Layout({
   children,
 }: {
   preview?: boolean;
-  layoutData?: {
-    menu?: {
-      items?: {
-        name: string;
-        href: string;
-      }[];
-    };
-  };
+  layoutData: LayoutData;
   children: React.ReactNode;
 }) {
   return (
     <>
       <Meta />
-      <Nav menuItems={layoutData?.menu?.items ?? []} />
+      <Nav layoutData={layoutData} />
       {preview && <Alert />}
       <main className="pal30 par30 pat40 pab40">{children}</main>
       <Footer />

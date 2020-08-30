@@ -4,6 +4,7 @@ import Layout from "@/components/layout";
 import { getLayoutData, getPage } from "@/lib/api";
 import markdownToHtml from "@/lib/markdownToHtml";
 import Markdown from "@/components/markdown";
+import { LayoutData } from "types";
 
 export default function Index({
   page,
@@ -14,24 +15,19 @@ export default function Index({
     slug: null | string;
     content: string;
   };
-  layoutData: {
-    menu: {
-      items: {
-        name: string;
-        href: string;
-      }[];
-    };
-  };
+  layoutData: LayoutData;
 }) {
   return (
     <Layout layoutData={layoutData}>
       <Container>
         <article>
-          {page === null ? (
-            "Something went wrong when loading the homepage content."
-          ) : (
-            <Markdown content={page.content} />
-          )}
+          {page === null
+            ? (
+              "Something went wrong when loading the homepage content."
+            )
+            : (
+              <Markdown content={page.content} />
+            )}
         </article>
       </Container>
     </Layout>

@@ -172,10 +172,14 @@ export async function getLayoutData() {
   return await fetchAPI(
     `
       {
-        menu {
-          items {
-            name
-            href
+        allPages (filter: { parent: { exists: false } }) {
+          title
+          slug
+          hidden
+          children {
+            title
+            slug
+            hidden
           }
         }
       }

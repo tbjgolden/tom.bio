@@ -21,22 +21,20 @@ export default function MoreStories({
     <section className="dG g30 gtc1 l-gtc2">
       {posts.map(({ title, coverImage, date, excerpt, slug }) => (
         <div className="mab30" key={slug}>
-          <div>
-            <CoverImage
-              slug={slug}
-              title={title}
-              responsiveImage={coverImage.responsiveImage}
-            />
-          </div>
-          <h3>
+          <CoverImage
+            slug={slug}
+            title={title}
+            responsiveImage={coverImage.responsiveImage}
+          />
+          <h3 className="foszMD mat20">
             <Link as={`/blog/${slug}`} href="/blog/[slug]">
               {title}
             </Link>
           </h3>
-          <div>
-            <Date className="foszSM" dateString={date} />
+          <Date className="dN" dateString={date} />
+          <div className="foszSM mat15">
+            <Excerpt>{excerpt}</Excerpt>
           </div>
-          <Excerpt className="foszSM">{excerpt}</Excerpt>
         </div>
       ))}
     </section>

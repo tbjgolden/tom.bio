@@ -21,27 +21,19 @@ export default function HeroPost({
 }) {
   return (
     <section className="mab35">
-      <div>
-        <CoverImage
-          title={title}
-          responsiveImage={coverImage.responsiveImage}
-          slug={slug}
-        />
-      </div>
-      <div>
-        <div>
-          <h3 className="foszH4">
-            <Link as={`/blog/${slug}`} href="/blog/[slug]">
-              {title}
-            </Link>
-          </h3>
-          <div>
-            <Date className="foszSM" dateString={date} />
-          </div>
-        </div>
-        <div>
-          <Excerpt>{excerpt}</Excerpt>
-        </div>
+      <CoverImage
+        title={title}
+        responsiveImage={coverImage.responsiveImage}
+        slug={slug}
+      />
+      <h3 className="foszH4 mat25">
+        <Link as={`/blog/${slug}`} href="/blog/[slug]">
+          {title}
+        </Link>
+      </h3>
+      <Date className="dN" dateString={date} />
+      <div className="mat20">
+        <Excerpt>{excerpt}</Excerpt>
       </div>
     </section>
   );

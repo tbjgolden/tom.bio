@@ -16,6 +16,7 @@ import Head from "next/head";
 import markdownToHtml from "@/lib/markdownToHtml";
 import { ResponsiveImageType } from "react-datocms";
 import { GetStaticProps } from "next";
+import { LayoutData } from "types";
 
 type DatoPost = {
   title: string;
@@ -45,14 +46,7 @@ export default function Post({
 }: {
   post: DatoPost;
   morePosts: DatoPost[];
-  layoutData: {
-    menu: {
-      items: {
-        name: string;
-        href: string;
-      }[];
-    };
-  };
+  layoutData: LayoutData;
   preview: boolean;
 }) {
   const router = useRouter();
@@ -62,29 +56,31 @@ export default function Post({
   return (
     <Layout preview={preview} layoutData={layoutData}>
       <Container>
-        {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article>
-              <Head>
-                <title>{post.title} | Next.js Blog Example</title>
-                <meta property="og:image" content={post.ogImage.url} />
-              </Head>
-              <div className="mat30 mab40">
-                <PostHeader
-                  title={post.title}
-                  coverImage={post.coverImage}
-                  date={post.date}
-                  author={post.author}
-                />
-                <Markdown content={post.content} />
-              </div>
-            </article>
-            <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-          </>
-        )}
+        {router.isFallback
+          ? (
+            <PostTitle>Loading…</PostTitle>
+          )
+          : (
+            <>
+              <article>
+                <Head>
+                  <title>{post.title} | Next.js Blog Example</title>
+                  <meta property="og:image" content={post.ogImage.url} />
+                </Head>
+                <div className="mat30 mab40">
+                  <PostHeader
+                    title={post.title}
+                    coverImage={post.coverImage}
+                    date={post.date}
+                    author={post.author}
+                  />
+                  <Markdown content={post.content} />
+                </div>
+              </article>
+              <SectionSeparator />
+              {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+            </>
+          )}
       </Container>
     </Layout>
   );
@@ -97,7 +93,7 @@ export const getStaticProps: GetStaticProps = async ({
   const layoutData = await getLayoutData();
   const data = await getPostAndMorePosts(
     (params as { slug: string }).slug,
-    preview
+    preview,
   );
   const content = await markdownToHtml(data?.post?.content || "");
 
@@ -117,8 +113,8 @@ export const getStaticProps: GetStaticProps = async ({
 export async function getStaticPaths() {
   const allPosts = await getAllPostsWithSlug();
   return {
-    paths:
-      allPosts?.map((post: { slug: string }) => `/blog/${post.slug}`) ?? [],
+    paths: allPosts?.map((post: { slug: string }) => `/blog/${post.slug}`) ??
+      [],
     fallback: true,
   };
 }

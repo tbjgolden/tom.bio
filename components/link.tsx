@@ -26,7 +26,8 @@ export default function Link({
       prefetch={prefetch}
     >
       <a
-        className={`dIB fowB ${isActive ? "" : "tdN o-tdU"} ${className ?? ""}`}
+        className={`dIB fowB ${isActive ? "" : "tdN o-tdU"} ${className ??
+          ""}`}
         style={{
           textDecorationThickness: 2,
         }}

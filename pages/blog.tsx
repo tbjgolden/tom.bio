@@ -5,6 +5,7 @@ import HeroPost from "@/components/hero-post";
 import Layout from "@/components/layout";
 import { getLayoutData, getAllPostsForHome } from "@/lib/api";
 import { ResponsiveImageType } from "react-datocms";
+import { LayoutData } from "types";
 
 export default function Blog({
   allPosts,
@@ -19,14 +20,7 @@ export default function Blog({
     slug: string;
     excerpt: string;
   }[];
-  layoutData: {
-    menu: {
-      items: {
-        name: string;
-        href: string;
-      }[];
-    };
-  };
+  layoutData: LayoutData;
 }) {
   const heroPost = allPosts[0];
   const morePosts = allPosts.slice(1);
