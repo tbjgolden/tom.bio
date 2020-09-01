@@ -5,7 +5,6 @@ import Layout from "@/components/layout";
 import Markdown from "@/components/markdown";
 import { getLayoutData, getPage, getAllPagesWithSlug } from "@/lib/api";
 import Head from "next/head";
-import markdownToHtml from "@/lib/markdownToHtml";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { Fragment } from "react";
 import { LayoutData } from "types";
@@ -57,16 +56,12 @@ export const getStaticProps: GetStaticProps = async ({
 }) => {
   const layoutData = await getLayoutData();
   const data = await getPage((params as { slug: string }).slug, preview);
-  const content = await markdownToHtml(data?.page?.content ?? "");
 
   return {
     props: {
       preview,
       layoutData,
-      page: {
-        ...data?.page,
-        content,
-      },
+      page: data?.page,
     },
   };
 };

@@ -13,7 +13,6 @@ import {
 } from "@/lib/api";
 import PostTitle from "@/components/post-title";
 import Head from "next/head";
-import markdownToHtml from "@/lib/markdownToHtml";
 import { ResponsiveImageType } from "react-datocms";
 import { GetStaticProps } from "next";
 import { LayoutData } from "types";
@@ -95,16 +94,11 @@ export const getStaticProps: GetStaticProps = async ({
     (params as { slug: string }).slug,
     preview,
   );
-  const content = await markdownToHtml(data?.post?.content || "");
-
   return {
     props: {
       preview,
       layoutData,
-      post: {
-        ...data?.post,
-        content,
-      },
+      post: data?.post,
       morePosts: data?.morePosts ?? [],
     },
   };

@@ -13,3 +13,17 @@ export type LayoutData = null | {
     children: null | NavItem[];
   }[];
 };
+
+export type AllProjects = {
+  name: string;
+  url: string;
+  media: {
+    url: string;
+  };
+  description: string;
+  parts: {
+    name: string;
+    url: string;
+    description: string;
+  }[];
+}[];

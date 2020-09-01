@@ -21,11 +21,12 @@ export default function PostHeader({
   return (
     <>
       <h1 className="foszH2 fowB mab30">{title}</h1>
-      <CoverImage
-        className="mab30"
-        title={title}
-        responsiveImage={coverImage.responsiveImage}
-      />
+      <div className="mab30">
+        <CoverImage
+          title={title}
+          responsiveImage={coverImage.responsiveImage}
+        />
+      </div>
       <div className="dFL jcFE aiC mab30">
         <div>
           <img

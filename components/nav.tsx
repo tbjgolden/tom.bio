@@ -72,7 +72,21 @@ export default function Nav({ layoutData }: { layoutData: LayoutData }) {
       <Container className="pat20 pab20 bob2B">
         <div className="malN10 marN10">
           <NavLinks
-            navItems={layoutData?.allPages ?? []}
+            navItems={[
+              ...(layoutData?.allPages ?? []),
+              {
+                title: "Portfolio",
+                slug: "portfolio",
+                hidden: false,
+                children: null,
+              },
+              {
+                title: "Blog",
+                slug: "blog",
+                hidden: false,
+                children: null,
+              },
+            ]}
             level={0}
           />
         </div>
