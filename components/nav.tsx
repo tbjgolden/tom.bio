@@ -24,13 +24,13 @@ const NavLink = ({ title, slug, hidden, children, level }: {
         ? (
           <div className="dIB ma10 fowB">
             {title}
-            {children?.length ? " ⮟" : null}
+            {children?.length ? " ▾" : null}
           </div>
         )
         : (
           <Link href={`/${slug}`} className="dIB ma10 fowB">
             {title}
-            {children?.length ? " ⮟" : null}
+            {children?.length ? " " : null}
           </Link>
         )}
       {(children?.length && isActive)
