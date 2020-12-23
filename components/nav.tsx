@@ -22,7 +22,7 @@ const NavLink = ({ title, slug, hidden, children, level }: {
     >
       {hidden
         ? (
-          <div className="dIB ma10 fowB">
+          <div className="dIB ma10 fowB cuD">
             {title}
             {children?.length ? " ▾" : null}
           </div>

@@ -22,7 +22,7 @@ const cache = new Map();
 
 async function fetchAPI(
   query: string,
-  opts?: { variables?: Record<string, any>; preview?: boolean },
+  opts?: { variables?: Record<string, any>; preview?: boolean }
 ): Promise<Record<string, any>> {
   const variables = opts?.variables ?? {};
   const preview = opts?.preview ?? false;
@@ -66,7 +66,7 @@ export async function getPreviewPostBySlug(slug: string) {
       variables: {
         slug,
       },
-    },
+    }
   );
   return data?.post;
 }
@@ -107,7 +107,7 @@ export async function getAllPostsForHome(preview: boolean) {
 
     ${responsiveImageFragment}
   `,
-    { preview },
+    { preview }
   );
   return data?.allPosts;
 }
@@ -163,7 +163,7 @@ export async function getPostAndMorePosts(slug: string, preview: boolean) {
       variables: {
         slug,
       },
-    },
+    }
   );
   return data;
 }
@@ -183,7 +183,7 @@ export async function getLayoutData() {
           }
         }
       }
-    `,
+    `
   );
 }
 
@@ -205,7 +205,7 @@ export async function getAllProjects() {
           }
         }
       }
-    `,
+    `
   );
   return data?.allProjects;
 }
@@ -226,7 +226,7 @@ export async function getPage(slug: string, preview = false) {
       variables: {
         slug,
       },
-    },
+    }
   );
   return data;
 }
