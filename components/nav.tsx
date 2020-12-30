@@ -81,6 +81,12 @@ export default function Nav({ layoutData }: { layoutData: LayoutData }) {
                 children: null,
               },
               {
+                title: "Experiments",
+                slug: "experiments",
+                hidden: false,
+                children: null,
+              },
+              {
                 title: "Blog",
                 slug: "blog",
                 hidden: false,
