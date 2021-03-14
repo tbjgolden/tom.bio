@@ -81,6 +81,14 @@ $color-map: (
   -webkit-overflow-scrolling: touch;
   font-size: size("font-min");
 
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   @media (min-width: size("width-min")) {
     $font-size-diff: size("font-max") - size("font-min");
     $width-diff: size("width-max") - size("width-min");
@@ -186,14 +194,6 @@ $color-map: (
   p {
     margin: 1em 0;
 
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
     + ul,
     + ol {
       margin-top: -0.75em;
@@ -225,7 +225,7 @@ $color-map: (
   }
 
   blockquote {
-    margin: 0;
+    margin: 1em 0;
     padding-left: 2em;
     border-left: 1px solid #f2f2f2;
   }
@@ -735,6 +735,7 @@ $color-map: (
   samp {
     font-family: font("mono");
     font-style: normal;
+    background: rgba(127, 127, 127, 0.1)
   }
 
   pre {
@@ -756,6 +757,7 @@ $color-map: (
       min-width: 100%;
       border-right: 3px solid color("secondary"); // 3px 'cause of bad chrome rendering
       border-left: 1px solid color("secondary");
+      background: none;
     }
   }
 
