@@ -43,7 +43,7 @@ export default function Portfolio({
                 </h2>
                 <hr />
                 <div className="mat30 pat30 bot1G80 dFL flwW">
-                  <div className="fl10A w40">
+                  <div className="fl10A w65">
                     {(url && name !== formattedUrl)
                       ? <p className="foszMD pab30 par30">
                         <a href={url} className="ovwBW">
@@ -85,7 +85,7 @@ export default function Portfolio({
                   {media?.url
                     ? (
                       <div
-                        className="fl00A w70 bot1G80 bor1G80 bob1G80 bol1G80"
+                        className="fl00A wP l-w70 bot1G80 bor1G80 bob1G80 bol1G80"
                       >
                         <img src={media.url} className="dB" />
                       </div>
