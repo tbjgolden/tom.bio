@@ -108,7 +108,8 @@ $color-map: (
   }
 
   strong {
-    font-weight: bold;
+    font-weight: 700;
+    font-variation-settings: 'wght' 700;
   }
 
   em {
@@ -222,6 +223,7 @@ $color-map: (
 
   dt {
     font-weight: 700;
+    font-variation-settings: 'wght' 700;
   }
 
   blockquote {
@@ -272,6 +274,7 @@ $color-map: (
   h6 {
     margin: 1.25em 0 0.25em;
     font-weight: 600;
+    font-variation-settings: 'wght' 600;
     line-height: size("line-height-min");
 
     &:hover,
@@ -291,7 +294,8 @@ $color-map: (
       left: -0.65em;
       opacity: 0;
       text-decoration: none;
-      font-weight: 400;
+      font-weight: 500;
+      font-variation-settings: 'wght' 500;
       line-height: 1;
       color: color("stealthy");
 
@@ -782,6 +786,7 @@ $color-map: (
   summary {
     display: inline-block;
     font-weight: 700;
+    font-variation-settings: 'wght' 700;
     border-bottom: 1px dashed;
     cursor: pointer;
 
