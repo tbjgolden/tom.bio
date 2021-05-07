@@ -63,7 +63,7 @@ export default function Post({
             <>
               <article>
                 <Head>
-                  <title>{post.title} | Next.js Blog Example</title>
+                  <title>{post.title}</title>
                   <meta property="og:image" content={post.ogImage.url} />
                 </Head>
                 <div className="mat30 mab40">

@@ -23,7 +23,7 @@ $size-map: (
   "font-min": 16px,
   "font-max": 16px,
   "line-height-min": 1.2,
-  "line-height-max": 1.3,
+  "line-height-max": 1.5,
   "width-min": 320px,
   "width-max": 640px,
 );
@@ -34,7 +34,7 @@ $color-map: (
   "primary": #000,
   "secondary": #fff,
   "stealthy": #aaa,
-  "invisible": #f2f2f2,
+  "light": #f2f2f2,
   "selection-base": #0064c1,
   "link": #0064c1,
   "link-hover": #f00000,
@@ -101,10 +101,6 @@ $color-map: (
 
   @media (min-width: size("width-max")) {
     font-size: size("font-max");
-  }
-
-  a {
-    display: inline-block;
   }
 
   strong {
@@ -228,8 +224,8 @@ $color-map: (
 
   blockquote {
     margin: 1em 0;
-    padding-left: 2em;
-    border-left: 1px solid #f2f2f2;
+    padding-left: 1.5em;
+    border-left: 2px solid color("light");
   }
 
   aside {
@@ -246,7 +242,7 @@ $color-map: (
       margin: 0;
       padding-left: 0.5em;
       font-size: 0.8em;
-      border-left: 1px solid color("invisible");
+      border-left: 2px solid color("light");
     }
 
     &:first-child {
@@ -477,7 +473,7 @@ $color-map: (
       padding: 0.35em 0.75em;
       vertical-align: top;
       font-size: 0.9em;
-      border: 1px solid color("invisible");
+      border: 2px solid color("light");
       border-top: 0;
       border-left: 0;
 
@@ -579,7 +575,7 @@ $color-map: (
   fieldset {
     margin: 0;
     padding: 0.5em 1em;
-    border: 1px solid color("stealthy");
+    border: 2px solid color("light");
   }
 
   legend {
@@ -591,16 +587,16 @@ $color-map: (
     box-sizing: border-box;
     height: 2em;
     margin: 0;
-    padding: calc(0.25em - 1px) 0.5em;
+    padding: calc(0.25em - 2px) 0.5em;
     font-family: inherit;
     font-size: 1em;
-    border: 1px solid color("stealthy");
+    border: 2px solid color("light");
     border-radius: 2px;
     background: color("secondary");
     color: color("primary");
 
     &:focus {
-      border: 1px solid color("primary");
+      border: 2px solid color("light");
     }
   }
 
@@ -610,7 +606,7 @@ $color-map: (
     display: block;
     width: 100%;
     line-height: calc(
-      2em - 1px * 2 - (0.25em - 1px) * 2
+      2em - 2px * 2 - (0.25em - 2px) * 2
     ); // height - 2 * border - 2 * paddingHrz
     appearance: none; // prevents strange appearances, such as date selector-like in ios safari
 
@@ -624,12 +620,12 @@ $color-map: (
 
     display: inline-block;
     width: auto;
-    background: color("invisible");
+    background: color("light");
     color: color("primary");
     cursor: pointer;
 
     &:not([disabled]):hover {
-      border: 1px solid color("primary");
+      border: 2px solid color("light");
     }
 
     &:active {
@@ -696,7 +692,7 @@ $color-map: (
       width: 6em;
 
       &:hover {
-        border: 1px solid color("primary");
+        border: 2px solid color("light");
       }
     }
 
@@ -751,7 +747,7 @@ $color-map: (
         0 0,
       linear-gradient($scrollBorderColor 0%, $scrollBorderColor 100%) 100% 0;
     background-attachment: scroll, scroll;
-    background-size: 1px 100%, 1px 100%;
+    background-size: 2px 100%, 2px 100%;
     background-repeat: no-repeat, no-repeat;
 
     > code {
@@ -759,8 +755,9 @@ $color-map: (
       overflow-x: visible;
       box-sizing: border-box;
       min-width: 100%;
-      border-right: 3px solid color("secondary"); // 3px 'cause of bad chrome rendering
-      border-left: 1px solid color("secondary");
+      border-right: 3px solid color("light"); // 3px 'cause of bad chrome rendering
+      border-left: 2px solid color("light");
+      padding: 0 1.5em;
       background: none;
     }
   }
@@ -768,18 +765,52 @@ $color-map: (
   //- Misc.
 
   hr {
-    height: 1px;
+    height: 2px;
     margin: 2em 0;
     border: 0;
-    background: color("invisible");
+    background: color("light");
   }
 
   details {
     margin: 1em 0;
+    padding-left: 1.5em;
+    position: relative;
+
+    summary {
+      position: relative;
+    }
+
+    summary::before {
+      position: absolute;
+      top: -.4em;
+      left: -1em;
+      font-size: 2em;
+      content: "🢒";
+    }
 
     &[open] {
-      padding-bottom: 0.5em;
-      border-bottom: 1px solid color("invisible");
+      margin-bottom: 1.5em;
+
+      &::before {
+        position: absolute;
+        content: "";
+        display: block;
+        top: 2.4em;
+        width: 2px;
+        bottom: 0;
+        left: 0;
+        background: color("light");
+      }
+
+      summary {
+        margin-bottom: 1em;
+        
+        &::before {
+          position: absolute;
+          top: .15em;
+          content: "🢓";
+        }
+      }
     }
   }
 
@@ -787,7 +818,7 @@ $color-map: (
     display: inline-block;
     font-weight: 700;
     font-variation-settings: 'wght' 700;
-    border-bottom: 1px dashed;
+    border-bottom: 2px dashed;
     cursor: pointer;
 
     &::-webkit-details-marker {
