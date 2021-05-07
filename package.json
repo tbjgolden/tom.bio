@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/marked": "^1.1.0",
     "ainsley": "^1.2.5",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "marked": "^1.1.0",
     "next": "latest",
     "react": "^16.13.1",
