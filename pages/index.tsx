@@ -4,6 +4,7 @@ import Layout from "@/components/layout";
 import { getLayoutData, getPage } from "@/lib/api";
 import Markdown from "@/components/markdown";
 import { LayoutData } from "types";
+import { Card } from "baseui/card";
 
 export default function Index({
   page,
@@ -20,13 +21,13 @@ export default function Index({
     <Layout layoutData={layoutData}>
       <Container>
         <article>
-          {page === null
-            ? (
-              "Something went wrong when loading the homepage content."
-            )
-            : (
+          {page === null ? (
+            "Something went wrong when loading the homepage content."
+          ) : (
+            <Card>
               <Markdown content={page.content} />
-            )}
+            </Card>
+          )}
         </article>
       </Container>
     </Layout>

@@ -18,7 +18,9 @@ export default function Layout({
       <Meta />
       <Nav layoutData={layoutData} />
       {preview && <Alert />}
-      <main className="pal30 par30 pat40 pab40">{children}</main>
+      <main style={{ padding: "16px" }}>
+        <div style={{ maxWidth: "66ch", margin: "0 auto" }}>{children}</div>
+      </main>
       <Footer />
     </>
   );

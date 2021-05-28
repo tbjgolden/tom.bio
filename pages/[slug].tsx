@@ -6,8 +6,10 @@ import Markdown from "@/components/markdown";
 import { getLayoutData, getPage, getAllPagesWithSlug } from "@/lib/api";
 import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { LayoutData } from "types";
+import { Card } from "baseui/card";
+import { route } from "next/dist/next-server/server/router";
 
 export default function Page({
   page,
@@ -17,34 +19,45 @@ export default function Page({
   page: null | {
     title: string;
     slug: null | string;
+    hidden: boolean;
     content: string;
   };
   layoutData: LayoutData;
   preview: boolean;
 }) {
   const router = useRouter();
+
+  const isPageHidden = page?.hidden ?? false;
+
+  useEffect(() => {
+    if (isPageHidden) {
+      router.replace("/");
+    }
+  }, [isPageHidden]);
+
   if (!router.isFallback && !page?.slug) {
     return <ErrorPage statusCode={404} />;
+  } else if (isPageHidden) {
+    return null;
   }
+
   return (
     <Layout preview={preview} layoutData={layoutData}>
       <Container>
-        {router.isFallback
-          ? (
-            <h1>Loading…</h1>
-          )
-          : (
-            <article>
-              {page === null ? null : (
-                <Fragment>
-                  <Head>
-                    <title>{page.title}</title>
-                  </Head>
-                  <Markdown content={page.content} />
-                </Fragment>
-              )}
-            </article>
-          )}
+        {router.isFallback ? (
+          <h1>Loading…</h1>
+        ) : (
+          <article>
+            {page === null ? null : (
+              <Card>
+                <Head>
+                  <title>{page.title}</title>
+                </Head>
+                <Markdown content={page.content} />
+              </Card>
+            )}
+          </article>
+        )}
       </Container>
     </Layout>
   );

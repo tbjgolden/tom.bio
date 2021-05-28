@@ -1,3 +1,167 @@
+@use "sass:math";
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  outline-offset: 0;
+  border: 0 solid;
+}
+[type="button"],
+[type="date"],
+[type="datetime-local"],
+[type="email"],
+[type="file"],
+[type="image"],
+[type="month"],
+[type="number"],
+[type="password"],
+[type="reset"],
+[type="search"],
+[type="submit"],
+[type="tel"],
+[type="text"],
+[type="time"],
+[type="url"],
+[type="week"],
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+button,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+q,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+time,
+tt,
+u,
+ul,
+var,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  background: 0 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  vertical-align: baseline;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+html {
+  overflow-y: scroll;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote::after,
+blockquote::before,
+q::after,
+q::before {
+  content: none;
+}
+textarea {
+  resize: vertical;
+  overflow: auto;
+}
+applet,
+canvas,
+img,
+object,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+@font-face {
+  font-family: "Manrope VF";
+  src: url("/font/Manrope.ttf") format("truetype-variations");
+  font-style: normal;
+  font-variation-settings: "wght" 500;
+  font-variation-ligatures: normal;
+  font-weight: 200 800;
+}
+
 /*! awsm.css github:igoradamenko/awsm.css */
 
 //- Maps
@@ -81,18 +245,18 @@ $color-map: (
   -webkit-overflow-scrolling: touch;
   font-size: size("font-min");
 
-  &:first-child {
+  :first-child {
     margin-top: 0;
   }
 
-  &:last-child {
+  :last-child {
     margin-bottom: 0;
   }
 
   @media (min-width: size("width-min")) {
     $font-size-diff: size("font-max") - size("font-min");
     $width-diff: size("width-max") - size("width-min");
-    $ratio: $font-size-diff / $width-diff;
+    $ratio: math.div($font-size-diff, $width-diff);
 
     font-size: calc(
       #{size("font-min")} + #{$ratio} * (100vw - #{size("width-min")})
@@ -105,7 +269,7 @@ $color-map: (
 
   strong {
     font-weight: 700;
-    font-variation-settings: 'wght' 700;
+    font-variation-settings: "wght" 700;
   }
 
   em {
@@ -219,7 +383,7 @@ $color-map: (
 
   dt {
     font-weight: 700;
-    font-variation-settings: 'wght' 700;
+    font-variation-settings: "wght" 700;
   }
 
   blockquote {
@@ -270,7 +434,7 @@ $color-map: (
   h6 {
     margin: 1.25em 0 0.25em;
     font-weight: 600;
-    font-variation-settings: 'wght' 600;
+    font-variation-settings: "wght" 600;
     line-height: size("line-height-min");
 
     &:hover,
@@ -291,7 +455,7 @@ $color-map: (
       opacity: 0;
       text-decoration: none;
       font-weight: 500;
-      font-variation-settings: 'wght' 500;
+      font-variation-settings: "wght" 500;
       line-height: 1;
       color: color("stealthy");
 
@@ -735,7 +899,7 @@ $color-map: (
   samp {
     font-family: font("mono");
     font-style: normal;
-    background: rgba(127, 127, 127, 0.1)
+    background: rgba(127, 127, 127, 0.1);
   }
 
   pre {
@@ -782,7 +946,7 @@ $color-map: (
 
     summary::before {
       position: absolute;
-      top: -.4em;
+      top: -0.4em;
       left: -1em;
       font-size: 2em;
       content: "🢒";
@@ -804,10 +968,10 @@ $color-map: (
 
       summary {
         margin-bottom: 1em;
-        
+
         &::before {
           position: absolute;
-          top: .15em;
+          top: 0.15em;
           content: "🢓";
         }
       }
@@ -817,7 +981,7 @@ $color-map: (
   summary {
     display: inline-block;
     font-weight: 700;
-    font-variation-settings: 'wght' 700;
+    font-variation-settings: "wght" 700;
     border-bottom: 2px dashed;
     cursor: pointer;
 

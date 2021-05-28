@@ -6,6 +6,7 @@ import Layout from "@/components/layout";
 import { getLayoutData, getAllPostsForHome } from "@/lib/api";
 import { ResponsiveImageType } from "react-datocms";
 import { LayoutData } from "types";
+import { Card } from "baseui/card";
 
 export default function Blog({
   allPosts,
