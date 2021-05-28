@@ -3,6 +3,15 @@ import CoverImage from "./cover-image";
 import Excerpt from "./excerpt";
 import Link from "@/components/link";
 import { ResponsiveImageType } from "react-datocms";
+import { Card } from "baseui/card";
+import { FlexGrid, FlexGridItem } from "baseui/flex-grid";
+import { BlockProps } from "baseui/block";
+
+const itemProps: BlockProps = {
+  backgroundColor: "mono300",
+  display: "flex",
+  justifyContent: "center",
+};
 
 export default function MoreStories({
   posts,
@@ -18,25 +27,33 @@ export default function MoreStories({
   }[];
 }) {
   return (
-    <section className="dG g30 gtc1 l-gtc2">
+    <FlexGrid
+      as="section"
+      marginTop="scale500"
+      flexGridColumnCount={[1, 1, 2, 2]}
+      flexGridColumnGap="scale500"
+      flexGridRowGap="scale500"
+    >
       {posts.map(({ title, coverImage, date, excerpt, slug }) => (
-        <div className="mab30" key={slug}>
-          <CoverImage
-            slug={slug}
-            title={title}
-            responsiveImage={coverImage.responsiveImage}
-          />
-          <h3 className="foszMD mat20">
-            <Link as={`/blog/${slug}`} href="/blog/[slug]">
-              {title}
-            </Link>
-          </h3>
-          <Date className="dN" dateString={date} />
-          <div className="foszSM mat15">
-            <Excerpt>{excerpt}</Excerpt>
-          </div>
-        </div>
+        <FlexGridItem key={slug} {...itemProps}>
+          <Card>
+            <CoverImage
+              slug={slug}
+              title={title}
+              responsiveImage={coverImage.responsiveImage}
+            />
+            <h3 className="foszMD mat20">
+              <Link as={`/blog/${slug}`} href="/blog/[slug]">
+                {title}
+              </Link>
+            </h3>
+            <Date className="dN" dateString={date} />
+            <div className="foszSM mat15">
+              <Excerpt>{excerpt}</Excerpt>
+            </div>
+          </Card>
+        </FlexGridItem>
       ))}
-    </section>
+    </FlexGrid>
   );
 }

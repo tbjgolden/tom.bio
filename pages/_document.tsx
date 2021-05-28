@@ -1,6 +1,30 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
+import { Sheet } from "styletron-engine-atomic";
+import { Provider as StyletronProvider } from 'styletron-react'
+import { styletron } from '../styletron'
 
 export default class _Document extends Document {
+  static async getInitialProps(context: DocumentContext) {
+    const renderPage = () =>
+      context.renderPage({
+        enhanceApp: (App) => (props) => (
+          <StyletronProvider value={styletron}>
+            <App {...props} />
+          </StyletronProvider>
+        ),
+      })
+
+    const initialProps = await Document.getInitialProps({
+      ...context,
+      renderPage,
+    })
+    let stylesheets: Sheet[] = []
+    if ('getStylesheets' in styletron) {
+      stylesheets = styletron.getStylesheets() ?? []
+    }
+    return { ...initialProps, stylesheets }
+  }
+
   render() {
     return (
       <Html lang="en">
@@ -18,7 +42,6 @@ export default class _Document extends Document {
             fontFamily: "'Manrope VF',Manrope,-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',sans-serif",
             fontWeight: 500,
             fontVariationSettings: "'wght' 500",
-            visibility: "hidden",
           }}
           className="foszMD"
         >

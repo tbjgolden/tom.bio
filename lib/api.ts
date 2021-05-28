@@ -217,6 +217,7 @@ export async function getPage(slug: string, preview = false) {
         page(filter: { slug: { eq: $slug } }) {
           title
           slug
+          hidden
           content(markdown: true)
         }
       }
