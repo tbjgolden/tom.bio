@@ -1,4 +1,4 @@
-/*! awsm.css github:igoradamenko/awsm.css */
+/*! based on awsm.css github:igoradamenko/awsm.css */
 
 //- Maps
 $font-map: (
@@ -194,20 +194,6 @@ $color-map: (
     + ul,
     + ol {
       margin-top: -0.75em;
-    }
-
-    img,
-    picture {
-      float: right;
-      margin-bottom: 0.5em;
-      margin-left: 0.5em;
-    }
-
-    picture {
-      img {
-        float: none;
-        margin: 0;
-      }
     }
   }
 
@@ -421,7 +407,7 @@ $color-map: (
   picture {
     display: block;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
   }
 
   audio,
