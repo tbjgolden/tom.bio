@@ -1,5 +1,5 @@
 import { Image, ResponsiveImageType } from "react-datocms";
-import Link from "@/components/link";
+import Link from "components/link";
 
 export default function CoverImage({
   title,

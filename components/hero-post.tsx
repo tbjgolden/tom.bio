@@ -1,7 +1,7 @@
 import Date from "./formatted-date";
 import CoverImage from "./cover-image";
 import Excerpt from "./excerpt";
-import Link from "@/components/link";
+import Link from "components/link";
 import { ResponsiveImageType } from "react-datocms";
 import { Card } from "baseui/card";
 

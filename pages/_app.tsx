@@ -1,20 +1,38 @@
-import type { AppProps } from "next/app";
-import { useEffect, useState } from "react";
+import App, { AppContext, AppProps } from "next/app";
 
 import "../styles/markdown.scss";
 
 import { Provider as StyletronProvider } from "styletron-react";
 import { BaseProvider } from "baseui";
 import { styletron, theme } from "../styletron";
+import { getLayoutData } from "lib/api";
+import Layout from "components/layout";
 
-function _App({ Component, pageProps }: AppProps) {
+function _App({ Component, pageProps: { layoutData, ...pageProps } }: AppProps) {
   return (
     <StyletronProvider value={styletron}>
       <BaseProvider theme={theme}>
-        <Component {...pageProps} />
+        <Layout layoutData={layoutData}>
+          <Component {...pageProps} />
+        </Layout>
       </BaseProvider>
     </StyletronProvider>
   );
+}
+
+_App.getInitialProps = async (appContext: AppContext) => {
+  const [appProps, layoutData] = await Promise.all([
+    App.getInitialProps(appContext),
+    await getLayoutData()
+  ]);
+
+  return {
+    ...appProps,
+    pageProps: {
+      ...appProps.pageProps,
+      layoutData
+    },
+  }
 }
 
 export default _App;

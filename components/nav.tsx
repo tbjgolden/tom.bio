@@ -1,10 +1,40 @@
 import { LayoutData, NavItem } from "types";
-import { AppNavBar, NavItemT } from "baseui/app-nav-bar";
+import { AppNavBar, NavItemT, setItemActive } from "baseui/app-nav-bar";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Nav({ layoutData }: { layoutData: LayoutData }) {
   const router = useRouter();
+
+  const [mainItems, setMainItems] = useState(apiPagesToMainItems([
+    ...(layoutData?.allPages ?? []),
+    {
+      title: "Portfolio",
+      slug: "portfolio",
+      hidden: false,
+      children: null,
+    },
+    {
+      title: "Experiments",
+      slug: "experiments",
+      hidden: true,
+      children: [
+        {
+          title: "Soccer for Americans",
+          slug: "experiments/soccer",
+          hidden: false,
+          children: null
+        }
+      ],
+    },
+    {
+      title: "Blog",
+      slug: "blog",
+      hidden: false,
+      children: null,
+    },
+  ]));
 
   return (
     <AppNavBar
@@ -13,25 +43,19 @@ export default function Nav({ layoutData }: { layoutData: LayoutData }) {
           <a style={{ textDecoration: "none" }}>tom.bio</a>
         </Link>
       }
-      mainItems={apiPagesToMainItems([
-        ...(layoutData?.allPages ?? []),
-        {
-          title: "Portfolio",
-          slug: "portfolio",
-          hidden: false,
-          children: null,
-        },
-        {
-          title: "Blog",
-          slug: "blog",
-          hidden: false,
-          children: null,
-        },
-      ])}
+      mainItems={mainItems}
       onMainItemSelect={(item) => {
-        const slug = (item as { slug?: string })?.slug ?? "";
-        if (slug.length > 0) {
+        const { slug, hidden } = item as NavItemT & { slug: string, hidden: boolean };
+        setMainItems(setItemActive(mainItems, item));
+        if (!hidden) {
           router.push(`/${slug}`);
+        }
+      }}
+      overrides={{
+        SecondaryMenuContainer: {
+          style: {
+            justifyContent: "flex-end"
+          }
         }
       }}
     />
@@ -42,7 +66,8 @@ const apiPagesToMainItems = (apiPages: NavItem[]): NavItemT[] => {
   const mainItems: NavItemT[] = apiPages.map(
     ({ title, slug, hidden, children }) => ({
       label: title,
-      slug: hidden ? null : slug,
+      hidden,
+      slug,
       children: children ? apiPagesToMainItems(children) : undefined,
     })
   );

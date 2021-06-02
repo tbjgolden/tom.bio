@@ -22,8 +22,12 @@
     ]
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.22",
+    "@mdx-js/loader": "^1.5.1",
+    "@mdx-js/react": "^1.6.18",
     "@next/mdx": "^10.2.3",
+    "next": "latest",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "@types/marked": "^2.0.3",
     "@types/styletron-engine-atomic": "^1.1.0",
     "@types/styletron-react": "^5.0.2",
@@ -31,10 +35,7 @@
     "baseui": "^9.115.3",
     "lodash": "^4.17.21",
     "marked": "^2.0.6",
-    "next": "10.2.3",
-    "react": "^17.0.2",
     "react-datocms": "1.6.3",
-    "react-dom": "^17.0.2",
     "remark": "13.0.0",
     "remark-html": "13.0.1",
     "sass": "^1.34.0",
@@ -42,8 +43,8 @@
     "styletron-react": "^6.0.1"
   },
   "devDependencies": {
-    "@types/node": "^15.6.1",
     "@types/react": "^17.0.8",
+    "@types/node": "^15.6.1",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
     "babel-plugin-macros": "^3.1.0",
