@@ -925,9 +925,11 @@ $color-map: (
     margin: 1em 0;
     padding-left: 1.5em;
     position: relative;
+    font-size: 90%;
 
     summary {
       position: relative;
+      font-size: 111%;
     }
 
     summary::before {

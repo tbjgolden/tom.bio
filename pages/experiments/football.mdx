@@ -2,33 +2,136 @@ import { Card } from "baseui/card";
 import EmbedCSS from "components/embed-css";
 import History from "components/futbol/history";
 
-<History />
+export default ({ children }) => (
+  <div>
+    <Card>
+      <div className="markdown">
+        <p>"Football" is the shared name for many distinct sports.</p>
+        <p>Association football (soccer), rugby football, American football, Australian rules football, Canadian football and Gaelic football are all commonly played versions of the game - <strong>though their rules are all vastly different</strong>.</p>
+        <p>They share a rich common history - here it is:</p>
+      </div>
+    </Card>
+    <History />
+    <Card>
+      <div className="markdown">{children}</div>
+    </Card>
+  </div>
+);
+
+
+# This is an interactive guide to association football (soccer)
+
+## The 🐘 in the room
+
+There are many other forms of football still popular that are also called "football".
+
+**Association football** has had massive global popularity for many generations and consequently in much of the world,
+it is the main, or only, form of football commonly played.
+
+![](https://i.imgur.com/2GHdRDg.jpg)
+
+To avoid ambiguity, here's the terminology this article uses, and recommends:
+
+* Association football → **soccer**
+* Rugby football → **rugby (union/league)**
+* American football → **American football**
+* Australian rules football → **Aussie rules**
+* Canadian football → **Canadian football**
+* Gaelic football → **Gaelic (football)**
+* (to refer to all the above) → **football**
 
 ---
 
----
+**NOTE:** This article defaults to **using British English** and adds American English translations/equivalents.
+
+**NOTE:** To keep this guide short, generalisations are needed. **(\*)** is used to denote them.
 
 ---
 
-> **Legend:**
->
-> **(\*)** Used for generalizations that are mostly true but have exceptions.
->
-> This post uses **British English football terms** (_followed by American English translations_). These American translations are both there to help you use your intuition and to warn you of words that might make a lifelong fan cringe!
+Soccer itself is played in different ways - and has many popular variations.
 
-# An overview
+**Despite the most famous style being teams of 11 on large grass pitches** it is not always the best way for new players
+to try it. For many, **the best way to learn is to play small sided games** (typically teams of 5).
 
-## Origins
+<details>
+  <summary>Learn more about small sided games</summary>
 
-**Football** (_soccer_, formally "association football") has been popular worldwide for over 100 years. The "modern" set of rules that distinguish it from other sports of the time like rugby (formally "rugby football") and American football (formally "gridiron football") were created by law-makers **IFAB** in 1886, and they maintain the rules to this day.
+- **each player is more involved**
+- players typically alternate between attack, defence and goalie
+- **more accessible to those who are not in peak condition**
+  - typically players cover less distance when playing 5-a-side as the area is far smaller
+  - by contrast, 11-a-side involves about 5 miles (8km) of running
+- **better for training soccer specific skills**
+  - physically helps with balance and agility
+- good strategy involves fluid positioning - where players swap positions depending on a variety of factors
+  - this means players gain an appreciation for the strategy
 
-The first **FIFA World Cup** was in 1930, where the **USMNT** (US Men's National Team) actually came 3rd! How times have changed...
+The most common small-sided games take different forms all over the world, but the most common forms are:
 
-## How to win
+- 5-a-side/6-a-side/7-a-side
+  - commonly called this in Anglosphere countries
+  - rules vary, typically indoors, sometimes just called "indoor football/soccer"
+  - outdoors styles often are played in "cages"
+  - often players are allowed to use the walls, unlike futsal and beach soccer
+- Futsal
+  - similar to indoor 5-a-side, but with a formalised set of rules
+  - the ball is slightly smaller and does not bounce as much as a regular ball
+  - the game relies more on skill with the ball near the ground
+  - very popular in Spanish-speaking countries
+- Beach soccer
+  - 5-a-side, played on sand (i.e. on a beach)
+  - started in Brazil, is an extremely fun game
+  - the ball is also different, less inflated than a normal soccer ball
+  - bicycle kicks (kicks performed during a backflip) are more common
 
-Get the ball into the other team's net to **score** a **goal**.
+It's very likely that one of these is played regularly near you; search using the above names and you should be able to
+find something suitable for your skill level.
 
-Whoever has scored the **most goals** at the end of a **match** (_game_) **wins**.
+</details>
+
+By contrast, **11-a-side is by far the most popular to watch**, as it was the original form of the sport -
+rules which have largely stayed consistent since 1863.
+
+**The remainder of this guide is about 11-a-side soccer.**
+
+---
+
+Soccer is played at a professional level all over the world. **Millions of people regularly go to soccer stadiums** to
+follow their favourite teams, while **billions (!) watch the game on television or on the internet**. According to a
+survey, **over 240 million people from more than 200 countries regularly play soccer**. Soccer has the highest global
+television audience in sport.
+
+In many parts of the world soccer evokes great passions and plays an important role in the life of individual fans,
+local communities, and even nations.
+
+**Even the most polite, modest, and humble fans fall easily into rage when playing or watching soccer.** Actual wars
+have been both started and ended as a result of soccer. **The cultural influence of soccer, soccer teams and soccer
+players cannot be overstated.** Make fun of soccer, teams and players at your peril.
+
+---
+
+## Rules
+
+**The core rules are simple enough for anyone to understand.**
+
+- **Can't use your arms or hands to touch the ball**
+  - **Each team has 1 goalkeeper - the only players with special rules - they can touch the ball with their arms and hands -
+    only near their own goal**
+- **You score a 'goal' if the ball enters the other team's goal**
+- **The game lasts for 2 halves of 45 minutes, for a total of 90 minutes**
+- **Most goals by the end wins**
+- **When both score the same number of goals at the end, it either (depending on the competition's rules):**
+  - **continues to a series of tiebreakers**
+  - **is declared a draw (_tie_)**
+
+**All the other rules exist to either encourage fairness or entertainment, and to punish or disincentivise
+unfair or boring play.** Apart from these guiding principles, the rule makers of soccer are very conservative with rule
+changes.
+
+**The other 10 players aside from the goalkeeper all are subject to the same rules.** Teams will often play with
+completely different positions, styles and formations to give their 11 players the best chance of a good result.
+
+These other rules are shown with examples later.
 
 ## The match
 
@@ -46,31 +149,24 @@ Whoever has scored the **most goals** at the end of a **match** (_game_) **wins*
 <details>
   <summary>Penalty shootout example</summary>
 
-{" "}
+  <iframe
+    width="400"
+    height="200"
+    src="https://www.youtube.com/embed/t_dCOkETvu0"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  />
 
-<iframe
-  width="400"
-  height="200"
-  src="https://www.youtube.com/embed/t_dCOkETvu0"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-/>
+  <hr />
 
-{" "}
-
-<hr />
-
-{" "}
-
-<p>
-  Note: when a team has an unassailable lead in a penalty shootout, they are
-  declared the winner and no more penalties are taken - e.g. after 3 penalties
-  each, if one team leads 3-0 then they win, as the other team only have 2
-  penalties left.
-</p>
-
+  <p>
+    Note: when a team has an unassailable lead in a penalty shootout, they are
+    declared the winner and no more penalties are taken - e.g. after 3 penalties
+    each, if one team leads 3-0 then they win, as the other team only have 2
+    penalties left.
+  </p>
 </details>
 
 **Injury time** (also called **added time**, **stoppage time**) is time added to the end of **each half** to **compensate for lost time**. All you need to know is it's **at the discretion of the referee**, the number represents **a minimum time in minutes**. [More detail here.](https://www.football-stadiums.co.uk/articles/injury-time/)
@@ -134,7 +230,7 @@ A large proportion of fans are loyal lifelong fans and they treat their club muc
 
   <p>A very dedicated fan:
   <br /><iframe width="400" height="200" src="https://www.youtube.com/embed/WzjjmQ_B-zM" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /></p>
-  
+
   <p>What happens when those who run the club betray the fans:
   <br /><iframe width="400" height="200" src="https://www.youtube.com/embed/Anu0yyrhQzs" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /></p>
 </details>
@@ -388,17 +484,15 @@ Football is unusually accessible for players of all dimensions.
 
 - in some positions it is advantageous to be tall (defenders, strikers)
 
-{" "}
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/M1zGwCvaza4"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-/>
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/M1zGwCvaza4"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  />
 
 - in others it is advantageous to be short (wingers, attacking midfielders)
 
@@ -592,9 +686,3 @@ so i've been wanting to start following soccer for a while now but as an america
     font-style: normal;
   }
 `}</EmbedCSS>
-
-export default ({ children }) => (
-  <Card>
-    <div className="markdown">{children}</div>
-  </Card>
-);

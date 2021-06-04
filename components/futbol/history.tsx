@@ -49,12 +49,70 @@ const History = () => (
           .join(""),
       }}
     />
+    <div>
+      <div style={{
+        width: 240,
+        margin: "20px auto",
+        "padding": "10px",
+        "borderRadius": "3px",
+        "fontSize": "12px",
+        "color": "#222",
+        "textAlign": "center",
+        "borderWidth": "1px",
+        "borderStyle": "solid"
+      }}>
+        <div style={{
+          background: "rgb(249, 249, 249)",
+          position: "absolute",
+          zIndex: -1
+        }} />
+        <div style={{
+          textAlign: 'left'
+        }}>
+          <div style={{
+            fontWeight: "bold",
+            fontVariationSettings: '"wght" 700',
+            fontSize: "130%"
+          }}>The evolution of football</div>
+          <div style={{
+            marginTop: 4,
+            fontWeight: "bold",
+            fontVariationSettings: '"wght" 700'
+          }}>Legend:</div>
+          <div style={{
+              lineHeight: 1 }}>
+          <div style={{ display: "flex", alignItems: 'center', marginTop: 4 }}>
+            <div style={{
+              display: "inline-block",
+              height: "1em",
+              width: "1em",
+              marginRight: 4,
+              background: "#fdd",
+              flexShrink: 0
+            }} />
+            Popular today
+          </div>
+          <div style={{ display: "flex", alignItems: 'center', marginTop: 4 }}>
+            <div style={{
+              display: "inline-block",
+              height: "1em",
+              width: "1em",
+              marginRight: 4,
+              background: "#faa",
+              flexShrink: 0
+            }} />
+            Association football (soccer)
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       style={{
         position: "relative",
         width: 310,
         height: 1475,
-        margin: "0 auto",
+        margin: "20px auto"
       }}
     >
       <div
@@ -79,7 +137,7 @@ const History = () => (
                     bg="#f9f9f9"
                     place="China, Korea, Japan, Vietnam"
                     time="220 BCE"
-                    event="Cuju - a game very similar to modern soccer - was played often until about 1600 CE"
+                    event="Cuju - a game very similar to modern soccer - was played until about 1600. Players used air-filled balls, could not use their hands and some matches used goal posts with a net. There is no known connection to medieval football"
                   />
                 ),
               },
@@ -93,7 +151,7 @@ const History = () => (
                     bg="#eee"
                     place="Greeks, Romans, Turks, Native Americans, Indigenous Australians, Maori"
                     time=""
-                    event="Many cultures derived 'football' games independently"
+                    event="Many cultures derived football-like games independently"
                   />
                 ),
               },
@@ -106,7 +164,7 @@ const History = () => (
                 label: (
                   <Event
                     place="Northwestern Europe"
-                    time="828 CE - 1800 CE"
+                    time="828 - 1800"
                     event="Medieval football - the common root of 'football' - a violent game with few rules"
                   />
                 ),
@@ -133,7 +191,7 @@ const History = () => (
                   />
                 ),
               },
-              position: { x: 160, y: 320 },
+              position: { x: 160, y: 325 },
             },
             {
               id: "5b",
@@ -187,9 +245,9 @@ const History = () => (
                 label: (
                   <Event
                     bg="#fdd"
-                    place="Northeastern US"
+                    place="United States"
                     time="1880 - current"
-                    event="A Yale player modifies the rules of rugby to replace the scrum with the snap. (American football)"
+                    event="A Yale player modifies the rules of a rugby-like game to replace the scrum with the snap. (American football)"
                   />
                 ),
               },
@@ -209,7 +267,7 @@ const History = () => (
                   />
                 ),
               },
-              position: { x: 160, y: 1120 },
+              position: { x: 160, y: 1130 },
             },
             { id: "e7-9", source: "7", target: "9", animated: true },
             { id: "e8-9", source: "8a", target: "9", animated: true },
@@ -243,14 +301,12 @@ const History = () => (
                     bg="#fdd"
                     place="Australia"
                     time="1859 - current"
-                    event="Derived independently from Rugby School football rules with an oval-shaped field like a cricket pitch. (Australian rules football)"
+                    event="Derived by an Australian upon return from Rugby School in England. Uses a huge oval-shaped field (i.e. a cricket pitch). (Australian rules football)"
                   />
                 ),
               },
               position: { x: 160, y: 630 },
-            },
-            // { id: "5", data: { label: "England" }, position: { x: 0, y: 300 } },
-            // { id: "e1-2", source: "1", target: "2", animated: true },
+            }
           ]}
           paneMoveable={false}
           nodesDraggable={false}

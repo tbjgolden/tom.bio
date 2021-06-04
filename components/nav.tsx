@@ -21,8 +21,8 @@ export default function Nav({ layoutData }: { layoutData: LayoutData }) {
       hidden: true,
       children: [
         {
-          title: "Soccer for Americans",
-          slug: "experiments/soccer",
+          title: "Learn Football (Interactive!)",
+          slug: "experiments/football",
           hidden: false,
           children: null
         }
