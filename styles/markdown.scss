@@ -916,16 +916,20 @@ $color-map: (
 
   hr {
     height: 2px;
-    margin: 2em 0;
+    margin: 1.5em 0;
     border: 0;
-    background: color("light");
+    background: color("stealthy");
   }
 
   details {
-    margin: 1em 0;
-    padding-left: 1.5em;
+    margin: 1em 1em .5em 1em;
+    padding: 0 .5em .5em .5em;
     position: relative;
     font-size: 90%;
+
+    :nth-child(2) {
+      margin-top: 0;
+    }
 
     summary {
       position: relative;
@@ -934,11 +938,58 @@ $color-map: (
 
     summary::before {
       position: absolute;
-      top: -0.4em;
-      left: -1em;
-      font-size: 2em;
-      content: "🢒";
+      left: -1.5em;
+      content: "\2795";
     }
+
+    table {
+      background: none;
+
+      caption {
+        background: color("secondary");
+      }
+
+      th {
+        font-weight: bold;
+        font-variation-settings: 'wght' 700;
+      }
+
+      td,
+      th {
+        border: 1px solid color("stealthy");
+
+        &:first-child {
+          border-left-color: transparent;
+          background-image: none;
+        }
+
+        &:last-child {
+          background-image: linear-gradient(
+            to left,
+            rgba(color("light"), 1) 50%,
+            rgba(color("light"), 0) 100%
+          );
+        }
+
+        &:only-child {
+          background-image: linear-gradient(
+              to right,
+              rgba(color("light"), 1) 50%,
+              rgba(color("light"), 0) 100%
+            ),
+            linear-gradient(
+              to left,
+              rgba(color("light"), 1) 50%,
+              rgba(color("light"), 0) 100%
+            );
+        }
+      }
+
+      th {
+        line-height: size("line-height-min");
+      }
+    }
+
 
     &[open] {
       margin-bottom: 1.5em;
@@ -948,19 +999,23 @@ $color-map: (
         content: "";
         display: block;
         top: 2.4em;
-        width: 2px;
+        right: 0;
         bottom: 0;
         left: 0;
         background: color("light");
+        z-index: 0;
+      }
+
+      > * {
+        position: relative;
+        z-index: 1;
       }
 
       summary {
         margin-bottom: 1em;
 
         &::before {
-          position: absolute;
-          top: 0.15em;
-          content: "🢓";
+          content: "\2796";
         }
       }
     }

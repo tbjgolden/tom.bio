@@ -1,6 +1,8 @@
 import { Card } from "baseui/card";
 import EmbedCSS from "components/embed-css";
 import History from "components/futbol/history";
+import Video from "components/futbol/video";
+import VideoEmbed from "components/futbol/video-embed";
 
 export default ({ children }) => (
   <div>
@@ -26,7 +28,8 @@ export default ({ children }) => (
 There are many other forms of football still popular that are also called "football".
 
 **Association football** has had massive global popularity for many generations and consequently in much of the world,
-it is the main, or only, form of football commonly played.
+it is the main, or only, form of football commonly played. In these countries (in red/pink on the diagram below), the
+sport is just called football.
 
 ![](https://i.imgur.com/2GHdRDg.jpg)
 
@@ -106,11 +109,11 @@ local communities, and even nations.
 
 **Even the most polite, modest, and humble fans fall easily into rage when playing or watching soccer.** Actual wars
 have been both started and ended as a result of soccer. **The cultural influence of soccer, soccer teams and soccer
-players cannot be overstated.** Make fun of soccer, teams and players at your peril.
+players cannot be overstated.** Make fun of soccer, teams, players and fans at your peril.
 
 ---
 
-## Rules
+## Rules overview
 
 **The core rules are simple enough for anyone to understand.**
 
@@ -133,6 +136,195 @@ completely different positions, styles and formations to give their 11 players t
 
 These other rules are shown with examples later.
 
+## Common reasons people don't watch soccer
+
+<details open>
+  <summary>The game is too slow</summary>
+
+Many new to the sport find that when people watch a match **it can seem like the players are just passing the ball to each other in slow motion**.
+
+It's important to realise that **the size of the pitch is MUCH larger.**
+
+> ![](https://www.datocms-assets.com/29488/1620510111-mixed.svg)
+>
+> A size comparison of the typical football pitch and a basketball court.
+
+Additionally, **players are active for longer and have less breaks in play to physically recover in.**
+
+| League                   | Duration | excl. breaks | Live play | Single player distance covered | 'Average' Speed |
+| :----------------------- | -------: | -----------: | --------: | -----------------------------: | --------------: |
+| NFL                      | 192 mins |      60 mins |   11 mins |                      1.2 miles |         0.38mph |
+| NBA                      | 131 mins |      48 mins |   48 mins |                      2.8 miles |          1.2mph |
+| NHL                      | 140 mins |      60 mins |   60 mins |                      2.9 miles |          1.2mph |
+| (English) Premier League | 111 mins |      90 mins |   56 mins |                      7.0 miles |          3.8mph |
+| (Italian) Serie A        | 111 mins |      90 mins |   60 mins |                      6.7 miles |          3.6mph |
+
+It's sometimes difficult to fully realise how far these players are running until you've played a match on a full-sized pitch; it is physically exhausting even for elite athletes!
+
+Ultimately, players cannot sprint for 60 minutes, and even if they could it would affecting their technical skills and decision making.
+
+Often when the game slows down, it's because the team with the ball is trying to catch their breath, or trying to tire out the other team.
+
+</details>
+
+<details>
+  <summary>The players <em>flop</em> (dive) all the time</summary>
+
+Another common stereotype of footballers is that they **dive** (_flop_), **fake injuries** and **stay on the floor for ages**.
+
+It's important to understand that **falling on the floor is not considered diving**. In fact, **about 90-95% of the time
+the player is doing the "right thing" by falling on the floor.**
+
+Here, USA star Christian Pulisic falls to the floor to win a penalty kick, which leads to a goal.
+
+<Video src="/futbol/penalty.mp4" aspectRatio={[1.79, 1]} />
+
+But in this nearly identical example, a player does not fall, and does not win a penalty.
+
+<Video src="/futbol/poveda.mp4" aspectRatio={[1.79, 1]} />
+
+---
+
+**Diving is a very ambiguous term** - some use it to refer to any fall on the floor, some to any avoidable fall, and some to a complete fake fall. Typically when die-hard fans call something a **dive** they are calling it a complete fake fall. When casual fans, or non-fans call something a **dive** they normally mean any avoidable fall; but as you have now seen, avoidable falls are not necessarily a thing to complain about (at least, until referees enforce the rules consistently).
+
+By rolling, screaming, faking/exaggerating injuries and begging the referee, they can often convince the referee that a collision deserved a greater punishment, such as a yellow card or a red card. **This is generally not considered acceptable by any fans** (except perhaps by spineless fans of the player's team), but some (usually Spanish-speaking) players will do it to give their team the best possible chance of winning.
+
+**It is against the rules to simulate a fall without cause**. This is generally referred to as **simulation**; or colloquially a **complete dive** or **total dive**.
+
+Annoyingly, referees do not currently penalise players unless it's clear and obvious; meaning that players follow the 'if in doubt, fall over' principle.
+
+</details>
+
+<details>
+  <summary>There aren't enough goals</summary>
+
+When compared to American football, the difference is not especially dramatic.
+
+**An average elite soccer match** has an average of 2.72 goals and takes 1 hours and 50 minutes. **(1.48\* goals per hour)**
+
+> \* **A proposed change to the offside rule that is currently being trialled will increase the number of goals per game.**
+
+**The average NFL game** has an average of 4.92 touchdowns and takes 3 hours and 12 minutes. **(1.54 touchdowns per hour)**
+
+It is likely that the points system subconsciously causes people to think more is happening.
+
+</details>
+
+<details>
+  <summary>My country is bad at it</summary>
+
+Soccer fans pride themselves on supporting their team in bad times as well as good.
+
+Essentially, you sign up to the emotional roller-coaster - and fans who started supporting their team when they were
+less successful are held in much higher regard than those who only support winning teams.
+
+In that sense, there's probably no better time to get behind the US Men's National Team.
+
+</details>
+
+<details>
+  <summary>Often the better team doesn't win</summary>
+
+That's probably a good thing! Importantly this makes supporting underdogs very rewarding - and basically every team has at least some games during the season when they are the underdog.
+
+A low scoring game gives a chance for even the small underdogs to have a chance even against much stronger teams... which produces iconic scenes:
+
+<VideoEmbed yt="fOoXsZBwSUg" aspectRatio={[4, 3]} />
+
+</details>
+
+<details>
+  <summary>Soccer players are small and fragile</summary>
+
+Football is unusually accessible for players of all dimensions.
+
+Sometimes it is advantageous to be tall:
+<VideoEmbed yt="M1zGwCvaza4" />
+
+Sometimes it is advantageous to be short:
+<VideoEmbed yt="coXmcbshuJ0" />
+
+And sometimes it is advantageous to be strong:
+<Video src="/futbol/strength.mp4" aspectRatio={[1.7, 1]} />
+
+In general, the size of the pitch makes **game intelligence and fitness far more important than explosive athleticism**.
+This is why the average player is not much taller than the average person.
+
+</details>
+
+<details>
+  <summary>"Americans can't stand a <em>tie</em>" (draw)</summary>
+
+
+Interestingly, I've never ever heard an international fan complain about this. This really is an American thing!
+
+Many of the games you will watch, such as **cup** (knock-out) **competitions**, cannot end in a draw.
+
+But league games do end in **draws**, and for American fans who are used to other sports, this is a shock to the system.
+
+Long-time fans don't really think of them as "ties". Leagues are seen as a competition over the whole season; and **the actual 90 minute game is just a fragment of that season's story**. But within the league table which determines the champions there are no draws. And given that a league's winner is the team at the top at the end - no playoffs - **a draw can often a bigger story than a win**.
+
+> MLS does decide the winner by a play-off. Clubs from other countries will compete in both the league and other knockout competitions; but these competitions are functionally separate. A team can win a **cup** (knock-out) **competition** and still perform badly in their league, for instance.
+
+### So how can a draw be a bigger story than a win?
+
+The league table scoring system works like this:
+
+- **The team that wins gains 3 points.**
+
+- **The team that loses gets 0 points.**
+
+- **And if there is a draw, both teams get just 1 point.**
+
+For a team to win the league, they must have the most points by the end of the season.
+
+So for teams that are near the top of the league, a draw is often a very bad result. They see this as 2 points lost (compared to their target of 3 points) and therefore draws are very damaging to their total point score at the end of the season.
+
+---
+
+Imagine that you are **a supporter of** (_root for_) an imaginary team called 'Real Murica', and they are trying to win the league.
+
+Real Murica is 1-1 against their long-time rivals 'FC Canucks' and there's only 10 minutes left. If the game ends like this, both teams receive 1 point.
+
+If Murica scores and wins 2-1, they would get **3 points instead of 1**. However, if Canucks score and win 1-2, Murica would get **0 points instead of 1**.
+
+**The bonus for winning** (for both teams) **is twice the punishment of losing**. This means that both teams will often do everything they can to win towards the end of the game (taking gradually bigger and bigger risks); and is why draws are by far the least common outcome of a game.
+
+</details>
+
+<details>
+  <summary>The referee makes bad/confusing <em>calls</em> (decisions)</summary>
+
+Some referee decisions are bad because they make an incorrect decision.
+
+Many matches now use VAR - Video Assistant Referee - a person who alerts the referee to "clear and obvious" mistakes
+using the television footage. This has, so far, reduced the frequency of errors significantly but has had many unpopular
+side-effects.
+
+---
+
+And some rules can be seemingly complex or unintuitive to new fans (famously the offside rule) that it seems like a bad decision.
+
+Learning the precise boundaries of the rules helps to understand how decisions are made - and these are covered in this guide.
+
+</details>
+
+<details>
+  <summary>It's hard to get into it when I don't know the teams or players</summary>
+
+I've found that most new fans find a team through a player that resonates with them.
+
+Many players have amazing origin stories and learning about them can be a good way to find a team through them.
+
+</details>
+
+<details>
+  <summary>I don't have a team to support</summary>
+
+This guide includes an interactive tool to pick a team that matches well with your ideals!
+
+</details>
+
 ## The match
 
 **Matches** last for approximately **90 minutes** of play (called **normal time** or **regulation time**). The clock is a _running clock_ and does not stop, except at **half time**, where the game pauses for **15 minutes** and the two teams **change ends** (_swap sides_).
@@ -149,15 +341,7 @@ These other rules are shown with examples later.
 <details>
   <summary>Penalty shootout example</summary>
 
-  <iframe
-    width="400"
-    height="200"
-    src="https://www.youtube.com/embed/t_dCOkETvu0"
-    title="YouTube video player"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-  />
+  <VideoEmbed yt="t_dCOkETvu0" />
 
   <hr />
 
@@ -356,239 +540,6 @@ A yellow card is not a meaningful punishment - but **if a player is shown 2 yell
 **A red card** (**a sending off**) is shown to players who (\*) **endanger an opponent** (either intentionally or by gross negligence), or for **violent conduct**, or for intentionally **unfairly denying the other team a clear goalscoring opportunity**.
 
 Players who are "given" a **red card** must leave the pitch and their team continues playing with 1 less player (the team cannot ).
-
-# Objections you may have
-
-Here's a list of the most common objections from would-be American soccer fans that I found in my research:
-
-1. The game is too slow
-2. The players _flop_ (dive) all the time
-3. There aren't enough goals
-4. If we're not number 1, then there must be something wrong with it
-5. Often the better team doesn't win
-6. It can't be a real sport if a 5' 7" guy weighing 150 lbs (Lionel Messi) is arguably the greatest ever
-7. Americans can't stand a _tie_ (draw)
-8. The referee makes bad _calls_ (decisions)
-9. It's hard to get into it when I don't know the teams or players
-
-## 1. "The game is too slow"
-
-Many new to the sport find that when people watch a match **it can seem like the players are just passing the ball to each other in slow motion**.
-
-It's important to realise that **the size of the pitch is MUCH larger.**
-
-> ![](https://www.datocms-assets.com/29488/1620510111-mixed.svg)
->
-> A size comparison of the typical football pitch and a basketball court.
-
-Additionally, **players are active for longer and have less breaks in play to physically recover in.**
-
-| League                   | Duration | excl. breaks | Live play | Single player distance covered | 'Average' Speed |
-| :----------------------- | -------: | -----------: | --------: | -----------------------------: | --------------: |
-| NFL                      | 192 mins |      60 mins |   11 mins |                      1.2 miles |         0.38mph |
-| NBA                      | 131 mins |      48 mins |   48 mins |                      2.8 miles |          1.2mph |
-| NHL                      | 140 mins |      60 mins |   60 mins |                      2.9 miles |          1.2mph |
-| (English) Premier League | 111 mins |      90 mins |   56 mins |                      7.0 miles |          3.8mph |
-| (Italian) Serie A        | 111 mins |      90 mins |   60 mins |                      6.7 miles |          3.6mph |
-
-It's sometimes difficult to fully realise how far these players are running until you've played a match on a full-sized pitch; it is physically exhausting even for elite athletes!
-
-> ### Why do they just pass the ball back and forth?
->
-> **It is a tactic.**
->
-> - In general, **the team without the ball runs more**, and given the size of the pitch, **tiredness is a major factor at the end of a match**
-> - The team may be trying to **physically recover before a sudden attack**
-> - It may look like they are passing the ball backwards and sideways, but a common passing pattern is a zig-zag pattern; passing from side to side and gradually moving forward - kinda like space invaders!
->
-> **Different teams**, coaches and leagues **have different opinions on the "best" way to play.** Likewise, fans also have their own opinions on how they want their team to play. Not all teams intentionally slow down the game like this.
-
-## 2. "The players _flop_ (dive) all the time"
-
-Another common stereotype of footballers is that they **dive** (_flop_), **fake injuries** and **stay on the floor for ages**.
-
-There's more truth to this than I would like:
-
-- Many a meme video has been shared of players rolling around in apparent agony only to get up a couple seconds later.
-
-- No - obviously rolling over 3 times is completely unnecessary. Or scream like they've been shot.
-
-**A simple way to avoid this is to just not pick a team from a country where they speak Spanish or Portuguese.** Almost all of the worst offenders are players from these countries, as diving is considered part of the game in these leagues.
-
----
-
-Falling on the floor in isolation is not considered diving. In fact, **about 90-95% of the time the player is doing the right thing by falling on the floor!**
-
-Consider this example, where a player could have fallen to win a penalty kick (which is a very high chance of a goal), but their honesty was not rewarded:
-
-<video controls loop height="220" width="390">
-  <source
-    src="https://www.datocms-assets.com/29488/1621908065-poveda.mp4"
-    type="video/mp4"
-  ></source>
-</video>
-
-You can see in real time that the incident is hard to spot - but in slow motion the defender clearly kicks the attacker.
-
-> For now, all you need to know is that when Player A tries to kick the ball but instead kicks Player B, it is considered a foul to Player B's team, and as the kick was in the penalty area, a penalty kick is the outcome.
-
-Referees make hundreds of difficult and often subjective decisions every match and **they are expected to err on the side of caution**, but this has the very unfortunate side-effect of dishonest teams being rewarded and honest teams losing out.
-
-Note that **diving is a very ambiguous term** - some use it to refer to any fall on the floor, some to any avoidable fall, and some to a complete fake fall. Typically when die-hard fans call something a **dive** they are calling it a complete fake fall. When casual fans, or non-fans call something a **dive** they normally mean any avoidable fall; but as you have now seen, avoidable falls are not necessarily a thing to complain about (at least, until referees enforce the rules consistently).
-
-By rolling, screaming, faking/exaggerating injuries and begging the referee, they can often convince the referee that a collision deserved a greater punishment, such as a yellow card or a red card. **This is generally not considered acceptable by any fans** (except perhaps by spineless fans of the player's team), but some (usually Spanish-speaking) players will do it to give their team the best possible chance of winning.
-
-**It is against the rules to simulate a fall without cause** (a.k.a. **simulation**). Sadly, this rule is not consistently enforced as it is hard to distinguish total simulations from genuine falls.
-
----
-
-While diving and falling on the floor do not really make for a good reason to not follow - or enjoy - football, there is no question that it is not pretty.
-
-**Fortunately, new video review rules (introduced in 2018) have made this problem far less likely to affect the outcome of a match.**
-
-## 3. "There aren't enough goals"
-
-True - but that means that each goal your team scores feels special - even when it isn't a pretty goal.
-
-## 4. If we're not number 1, then there must be something wrong with it
-
-When becoming a football fan, you sign up to the emotional roller-coaster.
-
-**When your team wins, you are happy.**
-
-When your team loses, you are sad - **but next time the win will be that much sweeter.**
-
-In that sense, the US Men's National Team's next big win will be very sweet indeed!
-
-## 5. Often the better team doesn't win
-
-That's probably a good thing! Importantly this makes supporting underdogs very rewarding - and basically every team has at least some games during the season when they are the underdog.
-
-A low scoring game gives a chance for even the small underdogs to have a chance even against much stronger teams... which produces iconic scenes like this:
-
-> <iframe
->   width="560"
->   height="315"
->   src="https://www.youtube.com/embed/tdUSfikMrGI"
->   title="YouTube video player"
->   frameBorder="0"
->   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
->   allowFullScreen
-> />
->
-> (context: Hereford United - a club of amateur players - famously beat Newcastle, a top tier professional side)
-
-## 6. It can't be a real sport if a 5' 7" guy weighing 150 lbs (Lionel Messi) is arguably the greatest ever
-
-Football is unusually accessible for players of all dimensions.
-
-- in some positions it is advantageous to be tall (defenders, strikers)
-
-  <iframe
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/M1zGwCvaza4"
-    title="YouTube video player"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-  />
-
-- in others it is advantageous to be short (wingers, attacking midfielders)
-
-  <iframe
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/coXmcbshuJ0"
-    title="YouTube video player"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-  />
-
-- some are better for bulkier players (strikers)
-
-  <iframe
-    width="560"
-    height="315"
-    src="https://www.youtube.com/embed/jbx-WMsTqLQ"
-    title="YouTube video player"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-  />
-
-These guidelines aren't set in stone either, as **game intelligence and fitness are seen as more important than explosive athleticism**.
-
-**...and as for Lionel Messi...**
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/a5Uxg5LlNZQ"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-/>
-
-## 7. Americans can't stand a _tie_ (draw)
-
-Interestingly, I've never ever heard an international fan complain about this. This really is an American thing!
-
-Many of the games you will watch, such as **cup** (knock-out) **competitions**, cannot end in a draw.
-
-But league games do end in **draws**, and for American fans who are used to other sports, this is a shock to the system.
-
-Long-time fans don't really think of them as "ties". Leagues are seen as a competition over the whole season; and **the actual 90 minute game is just a fragment of that season's story**. But within the league table which determines the champions there are no draws. And given that a league's winner is the team at the top at the end - no playoffs - **a draw can often a bigger story than a win**.
-
-> MLS does decide the winner by a play-off. Clubs from other countries will compete in both the league and other knockout competitions; but these competitions are functionally separate. A team can win a **cup** (knock-out) **competition** and still perform badly in their league, for instance.
-
-### So how can a draw be a bigger story than a win?
-
-The league table scoring system works like this:
-
-- **The team that wins gains 3 points.**
-
-- **The team that loses gets 0 points.**
-
-- **And if there is a draw, both teams get just 1 point.**
-
-For a team to win the league, they must have the most points by the end of the season.
-
-So for teams that are near the top of the league, a draw is often a very bad result. They see this as 2 points lost (compared to their target of 3 points) and therefore draws are very damaging to their total point score at the end of the season.
-
----
-
-Imagine that you are **a supporter of** (_root for_) an imaginary team called 'Real Murica', and they are trying to win the league.
-
-Real Murica is 1-1 against their long-time rivals 'FC Canucks' and there's only 10 minutes left. If the game ends like this, both teams receive 1 point.
-
-If Murica scores and wins 2-1, they would get **3 points instead of 1**. However, if Canucks score and win 1-2, Murica would get **0 points instead of 1**.
-
-**The bonus for winning** (for both teams) **is twice the punishment of losing**. This means that both teams will often do everything they can to win towards the end of the game (taking gradually bigger and bigger risks); and is why draws are by far the least common outcome of a game.
-
-## 8. The referee makes bad _calls_ (decisions)
-
-They do indeed.
-
-Key points:
-
-- rules have some flexibility in them (rare in American sports rule books)
-  - The rules are flexible because the game has been played in hundreds of countries for over a hundred years, in a time before globalisation. Gaps in the original sets of rules were interpreted differently in different parts of the world. Over time, these rules have got closer together but they often still leave wiggle room for legal interpretation, to allow leagues to interpret in their own ways.
-- referees frequently make mistakes that affect the outcome
-  - Due to the low scoring nature of the game and subjectivity in many decisions, the referee can often indirectly decide the game on his own
-  - There is only 1 referee per game, plus two assistants who run alongside the outside of the pitch, mainly looking for breaches of the offside rule
-  - There is - finally - a video review mechanism called VAR (video assistant referee) where other referees watch the TV footage looking for key mistakes that often affect the outcome of a game (goals, penalties and red cards)
-    - This so far has been very, very, very controversial - it solves problems but creates others
-- some rules can be seemingly complex or unintuitive to new fans (famously the offside rule)
-  - The important details of these weird rules are covered later in this post
-
-## 9. It's hard to get into it when I don't know the teams or players
-
-I've found that most new fans find a team through a player that resonates with them.
-
-Many players have amazing origin stories and learning about them can be a good way to find a team through them.
 
 ## The three main tactical styles
 

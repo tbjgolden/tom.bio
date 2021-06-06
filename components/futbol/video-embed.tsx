@@ -1,11 +1,13 @@
 const VideoEmbed = ({
-  yt
+  yt,
+  aspectRatio = [16, 9]
 }: {
-  yt: string
+  yt: string,
+  aspectRatio: [number, number]
 }) => {
   return (
     <div>
-      <div style={{ padding: "177.778% 0 0", position: "relative" }}>
+      <div style={{ padding: `${(aspectRatio[1] * 100 / aspectRatio[0]).toFixed(3)}% 0 0`, position: "relative" }}>
         <div style={{ top: 0, left: 0, right: 0, bottom: 0, position: "absolute" }}>
           <iframe
             style={{ height: "100%", width: "100%" }}
