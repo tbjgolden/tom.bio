@@ -4,9 +4,19 @@ import {
   LABEL_PLACEMENT
 } from "baseui/checkbox";
 import { Select } from "baseui/select";
-import { useEffect, useMemo, useState } from "react";
-import { Match } from "find-up";
-import { match } from "assert";
+import { StatefulTooltip } from "baseui/tooltip";
+import React, { useMemo, useState } from "react";
+import TeamLogo, { TeamLogoProps } from "./team-logo";
+
+/**
+ * Known bugs:
+ * - for some reason away goals isn't working
+ * - for some reason extra time always leads to penalties
+ * - penalties is always 5-3
+ *
+ * - set up with dropdown to select competition
+ *
+ */
 
 type FixtureType = "single-draw" | "single-no-draw" | "2-leg" | "replay-1" | "replay-inf"
 type Fixture = [{ label: string, id: FixtureType }]
@@ -52,6 +62,47 @@ type MatchReport = {
   aetScore: [number, number] | null,
   aggScore: [number, number] | null,
   penalties: [number, number] | null,
+}
+
+function colorToBadge (color: string): {
+  bg: string,
+  fg: string,
+  b: string
+} {
+  const sum = [color.slice(1, 3), color.slice(3, 5), color.slice(5, 7)].reduce((a, b) => a + parseInt(b, 16), 0)
+  const fg = sum > 300 ? "#000000" : "#ffffff"
+  const b = fg === "#ffffff" ? "1px solid transparent" : "1px solid #ffffff"
+
+  return {
+    bg: color,
+    fg,
+    b
+  }
+}
+
+function Badge ({ team: { name, color }, margin = 0 }: { team: Team, margin?: number | string }) {
+  const { bg, fg, b } = colorToBadge(color)
+  return (
+    <>
+      <div className="badge" style={{
+        background: bg,
+        color: fg,
+        border: b,
+        margin
+      }}>
+        {name}
+      </div>
+      <style jsx>{`
+        .badge {
+          display: inline-block;
+          padding: 4px 8px;
+          font-weight: bold;
+          border-radius: 8px;
+          font-variation-settings: "wght" 700;
+        }
+      `}</style>
+    </>
+  )
 }
 
 function generateMatchReport({
@@ -295,19 +346,164 @@ function generateFixtureReport({
   })
 }
 
+type Team = {
+  name: string,
+  logo: TeamLogoProps,
+  location: string,
+  stadium: string,
+  color: string
+}
+
+const Minute = React.memo(({
+  time,
+  whoScored,
+  home,
+  away
+}: {
+  time: string,
+  whoScored: 'H' | 'A' | '',
+  home: Team,
+  away: Team
+}) => {
+  const minuteInt = time.split("+").reduce((total, next) => total + parseInt(next), 0)
+  const isMultipleOf5 = minuteInt % 5 === 0
+  const isMultipleOf10 = isMultipleOf5 && (minuteInt % 2 === 0)
+  const topClass = isMultipleOf10 ? "ten" : (isMultipleOf5 ? "five" : "");
+  const bottomClass = isMultipleOf10 ? "ten" : (isMultipleOf5 ? "five" : "");
+
+  return (
+    <>
+      <StatefulTooltip
+        showArrow
+        onMouseEnterDelay={0}
+        animateOutTime={40}
+        onMouseLeaveDelay={40}
+        placement="top"
+        ignoreBoundary
+        content={() => (
+          <div style={{ textAlign: "center" }}>
+            {whoScored && <div>Goal: {(whoScored === "H" ? home : away).name}</div>}
+            <div>{time}'</div>
+          </div>
+        )}
+      >
+        <div key={time} className="minute" style={{
+          background: time.includes("+") ? "#ccc" : "#fff"
+        }}>
+          <div className="top-half" style={{
+            background: home.color,
+            opacity: whoScored === "H" ? 1 : 0.3
+          }} />
+          <div className="bottom-half" style={{
+            background: away.color,
+            opacity: whoScored === "A" ? 1 : 0.3
+          }} />
+          <div className={`tick-top ${topClass}`} data-whoscored={whoScored} />
+          <div className={`tick-bottom ${bottomClass}`} data-whoscored={whoScored} />
+        </div>
+      </StatefulTooltip>
+      <style jsx>{`
+        .minute {
+          user-select: none;
+          position: relative;
+          width: 3px;
+          height: 24px;
+        }
+        
+        .top-half {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 50%;
+        }
+        .bottom-half {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 50%;
+        }
+        .tick-top,
+        .tick-bottom {
+          position: absolute;
+          right: 1px;
+          height: 1px;
+          width: 1px;
+          background: #777;
+        }
+        .tick-top {
+          bottom: 50%;
+        }
+        .tick-bottom {
+          top: 50%;
+        }
+        .tick-top.five,
+        .tick-bottom.five {
+          height: 2px;
+        }
+        .tick-top.ten,
+        .tick-bottom.ten {
+          height: 3px;
+        }
+        
+        .minute:hover .tick-top {
+          transform: translate(0, 50%);
+          width: 3px;
+          height: 3px;
+          left: 0;
+        }
+        .minute:hover .tick-bottom {
+          top: 0;
+          height: 100%;
+          width: 0;
+          position: relative;
+        }
+        .minute:hover .tick-bottom::before {
+          content: "";
+          top: 0;
+          left: 1px;
+          position: absolute;
+          width: 2px;
+          height: 100%;
+          border: dotted #777;
+          border-width: 0 1px 0 0
+        }
+      `}</style>
+    </>
+  )
+})
+
 const RandomMatchReport = ({
+  home = {
+    name: "FC Kangaroo",
+    logo: { type: "kangaroo" },
+    location: "Australia",
+    stadium: "Outback Stadium",
+    color: "#cb0707"
+  },
+  away = {
+    name: "Penguin FC",
+    logo: { type: "penguin" },
+    location: "Antarctica",
+    stadium: "Igloo Arena",
+    color: "#1100a2"
+  },
   fixtureType,
   usesExtraTime,
   usesAwayGoalsInET,
   usesGoldenGoal,
   usesAwayGoals
 }: {
+  home?: Team,
+  away?: Team,
   fixtureType: FixtureType,
   usesExtraTime: boolean,
   usesAwayGoalsInET: boolean,
   usesGoldenGoal: boolean,
   usesAwayGoals: boolean
 }) => {
+  const [regenerate, setRegenerate] = useState(0)
   const fixtureReport = useMemo(() => {
     return generateFixtureReport({
       fixtureType,
@@ -316,82 +512,152 @@ const RandomMatchReport = ({
       usesGoldenGoal,
       usesAwayGoals
     })
-  }, [fixtureType, usesExtraTime, usesAwayGoalsInET, usesGoldenGoal, usesAwayGoals])
+  }, [fixtureType, usesExtraTime, usesAwayGoalsInET, usesGoldenGoal, usesAwayGoals, regenerate])
 
   return (
     <div>
-      Example Match Report
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h3 style={{ fontSize: "120%" }}>Example Match Report</h3>
+        <div>
+          <button
+            style={{ border: "1px solid black", padding: 4, cursor: "pointer" }}
+            onClick={() => setRegenerate(regenerate + 1)}
+          >
+            Regenerate
+          </button>
+        </div>
+      </div>
       <hr />
       {
-        fixtureReport.map((match, i) => <Card key={i}>
-          {
-            fixtureReport.length === 1 ? null : <div>Match {i + 1}</div>
-          }
-          <div>
-            {match.ftScore.join(" - ")}
-            {match.aetScore ? ` (${match.aetScore.join(" - ")} aet)` : null}
-            {match.aggScore ? ` (${match.aggScore.join(" - ")} agg)` : null}
-            {match.penalties ? ` (${match.penalties.join(" - ")} pens)` : null}
-            {" "}<small style={{ fontSize: "80%" }}>(HT {match.htScore.join(" - ")})</small>
-          </div>
-          <div style={{ lineHeight: 1 }}>
-            <div>
+        fixtureReport.map((match, i) => <div key={i} style={{ marginTop: i === 0 ? 0 : 16 }}>
+          <Card>
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}>
               {
-                match.firstHalf.map(({ whoScored, time}, i) => <div style={{
-                  display: 'inline-block',
-                  width: 6,
-                  height: 12,
-                  background:  i >= 45 ? "#e60" : "#f80"
-                }} />)
+                fixtureReport.length === 1 ? null : <div>Match {i + 1}</div>
               }
-            </div>
-            <div>
-              {
-                match.secondHalf.map(({ whoScored, time}, i) => <div style={{
-                  display: 'inline-block',
-                  width: 6,
-                  height: 12,
-                  background:  i >= 45 ? "#e60" : "#f80"
-                }} />)
-              }
-            </div>
-            {
-              match.firstHalfET ?
-                <div>
+              <div style={{
+                display: "flex",
+                width: "100%",
+                alignItems: "center"
+              }}>
+                <div style={{ flex: "1 1 1px", display: "flex", justifyContent: "flex-end" }}>
+                  <Badge team={home} margin="0 8px 0 0" />
+                </div>
+                <TeamLogo {...home.logo} size={5} />
+                <div style={{ margin: "0 8px", fontSize: "90%", minWidth: 64, textAlign: "center", lineHeight: 1.1 }}>
+                  {match.aetScore ? <div>AET</div> : null}
+                  <div style={{ fontSize: "180%" }}>{(match.aetScore || match.ftScore).join(" - ")}</div>
+                  <div style={{ marginTop: 4 }}>HT {match.htScore.join(" - ")}</div>
+                  {match.aetScore ? <div>FT {match.ftScore.join(" - ")}</div> : null}
+                </div>
+                <TeamLogo {...away.logo} size={5} />
+                <div style={{ flex: "1 1 1px" }}>
+                  <Badge team={away} margin="0 0 0 8px" />
+                </div>
+              </div>
+              <div style={{ margin: "16px 0 0" }} />
+              <div className="timeline">
+                <div className="first-half">
                   {
-                    match.firstHalfET.map(({ whoScored, time}, i) => <div style={{
-                      display: 'inline-block',
-                      width: 6,
-                      height: 12,
-                      background:  i >= 15 ? "#06e" : "#08f"
-                    }} />)
+                    match.firstHalf.map(({ whoScored, time}) => <Minute key={time} time={time} whoScored={whoScored} home={home} away={away} />)
                   }
-                </div> : null
-            }
-            {
-              match.secondHalfET ?
-                <div>
-                  {
-                    match.secondHalfET.map(({ whoScored, time}, i) => <div style={{
-                      display: 'inline-block',
-                      width: 6,
-                      height: 12,
-                      background:  i >= 15 ? "#06e" : "#08f"
-                    }} />)
-                  }
-                </div> : null
-            }
-          </div>
-        </Card>)
+                </div>
+                <div className="break" data-before="HT" data-after={match.htScore.join(" - ")} />
+                <div className="second-half">
+                {
+                  match.secondHalf.map(({ whoScored, time}, i) => <Minute key={time} time={time} whoScored={whoScored} home={home} away={away} />)
+                }
+                </div>
+                {
+                  match.firstHalfET ? <>
+                    <div className="break" data-before="FT" data-after={match.ftScore.join(" - ")} />
+                    <div className="first-half-et">
+                      {match.firstHalfET.map(({ whoScored, time}, i) => <Minute key={time} time={time} whoScored={whoScored} home={home} away={away} />)}
+                    </div>
+                  </> : null
+                }
+                {
+                  match.secondHalfET ? <>
+                    <div className="break" />
+                    <div className="second-half-et">
+                      {match.secondHalfET.map(({ whoScored, time}, i) => <Minute key={time} time={time} whoScored={whoScored} home={home} away={away} />)}
+                    </div>
+                  </> : null
+                }
+                {
+                  match.penalties ? <>
+                    <div className="break" data-before="AET" data-after={match.aetScore.join(" - ")} />
+                    <div className="penalties">
+                      {match.penalties.join(" - ")}
+                    </div>
+                  </> : null
+                }
+              </div>
+            </div>
+          </Card>
+        </div>)
       }
+      <style jsx>{`
+        .timeline {
+          line-height: 1;
+          display: flex;
+          align-items: center;
+        }
+      
+        .first-half,
+        .second-half,
+        .first-half-et,
+        .second-half-et,
+        .penalties {
+          display: flex;
+          border: 1px solid #777;
+        }
+        
+        .penalties {
+          padding: 1px 4px;
+          font-size: 75%;
+        }
+      
+        .break {
+          position: relative;
+          border: dotted #333;
+          border-width: 0 0 1px;
+          width: 32px;
+          font-size: 75%;
+          text-align: center;
+        }
+        
+        .break::before {
+          bottom: 2px;
+          left: 50%;
+          transform: translate(-50%, 0);
+          position: absolute;
+          content: attr(data-before);
+          width: 100%;
+        }
+        .break::after {
+          top: 2px;
+          left: 50%;
+          transform: translate(-50%, 0);
+          position: absolute;
+          content: attr(data-after);
+          width: 100%;
+        }
+
+        .break:not([data-before]) {
+          width: 4px;
+        }
+      `}</style>
     </div>
   )
 }
 
 
-const MatchDemo = ({
-
-}) => {
+const MatchDemo = () => {
   const [fixtureType, setFixtureType] = useState<Fixture>([
     { label: "Single Match", id: "single-draw" }
   ]);
