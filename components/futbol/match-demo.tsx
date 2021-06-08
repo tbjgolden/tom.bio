@@ -1030,7 +1030,7 @@ const Match = ({
             }}
           >
             {len === 1 ? null : `Match ${i + 1} - `}
-            {home.stadium}, {home.location}
+            {home.stadium} ({home.location})
           </div>
           <div
             style={{
