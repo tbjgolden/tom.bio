@@ -4,6 +4,7 @@ import { Checkbox, LABEL_PLACEMENT } from "baseui/checkbox";
 import { Option, Select } from "baseui/select";
 import React, { useEffect, useMemo, useState } from "react";
 import TeamLogo, { TeamLogoProps } from "./team-logo";
+import { resourceLimits } from "worker_threads";
 
 /**
  * - set up with dropdown to select competition
@@ -50,18 +51,18 @@ const competitionsMap: Record<
     label: "Animal League",
     description: "Fictional match in a fictional league",
     home: {
-      name: "FC Kangaroo",
+      name: "Kangaroo United",
       logo: { type: "kangaroo" },
       location: "Australia",
       stadium: "Outback Stadium",
-      color: "#cb0707",
+      primary: "#cb0707",
     },
     away: {
-      name: "Penguin FC",
+      name: "Penguin City",
       logo: { type: "penguin" },
       location: "Antarctica",
       stadium: "Igloo Arena",
-      color: "#1100a2",
+      primary: "#1100a2",
     },
     config: {
       fixtureType: "single-draw",
@@ -80,14 +81,15 @@ const competitionsMap: Record<
       logo: { type: "kangaroo" },
       location: "Qatar",
       stadium: "Lusail Stadium",
-      color: "#1100a2",
+      primary: "#1100a2",
     },
     away: {
       name: "Brazil",
       logo: { type: "penguin" },
       location: "Qatar",
       stadium: "Lusail Stadium",
-      color: "#ffcc00",
+      primary: "#ffcc00",
+      secondary: "#009900",
     },
     config: {
       fixtureType: "single-no-draw",
@@ -102,18 +104,18 @@ const competitionsMap: Record<
     stages: "Final",
     description: "The most-watched annual sporting event in the world",
     home: {
-      name: "FC Bayern Munich",
+      name: "Bayern Munich",
       logo: { type: "kangaroo" },
       location: "Lisbon, Portugal",
       stadium: "Estádio da Luz",
-      color: "#cb0707",
+      primary: "#cb0707",
     },
     away: {
-      name: "Chelsea FC",
+      name: "Real Madrid",
       logo: { type: "penguin" },
       location: "Lisbon, Portugal",
       stadium: "Estádio da Luz",
-      color: "#1100a2",
+      primary: "#ffffff",
     },
     config: {
       fixtureType: "single-no-draw",
@@ -131,15 +133,16 @@ const competitionsMap: Record<
       name: "Manchester City",
       logo: { type: "kangaroo" },
       location: "Manchester, England",
-      stadium: "Etihad Stadium",
-      color: "#95c6e7",
+      stadium: "City of Manchester Stadium",
+      primary: "#72cbff",
+      secondary: "#fff",
     },
     away: {
       name: "Atletico Madrid",
       logo: { type: "penguin" },
       location: "Madrid, Spain",
-      stadium: "Wanda Metropolitano",
-      color: "#ed0707",
+      stadium: "Estadio Metropolitano",
+      primary: "#ed0707",
     },
     config: {
       fixtureType: "2-leg",
@@ -147,6 +150,34 @@ const competitionsMap: Record<
       usesGoldenGoal: false,
       usesAwayGoals: true,
       usesAwayGoalsInET: true,
+    },
+  },
+  "champions-league-group": {
+    label: "UEFA Champions League",
+    stages: "Group Stage",
+    description: "",
+    home: {
+      name: "Barcelona",
+      logo: { type: "kangaroo" },
+      location: "Barcelona",
+      stadium: "Nou Camp",
+      primary: "#cd122d",
+      secondary: "#154284",
+    },
+    away: {
+      name: "Borussia Dortmund",
+      logo: { type: "penguin" },
+      location: "Dortmund",
+      stadium: "BVB Stadion Dortmund",
+      primary: "#fbde01",
+      secondary: "#000",
+    },
+    config: {
+      fixtureType: "single-draw",
+      usesExtraTime: false,
+      usesGoldenGoal: false,
+      usesAwayGoals: false,
+      usesAwayGoalsInET: false,
     },
   },
 };
@@ -164,8 +195,8 @@ const getCompetitionValue = ({
     <>
       <div
         style={{
-          fontSize: competition.stages ? "80%" : "",
-          lineHeight: competition.stages ? 1 : "",
+          fontSize: competition.stages ? "70%" : "",
+          lineHeight: competition.stages ? 1.1 : "",
         }}
       >
         {competition.label}
@@ -173,9 +204,9 @@ const getCompetitionValue = ({
       {competition.stages ? (
         <div
           style={{
-            fontSize: "70%",
+            fontSize: "60%",
             color: "#777",
-            lineHeight: 1,
+            lineHeight: 1.3,
           }}
         >
           {competition.stages}
@@ -262,33 +293,32 @@ type MatchReport = {
   penalties: [number, number] | null;
 };
 
-function colorToBadge(color: string): {
+function colorToBadge<T extends { primary: string; secondary?: string }>({
+  primary,
+  secondary,
+}: T): {
   bg: string;
   fg: string;
   b: string;
 } {
-  const sum = [color.slice(1, 3), color.slice(3, 5), color.slice(5, 7)].reduce(
-    (a, b) => a + parseInt(b, 16),
-    0
-  );
-  const fg = sum > 300 ? "#000000" : "#ffffff";
-  const b = fg === "#ffffff" ? "transparent" : "#ffffff";
+  if (secondary === undefined) {
+    const luminance =
+      0.2126 * parseInt(primary.slice(1, 3), 16) +
+      0.7152 * parseInt(primary.slice(3, 5), 16) +
+      0.0722 * parseInt(primary.slice(5, 7), 16);
+
+    secondary = luminance < 100 ? "#fff" : "#000";
+  }
 
   return {
-    bg: color,
-    fg,
-    b,
+    bg: primary,
+    fg: secondary,
+    b: secondary,
   };
 }
 
-function Badge({
-  team: { name, color },
-  margin = 0,
-}: {
-  team: Team;
-  margin?: number | string;
-}) {
-  const { bg, fg, b } = colorToBadge(color);
+function Badge({ team, margin = 0 }: { team: Team; margin?: number | string }) {
+  const { bg, fg, b } = colorToBadge(team);
   return (
     <>
       <div
@@ -300,7 +330,7 @@ function Badge({
           margin,
         }}
       >
-        {name}
+        {team.name}
       </div>
       <style jsx>{`
         .badge {
@@ -617,7 +647,8 @@ type Team = {
   logo: TeamLogoProps;
   location: string;
   stadium: string;
-  color: string;
+  primary: string;
+  secondary?: string;
 };
 
 const Minute = ({
@@ -640,30 +671,30 @@ const Minute = ({
   const bottomClass = isMultipleOf10 ? "ten" : isMultipleOf5 ? "five" : "";
 
   const text = `${time}'`;
-  const { suffix, color } = {
+  const { suffix, team } = {
     "": {
       suffix: "",
-      color: "#ffffff",
+      team: {
+        primary: "#ffffff",
+        secondary: "#000000",
+      },
     },
     H: {
       suffix: `GOAL!\n${home.name}`,
-      color: home.color,
+      team: home,
     },
     A: {
       suffix: `GOAL!\n${away.name}`,
-      color: away.color,
+      team: away,
     },
   }[whoScored || ""];
-  const { bg, fg } = colorToBadge(color);
+  const { bg, fg } = colorToBadge(team);
 
   return (
     <>
       <div
         key={time}
-        className="minute"
-        style={{
-          background: time.includes("+") ? "#ccc" : "#fff",
-        }}
+        className={`minute ${time.includes("+") ? "added-time" : ""}`}
       >
         <div
           className="popover"
@@ -683,17 +714,15 @@ const Minute = ({
           />
         </div>
         <div
-          className="top-half"
+          className={`top-half ${whoScored === "H" ? "goal" : ""}`}
           style={{
-            background: home.color,
-            opacity: whoScored === "H" ? 1 : 0.3,
+            background: home.primary,
           }}
         />
         <div
-          className="bottom-half"
+          className={`bottom-half ${whoScored === "A" ? "goal" : ""}`}
           style={{
-            background: away.color,
-            opacity: whoScored === "A" ? 1 : 0.3,
+            background: away.primary === "#ffffff" ? "#777" : away.primary,
           }}
         />
         <div className={`tick-top ${topClass}`} data-whoscored={whoScored} />
@@ -709,6 +738,11 @@ const Minute = ({
           width: 3px;
           height: 24px;
           flex: 1 0 auto;
+          background: #fff;
+        }
+
+        .minute.added-time {
+          background: #ccc;
         }
 
         .popover-arrow {
@@ -750,6 +784,7 @@ const Minute = ({
           left: 0;
           width: 100%;
           height: 50%;
+          opacity: 0.3;
         }
         .bottom-half {
           position: absolute;
@@ -757,6 +792,11 @@ const Minute = ({
           left: 0;
           width: 100%;
           height: 50%;
+          opacity: 0.3;
+        }
+        .top-half.goal,
+        .bottom-half.goal {
+          opacity: 1;
         }
         .tick-top,
         .tick-bottom {
@@ -805,7 +845,7 @@ const Minute = ({
           bottom: 0;
           width: auto;
           height: auto;
-          background: rgba(127, 127, 127, 0.3);
+          background: rgba(30, 30, 30, 0.3);
         }
       `}</style>
     </>
@@ -1226,6 +1266,7 @@ const MatchDemo = () => {
           }}
         >
           <Select
+            size="large"
             placeholder="Select competition"
             options={competitions.map(([id, { label }]) => ({
               label,
@@ -1245,6 +1286,7 @@ const MatchDemo = () => {
           }}
         >
           <Select
+            size="large"
             searchable={false}
             clearable={false}
             options={fixtureTypes.map(([id, label]) => ({
