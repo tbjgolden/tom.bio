@@ -1,15 +1,10 @@
 import { Button } from "baseui/button";
 import { Card } from "baseui/card";
 import { Checkbox, LABEL_PLACEMENT } from "baseui/checkbox";
-import { Option, Select } from "baseui/select";
-import React, { useEffect, useMemo, useState } from "react";
+import { Select } from "baseui/select";
+import React, { useMemo, useState } from "react";
 import TeamLogo, { TeamLogoProps } from "./team-logo";
-import { resourceLimits } from "worker_threads";
-
-/**
- * - set up with dropdown to select competition
- * - away goals not working for some reason
- */
+import { StatelessAccordion, Panel } from "baseui/accordion";
 
 const fixtureTypesMap = {
   "single-draw": "Single match",
@@ -28,225 +23,6 @@ type FixtureType =
   | "replay-inf";
 
 type Fixture = [{ label: string; id: FixtureType }];
-type FixtureConfig = {
-  fixtureType: FixtureType;
-  usesExtraTime: boolean;
-  usesGoldenGoal: boolean;
-  usesAwayGoals: boolean;
-  usesAwayGoalsInET: boolean;
-};
-
-const competitionsMap: Record<
-  string,
-  {
-    label: string;
-    description: string;
-    stages?: string;
-    home: Team;
-    away: Team;
-    config: FixtureConfig;
-  }
-> = {
-  "animal-league": {
-    label: "Animal League",
-    description: "Fictional match in a fictional league",
-    home: {
-      name: "Kangaroo United",
-      logo: { type: "kangaroo" },
-      location: "Australia",
-      stadium: "Outback Stadium",
-      primary: "#cb0707",
-    },
-    away: {
-      name: "Penguin City",
-      logo: { type: "penguin" },
-      location: "Antarctica",
-      stadium: "Igloo Arena",
-      primary: "#1100a2",
-    },
-    config: {
-      fixtureType: "single-draw",
-      usesExtraTime: false,
-      usesGoldenGoal: false,
-      usesAwayGoals: false,
-      usesAwayGoalsInET: false,
-    },
-  },
-  "world-cup-final": {
-    label: "World Cup",
-    stages: "Final",
-    description: "The most-watched sporting event in the world",
-    home: {
-      name: "France",
-      logo: { type: "kangaroo" },
-      location: "Qatar",
-      stadium: "Lusail Stadium",
-      primary: "#1100a2",
-    },
-    away: {
-      name: "Brazil",
-      logo: { type: "penguin" },
-      location: "Qatar",
-      stadium: "Lusail Stadium",
-      primary: "#ffcc00",
-      secondary: "#009900",
-    },
-    config: {
-      fixtureType: "single-no-draw",
-      usesExtraTime: true,
-      usesGoldenGoal: false,
-      usesAwayGoals: false,
-      usesAwayGoalsInET: false,
-    },
-  },
-  "champions-league-final": {
-    label: "UEFA Champions League",
-    stages: "Final",
-    description: "The most-watched annual sporting event in the world",
-    home: {
-      name: "Bayern Munich",
-      logo: { type: "kangaroo" },
-      location: "Lisbon, Portugal",
-      stadium: "Estádio da Luz",
-      primary: "#cb0707",
-    },
-    away: {
-      name: "Real Madrid",
-      logo: { type: "penguin" },
-      location: "Lisbon, Portugal",
-      stadium: "Estádio da Luz",
-      primary: "#ffffff",
-    },
-    config: {
-      fixtureType: "single-no-draw",
-      usesExtraTime: true,
-      usesGoldenGoal: false,
-      usesAwayGoals: false,
-      usesAwayGoalsInET: false,
-    },
-  },
-  "champions-league-knockout": {
-    label: "UEFA Champions League",
-    stages: "R16, QF, SF",
-    description: "",
-    home: {
-      name: "Manchester City",
-      logo: { type: "kangaroo" },
-      location: "Manchester, England",
-      stadium: "City of Manchester Stadium",
-      primary: "#72cbff",
-      secondary: "#fff",
-    },
-    away: {
-      name: "Atletico Madrid",
-      logo: { type: "penguin" },
-      location: "Madrid, Spain",
-      stadium: "Estadio Metropolitano",
-      primary: "#ed0707",
-    },
-    config: {
-      fixtureType: "2-leg",
-      usesExtraTime: true,
-      usesGoldenGoal: false,
-      usesAwayGoals: true,
-      usesAwayGoalsInET: true,
-    },
-  },
-  "champions-league-group": {
-    label: "UEFA Champions League",
-    stages: "Group Stage",
-    description: "",
-    home: {
-      name: "Barcelona",
-      logo: { type: "kangaroo" },
-      location: "Barcelona",
-      stadium: "Nou Camp",
-      primary: "#cd122d",
-      secondary: "#154284",
-    },
-    away: {
-      name: "Borussia Dortmund",
-      logo: { type: "penguin" },
-      location: "Dortmund",
-      stadium: "BVB Stadion Dortmund",
-      primary: "#fbde01",
-      secondary: "#000",
-    },
-    config: {
-      fixtureType: "single-draw",
-      usesExtraTime: false,
-      usesGoldenGoal: false,
-      usesAwayGoals: false,
-      usesAwayGoalsInET: false,
-    },
-  },
-};
-const competitions = Object.entries(competitionsMap);
-type Competition = [{ label: string; id: keyof typeof competitionsMap }];
-
-const getCompetitionValue = ({
-  option,
-}: {
-  option?: Option;
-}): React.ReactNode => {
-  const competition =
-    competitionsMap[option.id] ?? competitions["animal-league"];
-  return (
-    <>
-      <div
-        style={{
-          fontSize: competition.stages ? "70%" : "",
-          lineHeight: competition.stages ? 1.1 : "",
-        }}
-      >
-        {competition.label}
-      </div>
-      {competition.stages ? (
-        <div
-          style={{
-            fontSize: "60%",
-            color: "#777",
-            lineHeight: 1.3,
-          }}
-        >
-          {competition.stages}
-        </div>
-      ) : null}
-    </>
-  );
-};
-const getCompetitionLabel = ({
-  option,
-}: {
-  option?: Option;
-}): React.ReactNode => {
-  const competition =
-    competitionsMap[option.id] ?? competitions["animal-league"];
-  return (
-    <>
-      <div
-        style={{
-          fontSize: "90%",
-          lineHeight: 1.2,
-        }}
-      >
-        {competition.label}
-        {competition.stages ? ` - ${competition.stages}` : null}
-      </div>
-      {competition.description ? (
-        <div
-          style={{
-            fontSize: "80%",
-            color: "#777",
-            lineHeight: 1,
-          }}
-        >
-          {competition.description}
-        </div>
-      ) : null}
-    </>
-  );
-};
 
 const RANDOMIZER_DATA = {
   H1: 0.009171959551498122,
@@ -440,7 +216,7 @@ function generateMatchReport({
       prevScore[0] !== ftScore[1]
     ) {
       // decided on away goals
-      winner = prevScore[0] > ftScore[1] ? "A" : "H";
+      winner = prevScore[0] > ftScore[1] ? "H" : "A";
     } else {
       if (usesExtraTime) {
         continueIfNecessary: {
@@ -521,7 +297,7 @@ function generateMatchReport({
           prevScore[0] !== aetScore[1]
         ) {
           // decided on away goals after extra time
-          winner = prevScore[0] > aetScore[1] ? "A" : "H";
+          winner = prevScore[0] > aetScore[1] ? "H" : "A";
         }
       }
 
@@ -1037,10 +813,13 @@ const Match = ({
             ? x.penalties.join("-")
             : `${x.penalties[1]}-${x.penalties[0]}`
         } on penalties`;
-      } else if (x.aetScore) {
-        resultMessage += ` after extra time`;
       } else {
-        resultMessage += "s";
+        if (x.aetScore) {
+          resultMessage += ` after extra time`;
+        }
+        if (x.aggScore && (x.aggScore[0] === x.aggScore[1])) {
+          resultMessage += ` on away goals`
+        }
       }
     }
 
@@ -1133,16 +912,16 @@ const Match = ({
 };
 
 const RandomFixtureReport = ({
-  home = competitionsMap["animal-league"].home,
-  away = competitionsMap["animal-league"].away,
+  home,
+  away,
   fixtureType,
   usesExtraTime,
   usesAwayGoalsInET,
   usesGoldenGoal,
   usesAwayGoals,
 }: {
-  home?: Team;
-  away?: Team;
+  home: Team;
+  away: Team;
   fixtureType: FixtureType;
   usesExtraTime: boolean;
   usesAwayGoalsInET: boolean;
@@ -1206,10 +985,20 @@ const RandomFixtureReport = ({
   );
 };
 
+const ContentOverride = {
+  Content: {
+    style: {
+      borderTop: "1px solid rgb(203, 203, 203)",
+      padding: "20px",
+      background: "#fafafa"
+    }
+  }
+}
+
 const MatchDemo = () => {
-  const [_competition, setCompetition] = useState<Competition | []>([]);
-  const competitionId: string =
-    _competition.length === 0 ? "" : _competition[0].id;
+  const [expanded, setExpanded] = React.useState<React.Key[]>([
+    '0',
+  ]);
 
   const [fixtureType, setFixtureType] = useState<Fixture>([
     { label: "Single Match", id: "single-draw" },
@@ -1227,66 +1016,30 @@ const MatchDemo = () => {
   const hasOptions =
     fixtureTypeId !== "single-draw" && fixtureTypeId !== "replay-inf";
 
-  useEffect(() => {
-    const _competitionId = competitionId || "animal-league";
-
-    const {
-      config: {
-        fixtureType,
-        usesExtraTime,
-        usesGoldenGoal,
-        usesAwayGoals,
-        usesAwayGoalsInET,
-      },
-    } = competitionsMap[_competitionId];
-    setFixtureType([
-      {
-        label: fixtureTypesMap[fixtureType],
-        id: fixtureType,
-      },
-    ]);
-    setUsesExtraTime(usesExtraTime);
-    setUsesGoldenGoal(usesGoldenGoal);
-    setUsesAwayGoals(usesAwayGoals);
-    setUsesAwayGoalsInET(usesAwayGoalsInET);
-  }, [competitionId]);
-
   return (
     <Card>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 16,
+      <StatelessAccordion
+        expanded={expanded}
+        onChange={({ key }) => {
+          setExpanded([key]);
         }}
       >
-        <div
-          style={{
-            flex: "1 1 200px",
-          }}
-        >
+        <Panel key="0" title="Competition Selector" overrides={ContentOverride}>
           <Select
-            size="large"
-            placeholder="Select competition"
-            options={competitions.map(([id, { label }]) => ({
+            searchable={false}
+            clearable={false}
+            options={fixtureTypes.map(([id, label]) => ({
               label,
               id,
             }))}
-            value={_competition}
+            value={fixtureType}
             onChange={(params) => {
-              setCompetition(params.value as Competition);
+              setFixtureType(params.value as Fixture);
             }}
-            getValueLabel={getCompetitionValue}
-            getOptionLabel={getCompetitionLabel}
           />
-        </div>
-        <div
-          style={{
-            flex: "1 1 200px",
-          }}
-        >
+        </Panel>
+        <Panel key="1" title="Sandbox" overrides={ContentOverride}>
           <Select
-            size="large"
             searchable={false}
             clearable={false}
             options={fixtureTypes.map(([id, label]) => ({
@@ -1365,8 +1118,8 @@ const MatchDemo = () => {
               </>
             )}
           </div>
-        </div>
-      </div>
+        </Panel>
+      </StatelessAccordion>
 
       <div style={{ marginTop: 16 }}>
         <Card
@@ -1379,8 +1132,20 @@ const MatchDemo = () => {
           }}
         >
           <RandomFixtureReport
-            home={competitionsMap[competitionId || "animal-league"].home}
-            away={competitionsMap[competitionId || "animal-league"].away}
+            home={{
+              name: "Kangaroo United",
+              logo: { type: "kangaroo" },
+              location: "Australia",
+              stadium: "Outback Stadium",
+              primary: "#cb0707",
+            }}
+            away={{
+              name: "Penguin City",
+              logo: { type: "penguin" },
+              location: "Antarctica",
+              stadium: "Igloo Arena",
+              primary: "#1100a2",
+            }}
             fixtureType={fixtureTypeId}
             usesExtraTime={usesExtraTime}
             usesAwayGoalsInET={usesAwayGoalsInET}
