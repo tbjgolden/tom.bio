@@ -2,55 +2,20 @@ import { Button } from "baseui/button";
 import { Card } from "baseui/card";
 import { Checkbox, LABEL_PLACEMENT } from "baseui/checkbox";
 import { Select } from "baseui/select";
-import React, { useMemo, useState } from "react";
-import TeamLogo, { TeamLogoProps } from "./team-logo";
+import React, { useEffect, useMemo, useState } from "react";
 import { StatelessAccordion, Panel } from "baseui/accordion";
+import {
+  FixtureType,
+  RANDOMIZER_DATA,
+  RIVALRY_MAP,
+  COMPETITIONS_MAP,
+  COMPETITIONS,
+  Competition,
+  Team,
+  Round, FIXTURE_TYPES
+} from "./match-demo.data";
 
-const fixtureTypesMap = {
-  "single-draw": "Single match",
-  "single-no-draw": "Single match (no draw)",
-  "2-leg": "2-legged fixture (2 matches with scores added)",
-  "replay-1": "Replay once in case of a draw",
-  "replay-inf": "Replay until a team wins",
-};
-const fixtureTypes = Object.entries(fixtureTypesMap);
-
-type FixtureType =
-  | "single-draw"
-  | "single-no-draw"
-  | "2-leg"
-  | "replay-1"
-  | "replay-inf";
-
-type Fixture = [{ label: string; id: FixtureType }];
-
-const RANDOMIZER_DATA = {
-  H1: 0.009171959551498122,
-  A1: 0.005876036986981905,
-  H2: 0.02267865416654344,
-  A2: 0.015393487711826812,
-  H_ET: 0.03731004395141018,
-  A_ET: 0.025324770106553787,
-  P: [
-    [[4, 3], 0.14705882352941177],
-    [[3, 2], 0.11764705882352941],
-    [[5, 4], 0.08823529411764706],
-    [[4, 1], 0.08823529411764706],
-    [[3, 4], 0.08823529411764706],
-    [[1, 3], 0.058823529411764705],
-    [[4, 2], 0.058823529411764705],
-    [[2, 3], 0.058823529411764705],
-    [[6, 5], 0.058823529411764705],
-    [[2, 4], 0.029411764705882353],
-    [[1, 4], 0.029411764705882353],
-    [[6, 7], 0.029411764705882353],
-    [[9, 8], 0.029411764705882353],
-    [[5, 6], 0.029411764705882353],
-    [[4, 5], 0.029411764705882353],
-    [[8, 7], 0.029411764705882353],
-    [[5, 3], 0.02941176470588235],
-  ] as [[number, number], number][],
-};
+// ---
 
 type Minute = {
   id: string;
@@ -69,27 +34,27 @@ type MatchReport = {
   penalties: [number, number] | null;
 };
 
-function colorToBadge<T extends { primary: string; secondary?: string }>({
-  primary,
-  secondary,
+function colorToBadge<T extends { colorA: string; colorB: string; pattern?: string }>({
+  colorA,
+  colorB,
 }: T): {
   bg: string;
   fg: string;
   b: string;
 } {
-  if (secondary === undefined) {
-    const luminance =
-      0.2126 * parseInt(primary.slice(1, 3), 16) +
-      0.7152 * parseInt(primary.slice(3, 5), 16) +
-      0.0722 * parseInt(primary.slice(5, 7), 16);
-
-    secondary = luminance < 100 ? "#fff" : "#000";
-  }
+  // if (colorB === undefined) {
+  //   const luminance =
+  //     0.2126 * parseInt(colorA.slice(1, 3), 16) +
+  //     0.7152 * parseInt(colorA.slice(3, 5), 16) +
+  //     0.0722 * parseInt(colorA.slice(5, 7), 16);
+  //
+  //   colorB = luminance < 100 ? "#fff" : "#000";
+  // }
 
   return {
-    bg: primary,
-    fg: secondary,
-    b: secondary,
+    bg: colorA,
+    fg: colorB,
+    b: colorB,
   };
 }
 
@@ -308,7 +273,7 @@ function generateMatchReport({
         for (const [score, p] of RANDOMIZER_DATA.P) {
           sum += p;
           if (sum > rand) {
-            penalties = score;
+            penalties = [score[0], score[1]];
             winner = penalties[0] > penalties[1] ? "H" : "A";
             break;
           }
@@ -418,15 +383,6 @@ function generateFixtureReport({
   });
 }
 
-type Team = {
-  name: string;
-  logo: TeamLogoProps;
-  location: string;
-  stadium: string;
-  primary: string;
-  secondary?: string;
-};
-
 const Minute = ({
   time,
   whoScored,
@@ -451,8 +407,8 @@ const Minute = ({
     "": {
       suffix: "",
       team: {
-        primary: "#ffffff",
-        secondary: "#000000",
+        colorA: "#ffffff",
+        colorB: "#000000"
       },
     },
     H: {
@@ -492,13 +448,13 @@ const Minute = ({
         <div
           className={`top-half ${whoScored === "H" ? "goal" : ""}`}
           style={{
-            background: home.primary,
+            background: home.colorA,
           }}
         />
         <div
           className={`bottom-half ${whoScored === "A" ? "goal" : ""}`}
           style={{
-            background: away.primary === "#ffffff" ? "#777" : away.primary,
+            background: away.colorA === "#ffffff" ? "#777" : away.colorA,
           }}
         />
         <div className={`tick-top ${topClass}`} data-whoscored={whoScored} />
@@ -792,12 +748,14 @@ const Match = ({
   len,
   i,
   x,
+  usesNeutralVenue
 }: {
   home: Team;
   away: Team;
   len: number;
   i: number;
   x: StructuredMatchReport;
+  usesNeutralVenue: boolean
 }) => {
   let resultMessage: string | null = null;
   if (i === len - 1) {
@@ -840,17 +798,19 @@ const Match = ({
             alignItems: "center",
           }}
         >
-          <div
-            style={{
-              width: "100%",
-              textAlign: "center",
-              fontSize: "80%",
-              marginBottom: 8,
-            }}
-          >
-            {len === 1 ? null : `Match ${i + 1} - `}
-            {home.stadium} ({home.location})
-          </div>
+          {len > 1 || !usesNeutralVenue ? (
+            <div
+              style={{
+                width: "100%",
+                textAlign: "center",
+                fontSize: "80%",
+                marginBottom: 8,
+              }}
+            >
+              {len === 1 ? null : `Match ${i + 1} - `}
+              {home.stadium}{home.city ? ` (${home.city})` : null}
+            </div>
+          ) : null}
           <div
             style={{
               display: "flex",
@@ -867,7 +827,6 @@ const Match = ({
             >
               <Badge team={home} margin="0 8px 0 0" />
             </div>
-            <TeamLogo {...home.logo} size={5} />
             <div
               style={{
                 margin: "0 8px",
@@ -884,7 +843,6 @@ const Match = ({
               <div style={{ marginTop: 4 }}>HT {x.htScore.join(" - ")}</div>
               {x.aetScore ? <div>FT {x.ftScore.join(" - ")}</div> : null}
             </div>
-            <TeamLogo {...away.logo} size={5} />
             <div style={{ flex: "1 1 1px" }}>
               <Badge team={away} margin="0 0 0 8px" />
             </div>
@@ -914,20 +872,22 @@ const Match = ({
 const RandomFixtureReport = ({
   home,
   away,
-  fixtureType,
-  usesExtraTime,
-  usesAwayGoalsInET,
-  usesGoldenGoal,
-  usesAwayGoals,
+  round,
+  randomizeTeams
 }: {
   home: Team;
   away: Team;
-  fixtureType: FixtureType;
-  usesExtraTime: boolean;
-  usesAwayGoalsInET: boolean;
-  usesGoldenGoal: boolean;
-  usesAwayGoals: boolean;
+  round: Round;
+  randomizeTeams?: null | (() => void)
 }) => {
+  const {
+    fixtureType,
+    usesExtraTime,
+    usesAwayGoalsInET,
+    usesGoldenGoal,
+    usesAwayGoals,
+  } = round.rules
+
   const [regenerate, setRegenerate] = useState(0);
   const fixtureReport = useMemo(() => {
     return generateFixtureReport({
@@ -965,7 +925,12 @@ const RandomFixtureReport = ({
           Example Match Report
         </h3>
         <div>
-          <Button size="compact" onClick={() => setRegenerate(regenerate + 1)}>
+          <Button size="compact" onClick={() => {
+            setRegenerate(regenerate + 1)
+            if (randomizeTeams) {
+              randomizeTeams()
+            }
+          }}>
             Regenerate
           </Button>
         </div>
@@ -974,6 +939,7 @@ const RandomFixtureReport = ({
       {fixtureReport.map((x, i) => (
         <Match
           key={x.id}
+          usesNeutralVenue={round.usesNeutralVenue}
           home={i % 2 === 0 ? home : away}
           away={i % 2 === 0 ? away : home}
           len={fixtureReport.length}
@@ -995,13 +961,56 @@ const ContentOverride = {
   }
 }
 
+type Fixture = [{ label: string, id: FixtureType }]
+
 const MatchDemo = () => {
+  const [regenerate, setRegenerate] = useState(0);
   const [expanded, setExpanded] = React.useState<React.Key[]>([
     '0',
   ]);
 
+  const [competition, setCompetition] = useState<[Competition]>([
+    COMPETITIONS[0],
+  ]);
+  const { teamA, teamB, rivalry, competitionData } = useMemo(() => {
+    const competitionData = COMPETITIONS_MAP[competition[0].id]
+    let teamA: Team
+    let teamB: Team
+    let rivalry: string | null = null
+    if (competitionData.teams.length === 2) {
+      teamA = competitionData.teams[0]
+      teamB = competitionData.teams[1]
+    } else {
+      const noOfTeams = competitionData.teams.length
+      let firstIndex = Math.floor(Math.random() * noOfTeams)
+      let secondIndex = Math.floor(Math.random() * (noOfTeams - 1))
+      if (secondIndex >= firstIndex) secondIndex += 1
+      teamA = competitionData.teams[firstIndex]
+      teamB = competitionData.teams[secondIndex]
+      const rivalryId = (teamA.id < teamB.id) ? `${teamA.id}_${teamB.id}` : `${teamB.id}_${teamA.id}`
+      rivalry = RIVALRY_MAP[rivalryId]?.description || null
+    }
+    return {
+      teamA,
+      teamB,
+      rivalry,
+      competitionData
+    }
+  }, [competition, regenerate])
+  const [roundIndex, setRoundIndex] = useState<number>(0);
+  const round = competitionData.rounds[
+    roundIndex < competitionData.rounds.length ? roundIndex : 0
+  ]
+
+  useEffect(() => {
+    if (competitionData.rounds.length > 0) {
+      setRoundIndex(0)
+    }
+  }, [competitionData])
+
+
   const [fixtureType, setFixtureType] = useState<Fixture>([
-    { label: "Single Match", id: "single-draw" },
+    { label: "Single match", id: "single-draw" },
   ]);
   const fixtureTypeId = fixtureType[0].id;
 
@@ -1028,21 +1037,60 @@ const MatchDemo = () => {
           <Select
             searchable={false}
             clearable={false}
-            options={fixtureTypes.map(([id, label]) => ({
-              label,
-              id,
-            }))}
-            value={fixtureType}
+            options={COMPETITIONS.map(({ id, name}) => ({ id }))}
+            value={competition}
             onChange={(params) => {
-              setFixtureType(params.value as Fixture);
+              if (params.value.length === 1) {
+                setCompetition(params.value as [Competition]);
+              }
+            }}
+            getOptionLabel={({ option }): JSX.Element => {
+              const id = `${option?.id ?? ""}`
+              const competition = COMPETITIONS_MAP[id]
+              return (
+                <div>
+                  <div>{competition.name}</div>
+                  <div style={{ fontSize: "80%" }}>{competition.shortDescription}</div>
+                </div>
+              );
+            }}
+            getValueLabel={({ option }): JSX.Element => {
+              const id = `${option?.id ?? ""}`
+              const competition = COMPETITIONS_MAP[id]
+              return (
+                <div>
+                  <div>{competition.name}</div>
+                  <div style={{ fontSize: "80%" }}>{competition.shortDescription}</div>
+                </div>
+              );
             }}
           />
+
+          {competitionData.rounds.length >= 2 ? (
+            <div style={{ marginTop: 8 }}>
+              <Select
+                size="compact"
+                searchable={false}
+                clearable={false}
+                options={competitionData.rounds.map(({ id, round }, i) => ({ id, label: round, i }))}
+                value={[
+                  competitionData.rounds[roundIndex]
+                ]}
+                onChange={(params) => {
+                  if (params.value.length === 1) {
+                    setRoundIndex(params.value[0].i);
+                  }
+                }}
+              />
+            </div>
+          ) : null}
         </Panel>
         <Panel key="1" title="Sandbox" overrides={ContentOverride}>
           <Select
+            size="compact"
             searchable={false}
             clearable={false}
-            options={fixtureTypes.map(([id, label]) => ({
+            options={FIXTURE_TYPES.map(([id, label]) => ({
               label,
               id,
             }))}
@@ -1122,6 +1170,7 @@ const MatchDemo = () => {
       </StatelessAccordion>
 
       <div style={{ marginTop: 16 }}>
+        {/*{rivalry ? <div style={{ marginBottom: 16 }}>{rivalry}</div> : null}*/}
         <Card
           overrides={{
             Root: {
@@ -1132,25 +1181,31 @@ const MatchDemo = () => {
           }}
         >
           <RandomFixtureReport
-            home={{
-              name: "Kangaroo United",
-              logo: { type: "kangaroo" },
-              location: "Australia",
-              stadium: "Outback Stadium",
-              primary: "#cb0707",
-            }}
-            away={{
-              name: "Penguin City",
-              logo: { type: "penguin" },
-              location: "Antarctica",
-              stadium: "Igloo Arena",
-              primary: "#1100a2",
-            }}
-            fixtureType={fixtureTypeId}
-            usesExtraTime={usesExtraTime}
-            usesAwayGoalsInET={usesAwayGoalsInET}
-            usesGoldenGoal={usesGoldenGoal}
-            usesAwayGoals={usesAwayGoals}
+            home={teamA}
+            away={teamB}
+            round={
+              expanded[0] === '0' ? round : {
+                id: `Sandbox_${Math.random()}`,
+                round: "Sandbox",
+                usesNeutralVenue: (
+                  fixtureTypeId === "single-no-draw" ||
+                  fixtureTypeId === "replay-1" ||
+                  fixtureTypeId === "replay-inf"
+                ),
+                rules: {
+                  fixtureType: fixtureTypeId,
+                  usesExtraTime,
+                  usesGoldenGoal,
+                  usesAwayGoals,
+                  usesAwayGoalsInET
+                }
+              }
+            }
+            randomizeTeams={
+              competitionData.teams.length > 2 ? () => {
+                setRegenerate(regenerate + 1)
+              } : null
+            }
           />
         </Card>
       </div>
