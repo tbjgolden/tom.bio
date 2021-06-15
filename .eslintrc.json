@@ -6,7 +6,7 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     // "prettier",
-    "baseui"
+    "plugin:baseui/recommended"
   ],
   "env": {
     "es6": true,

@@ -119,7 +119,7 @@ export async function getPostAndMorePosts(slug: string, preview: boolean) {
       post(filter: {slug: {eq: $slug}}) {
         title
         slug
-        content(markdown: true)
+        content
         date
         ogImage: coverImage{
           url(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 })
@@ -197,11 +197,11 @@ export async function getAllProjects() {
           media {
             url(imgixParams: { crop: top, ar: "1:2", fit: crop, auto: format })
           }
-          description(markdown: true)
+          description
           parts {
             name
             url
-            description(markdown: true)
+            description
           }
         }
       }
@@ -218,7 +218,7 @@ export async function getPage(slug: string, preview = false) {
           title
           slug
           hidden
-          content(markdown: true)
+          content
         }
       }
     `,
@@ -238,7 +238,7 @@ export async function getAllPagesWithSlug() {
       allPages(filter: {slug: {neq: ""}}) {
         title
         slug
-        content(markdown: true)
+        content
       }
     }
   `);

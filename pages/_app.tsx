@@ -1,5 +1,8 @@
 import App, { AppContext, AppProps } from "next/app";
 
+import "../styles/reset.scss";
+import "../styles/fonts.scss";
+import "../styles/debug.scss";
 import "../styles/markdown.scss";
 
 import { Provider as StyletronProvider } from "styletron-react";

@@ -50,10 +50,7 @@ export default function Portfolio({
                   </p>
                   : null}
                 {description.length > 0
-                  ? <Markdown
-                    className="pab30 par30"
-                    content={description}
-                  />
+                  ? <Markdown className="pab30 par30">{description}</Markdown>
                   : null}
                 {parts.map(({ name, url, description }) =>
                   <div className="dib ovwA nw55 pab30 par30" key={name}>
@@ -69,9 +66,7 @@ export default function Portfolio({
                         : null}
                     </h3>
                     {description.length > 0
-                      ? <Markdown
-                        content={description}
-                      />
+                      ? <Markdown>{description}</Markdown>
                       : null}
                   </div>
                 )}

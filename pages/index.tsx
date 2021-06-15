@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import { getPage } from "lib/api";
 import Markdown from "components/markdown";
-import { Card } from "baseui/card";
+import Card from 'components/card';
 
 export default function Index({
   page,
@@ -18,7 +18,7 @@ export default function Index({
         "Something went wrong when loading the homepage content."
       ) : (
         <Card>
-          <Markdown content={page.content} />
+          <Markdown>{page.content}</Markdown>
         </Card>
       )}
     </article>

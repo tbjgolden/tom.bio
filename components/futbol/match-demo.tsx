@@ -1,5 +1,4 @@
 import { Button } from "baseui/button";
-import { Card } from "baseui/card";
 import { Checkbox, LABEL_PLACEMENT } from "baseui/checkbox";
 import { Select } from "baseui/select";
 import React, { useEffect, useMemo, useState } from "react";
@@ -454,7 +453,7 @@ const Minute = ({
         <div
           className={`bottom-half ${whoScored === "A" ? "goal" : ""}`}
           style={{
-            background: away.colorA === "#ffffff" ? "#777" : away.colorA,
+            background: away.colorA.toLowerCase() === "#ffffff" ? "#777" : away.colorA,
           }}
         />
         <div className={`tick-top ${topClass}`} data-whoscored={whoScored} />
@@ -467,9 +466,8 @@ const Minute = ({
         .minute {
           user-select: none;
           position: relative;
-          width: 3px;
           height: 24px;
-          flex: 1 0 auto;
+          flex: 1 0 1px;
           background: #fff;
         }
 
@@ -506,7 +504,8 @@ const Minute = ({
           margin: 3px 0 1px;
         }
 
-        .minute:hover .popover {
+        .minute:hover .popover,
+        .minute:active .popover {
           display: inline-block;
         }
 
@@ -553,13 +552,15 @@ const Minute = ({
           height: 3px;
         }
 
-        .minute:hover .tick-top {
+        .minute:hover .tick-top,
+        .minute:active .tick-top {
           left: 1px;
           right: 1px;
           width: auto;
           height: auto;
         }
-        .minute:hover .tick-top::before {
+        .minute:hover .tick-top::before,
+        .minute:active .tick-top::before {
           content: "";
           position: absolute;
           top: 0;
@@ -569,7 +570,8 @@ const Minute = ({
           background: #777;
           transform: translate(0, -50%);
         }
-        .minute:hover .tick-bottom {
+        .minute:hover .tick-bottom,
+        .minute:active .tick-bottom {
           position: absolute;
           left: 0;
           right: 0;
@@ -691,16 +693,16 @@ const Timeline = ({
         }
 
         .first-half {
-          flex: 47 0 auto;
+          flex: 47 0 0;
         }
         .second-half {
-          flex: 51 0 auto;
+          flex: 51 0 0;
         }
         .first-half-et {
-          flex: 16 0 auto;
+          flex: 16 0 0;
         }
         .second-half-et {
-          flex: 16 0 auto;
+          flex: 16 0 0;
         }
 
         .penalties {
@@ -712,7 +714,7 @@ const Timeline = ({
           position: relative;
           border: dotted #333;
           border-width: 0 0 1px;
-          width: 32px;
+          flex: 0 0 32px;
           font-size: 75%;
           text-align: center;
         }
@@ -735,7 +737,17 @@ const Timeline = ({
         }
 
         .break:not([data-before]) {
-          width: 4px;
+          flex-basis: 4px;
+        }
+        
+        @media (max-width: 480px) {
+          .break[data-before="HT"] {
+            flex-basis: 4px;
+          }
+          .break[data-before="HT"]::before,
+          .break[data-before="HT"]::after {
+            content: none;
+          }
         }
       `}</style>
     </div>
@@ -790,7 +802,9 @@ const Match = ({
 
   return (
     <div style={{ marginTop: i === 0 ? 0 : 16 }}>
-      <Card>
+      <div style={{
+        margin: "16px 0 0"
+      }}>
         <div
           style={{
             display: "flex",
@@ -864,7 +878,7 @@ const Match = ({
             </div>
           ) : null}
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
@@ -920,9 +934,10 @@ const RandomFixtureReport = ({
             fontSize: "120%",
             fontWeight: 700,
             fontVariationSettings: '"wght" 700',
+            marginRight: 16
           }}
         >
-          Example Match Report
+          Example <span style={{ display: "inline-block" }}>Match Report</span>
         </h3>
         <div>
           <Button size="compact" onClick={() => {
@@ -1026,148 +1041,150 @@ const MatchDemo = () => {
     fixtureTypeId !== "single-draw" && fixtureTypeId !== "replay-inf";
 
   return (
-    <Card>
-      <StatelessAccordion
-        expanded={expanded}
-        onChange={({ key }) => {
-          setExpanded([key]);
-        }}
-      >
-        <Panel key="0" title="Competition Selector" overrides={ContentOverride}>
-          <Select
-            searchable={false}
-            clearable={false}
-            options={COMPETITIONS.map(({ id, name}) => ({ id }))}
-            value={competition}
-            onChange={(params) => {
-              if (params.value.length === 1) {
-                setCompetition(params.value as [Competition]);
-              }
-            }}
-            getOptionLabel={({ option }): JSX.Element => {
-              const id = `${option?.id ?? ""}`
-              const competition = COMPETITIONS_MAP[id]
-              return (
-                <div>
-                  <div>{competition.name}</div>
-                  <div style={{ fontSize: "80%" }}>{competition.shortDescription}</div>
-                </div>
-              );
-            }}
-            getValueLabel={({ option }): JSX.Element => {
-              const id = `${option?.id ?? ""}`
-              const competition = COMPETITIONS_MAP[id]
-              return (
-                <div>
-                  <div>{competition.name}</div>
-                  <div style={{ fontSize: "80%" }}>{competition.shortDescription}</div>
-                </div>
-              );
-            }}
-          />
+    <div>
+      <div style={{ border: "1px solid #ccc", borderBottom: 0 }}>
+        <StatelessAccordion
+          expanded={expanded}
+          onChange={({ key }) => {
+            setExpanded([key]);
+          }}
+        >
+          <Panel key="0" title="Competition Selector" overrides={ContentOverride}>
+            <Select
+              searchable={false}
+              clearable={false}
+              options={COMPETITIONS.map(({ id, name}) => ({ id }))}
+              value={competition}
+              onChange={(params) => {
+                if (params.value.length === 1) {
+                  setCompetition(params.value as [Competition]);
+                }
+              }}
+              getOptionLabel={({ option }): JSX.Element => {
+                const id = `${option?.id ?? ""}`
+                const competition = COMPETITIONS_MAP[id]
+                return (
+                  <div>
+                    <div>{competition.name}</div>
+                    <div style={{ fontSize: "80%" }}>{competition.shortDescription}</div>
+                  </div>
+                );
+              }}
+              getValueLabel={({ option }): JSX.Element => {
+                const id = `${option?.id ?? ""}`
+                const competition = COMPETITIONS_MAP[id]
+                return (
+                  <div>
+                    <div>{competition.name}</div>
+                    <div style={{ fontSize: "80%" }}>{competition.shortDescription}</div>
+                  </div>
+                );
+              }}
+            />
 
-          {competitionData.rounds.length >= 2 ? (
-            <div style={{ marginTop: 8 }}>
-              <Select
-                size="compact"
-                searchable={false}
-                clearable={false}
-                options={competitionData.rounds.map(({ id, round }, i) => ({ id, label: round, i }))}
-                value={[
-                  competitionData.rounds[roundIndex]
-                ]}
-                onChange={(params) => {
-                  if (params.value.length === 1) {
-                    setRoundIndex(params.value[0].i);
-                  }
-                }}
-              />
-            </div>
-          ) : null}
-        </Panel>
-        <Panel key="1" title="Sandbox" overrides={ContentOverride}>
-          <Select
-            size="compact"
-            searchable={false}
-            clearable={false}
-            options={FIXTURE_TYPES.map(([id, label]) => ({
-              label,
-              id,
-            }))}
-            value={fixtureType}
-            onChange={(params) => {
-              setFixtureType(params.value as Fixture);
-            }}
-          />
-          <div style={{ marginTop: hasOptions ? 8 : 0 }}>
-            {fixtureTypeId === "2-leg" ? (
-              <>
-                <Checkbox
-                  checked={usesAwayGoals}
-                  onChange={(event) => {
-                    const target = event.target as HTMLInputElement & {
-                      checked: boolean;
-                    };
-                    setUsesAwayGoals(target.checked);
+            {competitionData.rounds.length >= 2 ? (
+              <div style={{ marginTop: 8 }}>
+                <Select
+                  size="compact"
+                  searchable={false}
+                  clearable={false}
+                  options={competitionData.rounds.map(({ id, round }, i) => ({ id, label: round, i }))}
+                  value={[
+                    competitionData.rounds[roundIndex]
+                  ]}
+                  onChange={(params) => {
+                    if (params.value.length === 1) {
+                      setRoundIndex(params.value[0].i);
+                    }
                   }}
-                  labelPlacement={LABEL_PLACEMENT.right}
-                >
-                  Uses away goals rule
-                </Checkbox>
-                {usesExtraTime && usesAwayGoals ? (
-                  <>
-                    <Checkbox
-                      checked={usesAwayGoalsInET}
-                      onChange={(event) => {
-                        const target = event.target as HTMLInputElement & {
-                          checked: boolean;
-                        };
-                        setUsesAwayGoalsInET(target.checked);
-                      }}
-                      labelPlacement={LABEL_PLACEMENT.right}
-                    >
-                      Uses away goals rule in extra time
-                    </Checkbox>
-                  </>
-                ) : null}
-              </>
+                />
+              </div>
             ) : null}
-            {fixtureTypeId === "single-draw" ||
-            fixtureTypeId === "replay-inf" ? null : (
-              <>
-                <Checkbox
-                  checked={usesExtraTime}
-                  onChange={(event) => {
-                    const target = event.target as HTMLInputElement & {
-                      checked: boolean;
-                    };
-                    setUsesExtraTime(target.checked);
-                  }}
-                  labelPlacement={LABEL_PLACEMENT.right}
-                >
-                  Extra time (in event of a draw)
-                </Checkbox>
-                {usesExtraTime ? (
-                  <>
-                    <Checkbox
-                      checked={usesGoldenGoal}
-                      onChange={(event) => {
-                        const target = event.target as HTMLInputElement & {
-                          checked: boolean;
-                        };
-                        setUsesGoldenGoal(target.checked);
-                      }}
-                      labelPlacement={LABEL_PLACEMENT.right}
-                    >
-                      Extra time uses golden goal rule
-                    </Checkbox>
-                  </>
-                ) : null}
-              </>
-            )}
-          </div>
-        </Panel>
-      </StatelessAccordion>
+          </Panel>
+          <Panel key="1" title="Sandbox" overrides={ContentOverride}>
+            <Select
+              size="compact"
+              searchable={false}
+              clearable={false}
+              options={FIXTURE_TYPES.map(([id, label]) => ({
+                label,
+                id,
+              }))}
+              value={fixtureType}
+              onChange={(params) => {
+                setFixtureType(params.value as Fixture);
+              }}
+            />
+            <div style={{ marginTop: hasOptions ? 8 : 0 }}>
+              {fixtureTypeId === "2-leg" ? (
+                <>
+                  <Checkbox
+                    checked={usesAwayGoals}
+                    onChange={(event) => {
+                      const target = event.target as HTMLInputElement & {
+                        checked: boolean;
+                      };
+                      setUsesAwayGoals(target.checked);
+                    }}
+                    labelPlacement={LABEL_PLACEMENT.right}
+                  >
+                    Uses away goals rule
+                  </Checkbox>
+                  {usesExtraTime && usesAwayGoals ? (
+                    <>
+                      <Checkbox
+                        checked={usesAwayGoalsInET}
+                        onChange={(event) => {
+                          const target = event.target as HTMLInputElement & {
+                            checked: boolean;
+                          };
+                          setUsesAwayGoalsInET(target.checked);
+                        }}
+                        labelPlacement={LABEL_PLACEMENT.right}
+                      >
+                        Uses away goals rule in extra time
+                      </Checkbox>
+                    </>
+                  ) : null}
+                </>
+              ) : null}
+              {fixtureTypeId === "single-draw" ||
+              fixtureTypeId === "replay-inf" ? null : (
+                <>
+                  <Checkbox
+                    checked={usesExtraTime}
+                    onChange={(event) => {
+                      const target = event.target as HTMLInputElement & {
+                        checked: boolean;
+                      };
+                      setUsesExtraTime(target.checked);
+                    }}
+                    labelPlacement={LABEL_PLACEMENT.right}
+                  >
+                    Extra time (in event of a draw)
+                  </Checkbox>
+                  {usesExtraTime ? (
+                    <>
+                      <Checkbox
+                        checked={usesGoldenGoal}
+                        onChange={(event) => {
+                          const target = event.target as HTMLInputElement & {
+                            checked: boolean;
+                          };
+                          setUsesGoldenGoal(target.checked);
+                        }}
+                        labelPlacement={LABEL_PLACEMENT.right}
+                      >
+                        Extra time uses golden goal rule
+                      </Checkbox>
+                    </>
+                  ) : null}
+                </>
+              )}
+            </div>
+          </Panel>
+        </StatelessAccordion>
+      </div>
 
       <div style={{ marginTop: 16 }}>
         {/*{rivalry ? <div style={{ marginBottom: 16 }}>{rivalry}</div> : null}*/}
@@ -1207,9 +1224,9 @@ const MatchDemo = () => {
               } : null
             }
           />
-        </Card>
+        </div>
       </div>
-    </Card>
+    </div>
   );
 };
 

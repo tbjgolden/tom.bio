@@ -3,7 +3,6 @@ import CoverImage from "./cover-image";
 import Excerpt from "./excerpt";
 import Link from "components/link";
 import { ResponsiveImageType } from "react-datocms";
-import { Card } from "baseui/card";
 
 export default function HeroPost({
   title,
@@ -21,7 +20,7 @@ export default function HeroPost({
   slug: string;
 }) {
   return (
-    <Card>
+    <div>
       <section className="mab35">
         <CoverImage
           title={title}
@@ -38,6 +37,6 @@ export default function HeroPost({
           <Excerpt>{excerpt}</Excerpt>
         </div>
       </section>
-    </Card>
+    </div>
   );
 }

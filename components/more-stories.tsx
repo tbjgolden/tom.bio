@@ -3,7 +3,6 @@ import CoverImage from "./cover-image";
 import Excerpt from "./excerpt";
 import Link from "components/link";
 import { ResponsiveImageType } from "react-datocms";
-import { Card } from "baseui/card";
 import { FlexGrid, FlexGridItem } from "baseui/flex-grid";
 import { BlockProps } from "baseui/block";
 
@@ -36,7 +35,7 @@ export default function MoreStories({
     >
       {posts.map(({ title, coverImage, date, excerpt, slug }) => (
         <FlexGridItem key={slug} {...itemProps}>
-          <Card>
+          <div>
             <CoverImage
               slug={slug}
               title={title}
@@ -51,7 +50,7 @@ export default function MoreStories({
             <div className="foszSM mat15">
               <Excerpt>{excerpt}</Excerpt>
             </div>
-          </Card>
+          </div>
         </FlexGridItem>
       ))}
     </FlexGrid>

@@ -1,96 +1,54 @@
-import { Card } from "baseui/card";
 import EmbedCSS from "components/embed-css";
 import History from "components/futbol/history";
 import Video from "components/futbol/video";
 import VideoEmbed from "components/futbol/video-embed";
+import Markdown from "components/markdown";
+import Details from "components/details";
+import fs from "fs/promises";
+import path from "path";
+import { markdownToHtml } from "lib/markdown"
 
-export default ({ children }) => (
-  <div>
-    <Card>
-      <div className="markdown">
-        <p>"Football" is the shared name for many distinct sports.</p>
-        <p>Association football (soccer), rugby football, American football, Australian rules football, Canadian football and Gaelic football are all commonly played versions of the game - <strong>though their rules are all vastly different</strong>.</p>
-        <p>They share a rich common history - here it is:</p>
+const Football = ({
+  htmls
+}: {
+  htmls: string[]
+}) => {
+  return (
+    <div>
+      <div>
+        <div className="markdown">
+          <p>"Football" is the shared name for many distinct sports.</p>
+          <p>Association football (soccer), rugby football, American football, Australian rules football, Canadian football and Gaelic football are all commonly played versions of the game - <strong>though their rules are all vastly different</strong>.</p>
+          <p>They share a rich common history - here it is:</p>
+        </div>
       </div>
-    </Card>
-    <History />
-    <Card>
-      <div className="markdown">{children}</div>
-    </Card>
-  </div>
-);
+      <History />
+      <div>
+        <div className="markdown">
+          <Markdown>{htmls[0]}</Markdown>
+          <Details summary="Learn about small sided games">
+            <Markdown>{htmls[1]}</Markdown>
+          </Details>
+        </div>
+      </div>
+    </div>
+  );
+}
 
+export default Football
 
-# This is an interactive guide to association football (soccer)
+export const getStaticProps: GetStaticProps = async () => {
+  const base = path.join(process.cwd(), "components/futbol/markdown")
+  const files = (await fs.readdir(base)).filter(name => name.endsWith(".md")).sort((a, b) => a > b ? 1 : -1)
+  const htmls = await Promise.all(files.map(file => fs.readFile(path.join(base, file), 'utf8').then(markdownToHtml)))
+  return {
+    props: {
+      htmls
+    }
+  }
+}
 
-## The 🐘 in the room
-
-There are many other forms of football still popular that are also called "football".
-
-**Association football** has had massive global popularity for many generations and consequently in much of the world,
-it is the main, or only, form of football commonly played. In these countries (in red/pink on the diagram below), the
-sport is just called football.
-
-![](https://i.imgur.com/2GHdRDg.jpg)
-
-To avoid ambiguity, here's the terminology this article uses, and recommends:
-
-* Association football → **soccer**
-* Rugby football → **rugby (union/league)**
-* American football → **American football**
-* Australian rules football → **Aussie rules**
-* Canadian football → **Canadian football**
-* Gaelic football → **Gaelic (football)**
-* (to refer to all the above) → **football**
-
----
-
-**NOTE:** This article defaults to **using British English** and adds American English translations/equivalents.
-
-**NOTE:** To keep this guide short, generalisations are needed. **(\*)** is used to denote them.
-
----
-
-Soccer itself is played in different ways - and has many popular variations.
-
-**Despite the most famous style being teams of 11 on large grass pitches** it is not always the best way for new players
-to try it. For many, **the best way to learn is to play small sided games** (typically teams of 5).
-
-<details>
-  <summary>Learn more about small sided games</summary>
-
-- **each player is more involved**
-- players typically alternate between attack, defence and goalie
-- **more accessible to those who are not in peak condition**
-  - typically players cover less distance when playing 5-a-side as the area is far smaller
-  - by contrast, 11-a-side involves about 5 miles (8km) of running
-- **better for training soccer specific skills**
-  - physically helps with balance and agility
-- good strategy involves fluid positioning - where players swap positions depending on a variety of factors
-  - this means players gain an appreciation for the strategy
-
-The most common small-sided games take different forms all over the world, but the most common forms are:
-
-- 5-a-side/6-a-side/7-a-side
-  - commonly called this in Anglosphere countries
-  - rules vary, typically indoors, sometimes just called "indoor football/soccer"
-  - outdoors styles often are played in "cages"
-  - often players are allowed to use the walls, unlike futsal and beach soccer
-- Futsal
-  - similar to indoor 5-a-side, but with a formalised set of rules
-  - the ball is slightly smaller and does not bounce as much as a regular ball
-  - the game relies more on skill with the ball near the ground
-  - very popular in Spanish-speaking countries
-- Beach soccer
-  - 5-a-side, played on sand (i.e. on a beach)
-  - started in Brazil, is an extremely fun game
-  - the ball is also different, less inflated than a normal soccer ball
-  - bicycle kicks (kicks performed during a backflip) are more common
-
-It's very likely that one of these is played regularly near you; search using the above names and you should be able to
-find something suitable for your skill level.
-
-</details>
+/*
 
 By contrast, **11-a-side is by far the most popular to watch**, as it was the original form of the sport -
 rules which have largely stayed consistent since 1863.
@@ -137,6 +95,8 @@ completely different positions, styles and formations to give their 11 players t
 These other rules are shown with examples later.
 
 ## Common reasons people don't watch soccer
+
+There's a lot of misinformation about soccer.
 
 <details open>
   <summary>The game is too slow</summary>
@@ -324,6 +284,10 @@ Many players have amazing origin stories and learning about them can be a good w
 This guide includes an interactive tool to pick a team that matches well with your ideals!
 
 </details>
+
+---
+
+
 
 ## The match
 
@@ -637,3 +601,6 @@ so i've been wanting to start following soccer for a while now but as an america
     font-style: normal;
   }
 `}</EmbedCSS>
+
+*/
+

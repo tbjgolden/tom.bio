@@ -43,7 +43,6 @@ export default class _Document extends Document {
             fontWeight: 500,
             fontVariationSettings: "'wght' 500",
           }}
-          className="foszMD"
         >
           <Main />
           <NextScript />

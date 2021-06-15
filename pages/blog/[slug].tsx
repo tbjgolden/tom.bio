@@ -67,7 +67,7 @@ export default function Post({
                 date={post.date}
                 author={post.author}
               />
-              <Markdown content={post.content} />
+              <Markdown>{post.content}</Markdown>
             </div>
           </article>
           <SectionSeparator />

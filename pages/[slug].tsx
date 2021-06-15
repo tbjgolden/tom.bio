@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import Markdown from "components/markdown";
-import { getLayoutData, getPage, getAllPagesWithSlug } from "lib/api";
+import { getPage, getAllPagesWithSlug } from "lib/api";
 import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
-import { Card } from "baseui/card";
 
 export default function Page({
   page,
@@ -26,12 +25,12 @@ export default function Page({
   return (
     (router.isFallback || page === null) ? null : (
       <article>
-        <Card>
+        <div>
           <Head>
             <title>{page.title}</title>
           </Head>
-          <Markdown content={page.content} />
-        </Card>
+          <Markdown>{page.content}</Markdown>
+        </div>
       </article>
     )
   );
