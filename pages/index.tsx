@@ -11,7 +11,7 @@ export default function Index({
     slug: null | string;
     content: string;
   };
-}) {
+}): JSX.Element {
   return (
     <article>
       {page === null ? (

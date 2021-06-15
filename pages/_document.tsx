@@ -25,7 +25,7 @@ export default class _Document extends Document {
     return { ...initialProps, stylesheets }
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <Html lang="en">
         <Head>

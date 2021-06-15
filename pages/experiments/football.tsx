@@ -12,7 +12,7 @@ const Football = ({
   htmls
 }: {
   htmls: string[]
-}) => {
+}): JSX.Element => {
   return (
     <div>
       <div>

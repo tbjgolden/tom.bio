@@ -2,86 +2,102 @@ import { GetStaticProps } from "next";
 import { getAllProjects } from "lib/api";
 import { AllProjects } from "types";
 import Markdown from "components/markdown";
+import Card from "components/card";
+import { Button } from "baseui/button";
+import { Image, ResponsiveImageType } from "react-datocms";
 
 export default function Portfolio({
   allProjects,
 }: {
   allProjects: AllProjects;
-}) {
+}): JSX.Element {
   return (
     <section>
-      {allProjects.map(({
-        name,
-        url,
-        media,
-        description,
-        parts,
-      }) => {
+      {allProjects.map(({ name, url, media, description, parts }) => {
         const formattedUrl = url.slice(
-          url.indexOf("//") === -1 ? 0 : (url.indexOf("//") + 2),
+          url.includes("//") ? url.indexOf("//") + 2 : 0
         );
 
         return (
-          <div
-            key={name}
-            className="mab30 pa30 bot1G80 bor1G80 bob1G80 bol1G80"
-          >
-            <h2 className="foszLG fowB">
-              {name === formattedUrl
-                ? (
-                  <a href={url}>
-                    {name}
-                  </a>
-                )
-                : name}
-            </h2>
-            <hr />
-            <div className="mat30 pat30 bot1G80 dFL flwW">
-              <div className="fl10A w65">
-                {(url && name !== formattedUrl)
-                  ? <p className="foszMD pab30 par30">
-                    <a href={url} className="ovwBW">
-                      {url.slice(
-                        url.indexOf("//") === -1
-                          ? 0
-                          : (url.indexOf("//") + 2),
-                      )}
-                    </a>
-                  </p>
-                  : null}
-                {description.length > 0
-                  ? <Markdown className="pab30 par30">{description}</Markdown>
-                  : null}
-                {parts.map(({ name, url, description }) =>
-                  <div className="dib ovwA nw55 pab30 par30" key={name}>
-                    <h3>
-                      {name}
-                      {url
-                        ? (
-                          <span>
-                            {" "}
-                            [<a href={url}>link</a>]
-                          </span>
-                        )
-                        : null}
-                    </h3>
-                    {description.length > 0
-                      ? <Markdown>{description}</Markdown>
-                      : null}
-                  </div>
-                )}
-              </div>
-              {media?.url
-                ? (
-                  <div
-                    className="fl00A wP l-w70 bot1G80 bor1G80 bob1G80 bol1G80"
-                  >
-                    <img src={media.url} className="dB" />
-                  </div>
-                )
-                : null}
+          <Card key={name} headerImage={media?.url ?? null} title={name} className="m">
+            <div style={{
+              display: "flex",
+              gap: 16,
+              marginBottom: 16
+            }}>
+              <Card style={{
+                flex: "1 1 auto",
+                width: "50%",
+                minWidth: 200,
+                paddingBottom: 16,
+                display: "flex",
+                flexDirection: "column"
+              }}>
+                <div style={{ flex: "1 0 auto" }}>
+                  {name === formattedUrl
+                    ? (
+                      <a className="h3 link" href={url}>
+                        {name}
+                      </a>
+                    )
+                    : <div className="h3">{name}</div>}
+                  <Markdown>{description}</Markdown>
+                </div>
+                <Button overrides={{ BaseButton: { style: { width: "100%" } } }}>
+                  See More
+                </Button>
+              </Card>
+              {media?.url ? (
+                <img className="hide-520" src={media.url} style={{
+                  flex: "1 1 auto",
+                  width: "50%",
+                  alignSelf: "flex-start"
+                }} />
+              ) : null}
             </div>
-          </div>
+          </Card>
+
+          // <div key={name}>
+          //   <h2>
+          //   </h2>
+          //   <hr />
+          //   <div>
+          //     <div>
+          //       {(url && name !== formattedUrl)
+          //         ? <p>
+          //           <a href={url}>
+          //             {url.slice(
+          //               url.indexOf("//") === -1
+          //                 ? 0
+          //                 : (url.indexOf("//") + 2),
+          //             )}
+          //           </a>
+          //         </p>
+          //         : null}
+          //       {description.length > 0
+          //         ? <Markdown>{description}</Markdown>
+          //         : null}
+          //       {parts.map(({ name, url, description }) =>
+          //         <div key={name}>
+          //           <h3>
+          //             {name}
+          //             {url
+          //               ? (
+          //                 <span>
+          //                   {" "}
+          //                   [<a href={url}>link</a>]
+          //                 </span>
+          //               )
+          //               : null}
+          //           </h3>
+          //           {description.length > 0
+          //             ? <Markdown>{description}</Markdown>
+          //             : null}
+          //         </div>
+          //       )}
+          //     </div>
+          //   </div>
+          // </div>
         );
       })}
     </section>

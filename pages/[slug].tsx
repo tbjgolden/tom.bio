@@ -15,7 +15,7 @@ export default function Page({
     content: string;
   };
   preview: boolean;
-}) {
+}): JSX.Element {
   const router = useRouter();
 
   if (!router.isFallback && page === null) {

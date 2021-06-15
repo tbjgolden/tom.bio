@@ -1,7 +1,7 @@
 
 import Markdown from "components/markdown";
 
-export default function TestPage() {
+export default function TestPage(): JSX.Element {
   return (
     <article>
       <Markdown>{TEST_STRING}</Markdown>

@@ -4,6 +4,7 @@ import "../styles/reset.scss";
 import "../styles/fonts.scss";
 // import "../styles/debug.scss";
 import "../styles/markdown.scss";
+import "../styles/misc.scss";
 
 import { Provider as StyletronProvider } from "styletron-react";
 import { BaseProvider } from "baseui";
@@ -11,7 +12,7 @@ import { styletron, theme } from "../styletron";
 import { getLayoutData } from "lib/api";
 import Layout from "components/layout";
 
-function _App({ Component, pageProps: { layoutData, ...pageProps } }: AppProps) {
+function _App({ Component, pageProps: { layoutData, ...pageProps } }: AppProps): JSX.Element {
   return (
     <StyletronProvider value={styletron}>
       <BaseProvider theme={theme}>

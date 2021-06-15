@@ -43,7 +43,7 @@ export default function Post({
   post: DatoPost;
   morePosts: DatoPost[];
   preview: boolean;
-}) {
+}): JSX.Element {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
