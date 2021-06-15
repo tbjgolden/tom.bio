@@ -19,40 +19,66 @@ export default function Portfolio({
         );
 
         return (
-          <Card key={name} headerImage={media?.url ?? null} title={name} className="m">
-            <div style={{
-              display: "flex",
-              gap: 16,
-              marginBottom: 16
-            }}>
-              <Card style={{
-                flex: "1 1 auto",
-                width: "50%",
-                minWidth: 200,
-                paddingBottom: 16,
+          <Card
+            key={name}
+            headerImage={media?.url ?? null}
+            title={name}
+            className="m"
+          >
+            <div
+              style={{
                 display: "flex",
-                flexDirection: "column"
-              }}>
-                <div style={{ flex: "1 0 auto" }}>
-                  {name === formattedUrl
-                    ? (
-                      <a className="h3 link" href={url}>
-                        {name}
-                      </a>
-                    )
-                    : <div className="h3">{name}</div>}
-                  <Markdown>{description}</Markdown>
-                </div>
-                <Button overrides={{ BaseButton: { style: { width: "100%" } } }}>
-                  See More
-                </Button>
-              </Card>
-              {media?.url ? (
-                <img className="hide-520" src={media.url} style={{
+                gap: 16,
+                marginBottom: 16,
+              }}
+            >
+              <Card
+                style={{
                   flex: "1 1 auto",
                   width: "50%",
-                  alignSelf: "flex-start"
-                }} />
+                  minWidth: 200,
+                  paddingBottom: 16,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <div style={{ flex: "1 0 auto" }}>
+                  {name === formattedUrl ? (
+                    <a
+                      className="h3 m-sm link"
+                      href={url}
+                      style={{ display: "block" }}
+                    >
+                      {name}
+                    </a>
+                  ) : (
+                    <div className="h3 m-sm">{name}</div>
+                  )}
+                  <Markdown>{description}</Markdown>
+                  {parts.length > 1 ? (
+                    <div className="m">
+                      {parts.map(({ name, url }, i) => (
+                        <div key={i}>
+                          <a href={url}>{name}</a>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+                {/* <Button overrides={{ BaseButton: { style: { width: "100%" } } }}>
+                  See More
+                </Button> */}
+              </Card>
+              {media?.url ? (
+                <img
+                  className="hide-520"
+                  src={media.url}
+                  style={{
+                    flex: "1 1 auto",
+                    width: "50%",
+                    alignSelf: "flex-start",
+                  }}
+                />
               ) : null}
             </div>
           </Card>
