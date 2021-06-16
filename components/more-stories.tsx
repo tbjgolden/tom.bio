@@ -2,12 +2,12 @@ import Date from "./formatted-date";
 import CoverImage from "./cover-image";
 import Excerpt from "./excerpt";
 import Link from "components/link";
+import Card from "components/card";
 import { ResponsiveImageType } from "react-datocms";
 import { FlexGrid, FlexGridItem } from "baseui/flex-grid";
 import { BlockProps } from "baseui/block";
 
 const itemProps: BlockProps = {
-  backgroundColor: "mono300",
   display: "flex",
   justifyContent: "center",
 };
@@ -35,22 +35,24 @@ export default function MoreStories({
     >
       {posts.map(({ title, coverImage, date, excerpt, slug }) => (
         <FlexGridItem key={slug} {...itemProps}>
-          <div>
+          <Card style={{ padding: 0 }}>
             <CoverImage
               slug={slug}
               title={title}
               responsiveImage={coverImage.responsiveImage}
             />
-            <h3 className="foszMD mat20">
-              <Link as={`/blog/${slug}`} href="/blog/[slug]">
-                {title}
-              </Link>
-            </h3>
-            <Date className="dN" dateString={date} />
-            <div className="foszSM mat15">
-              <Excerpt>{excerpt}</Excerpt>
+            <div className="p" style={{ borderTop: "2px solid #ccc" }}>
+              <h3 className="h5 m-sm">
+                <Link as={`/blog/${slug}`} href="/blog/[slug]">
+                  {title}
+                </Link>
+              </h3>
+              <Date className="sr-only" dateString={date} />
+              <div className="small m">
+                <Excerpt>{excerpt}</Excerpt>
+              </div>
             </div>
-          </div>
+          </Card>
         </FlexGridItem>
       ))}
     </FlexGrid>

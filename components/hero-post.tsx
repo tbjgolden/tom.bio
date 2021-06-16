@@ -2,6 +2,7 @@ import Date from "./formatted-date";
 import CoverImage from "./cover-image";
 import Excerpt from "./excerpt";
 import Link from "components/link";
+import Card from "components/card";
 import { ResponsiveImageType } from "react-datocms";
 
 export default function HeroPost({
@@ -20,23 +21,25 @@ export default function HeroPost({
   slug: string;
 }) {
   return (
-    <div>
-      <section className="mab35">
+    <Card style={{ padding: 0 }}>
+      <section>
         <CoverImage
           title={title}
           responsiveImage={coverImage.responsiveImage}
           slug={slug}
         />
-        <h3 className="foszH4 mat25">
-          <Link as={`/blog/${slug}`} href="/blog/[slug]">
-            {title}
-          </Link>
-        </h3>
-        <Date className="dN" dateString={date} />
-        <div className="mat20">
-          <Excerpt>{excerpt}</Excerpt>
+        <div className="p">
+          <h3 className="h3 m-sm">
+            <Link as={`/blog/${slug}`} href="/blog/[slug]">
+              {title}
+            </Link>
+          </h3>
+          <Date className="sr-only" dateString={date} />
+          <div className="mat20">
+            <Excerpt>{excerpt}</Excerpt>
+          </div>
         </div>
       </section>
-    </div>
+    </Card>
   );
 }
