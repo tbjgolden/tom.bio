@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import gfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import Link from 'next/link'
 import { dark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const H1 = ({ children, ...props }) => (
@@ -63,11 +64,20 @@ const Blockquote = ({ children, ...props }) => (
   </blockquote>
 );
 const Hr = ({ ...props }) => <hr className="m hr" {...props} />;
-const A = ({ children, ...props }) => (
-  <a className="b link" {...props}>
-    {children}
-  </a>
-);
+const A = ({ children, href, ...props }) => {
+  const isInternal = href !== undefined && href.startsWith("/")
+  return isInternal ? (
+    <Link href={href}>
+      <a className="b link" {...props}>
+        {children}
+      </a>
+    </Link>
+  ) : (
+    <a className="b link" href={href} {...props}>
+      {children}
+    </a>
+  );
+}
 const Ul = ({ children, ...props }) => (
   <ul className="m ul" {...props}>
     {children}

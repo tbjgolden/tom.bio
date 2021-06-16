@@ -27,10 +27,13 @@
     "@types/styletron-react": "^5.0.2",
     "@types/styletron-standard": "^2.0.1",
     "baseui": "^9.115.3",
+    "email-validator": "^2.0.4",
+    "html-entities": "^2.3.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.15.21",
     "marked": "^2.0.6",
     "next": "latest",
+    "number-to-words": "^1.2.4",
     "react": "^17.0.2",
     "react-datocms": "1.6.3",
     "react-dom": "^17.0.2",
@@ -43,7 +46,8 @@
     "remark-html": "^13.0.1",
     "sass": "^1.34.0",
     "styletron-engine-atomic": "^1.4.8",
-    "styletron-react": "^6.0.1"
+    "styletron-react": "^6.0.1",
+    "words-to-numbers": "^1.5.1"
   },
   "devDependencies": {
     "@types/node": "^15.6.1",

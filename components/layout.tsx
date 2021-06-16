@@ -18,8 +18,8 @@ export default function Layout({
       <Meta />
       <Nav layoutData={layoutData} />
       {preview && <Alert />}
-      <main style={{ padding: "16px" }}>
-        <div style={{ maxWidth: "66ch", margin: "0 auto" }}>{children}</div>
+      <main className="p">
+        <div style={{ maxWidth: "66ch", margin: "0 auto", padding: "1em 0" }}>{children}</div>
       </main>
       <Footer />
     </>

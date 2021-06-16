@@ -14,5 +14,5 @@ export const styletron =
       });
 
 export const theme = createTheme({
-  primaryFontFamily: "Manrope VF",
+  primaryFontFamily: "Manrope",
 });
