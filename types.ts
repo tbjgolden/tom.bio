@@ -6,12 +6,14 @@ export type NavItem = {
 };
 
 export type LayoutData = null | {
-  allPages: null | {
-    title: string;
-    slug: string;
-    hidden: boolean;
-    children: null | NavItem[];
-  }[];
+  allPages:
+    | null
+    | {
+        title: string;
+        slug: string;
+        hidden: boolean;
+        children: null | NavItem[];
+      }[];
 };
 
 export type AllProjects = {

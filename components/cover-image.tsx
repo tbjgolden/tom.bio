@@ -23,20 +23,18 @@ export default function CoverImage({
   );
   return (
     <div className="pR dFL">
-      {slug
-        ? (
-          <Link
-            as={`/blog/${slug}`}
-            href="/blog/[slug]"
-            aria-label={title}
-            className="lhB"
-          >
-            {image}
-          </Link>
-        )
-        : (
-          image
-        )}
+      {slug ? (
+        <Link
+          as={`/blog/${slug}`}
+          href="/blog/[slug]"
+          aria-label={title}
+          className="lhB"
+        >
+          {image}
+        </Link>
+      ) : (
+        image
+      )}
       <div className="pA t0 l0 wP hP bsON peN" />
     </div>
   );

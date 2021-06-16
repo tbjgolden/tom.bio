@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import { getPage } from "lib/api";
 import Markdown from "components/markdown";
-import Card from 'components/card';
+import Card from "components/card";
 
 export default function Index({
   page,

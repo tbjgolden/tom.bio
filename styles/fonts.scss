@@ -1,22 +1,22 @@
 // serif
 @font-face {
-  font-family: 'Literata Safe';
+  font-family: "Literata Safe";
   font-weight: 400;
   font-style: normal;
   src: url("/font/Literata.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'Literata';
+  font-family: "Literata";
   font-weight: 200 900;
   font-style: normal;
-  font-named-instance: 'Regular';
+  font-named-instance: "Regular";
   src: url("/font/Literata.woff2") format("woff2-variations");
 }
 @font-face {
-  font-family: 'Literata';
+  font-family: "Literata";
   font-weight: 100 900;
   font-style: italic;
-  font-named-instance: 'Italic';
+  font-named-instance: "Italic";
   src: url("/font/LiterataItalic.woff2") format("woff2-variations");
 }
 // sans
@@ -30,7 +30,7 @@
   font-family: "Manrope";
   font-weight: 200 800;
   font-style: normal;
-  font-named-instance: 'Regular';
+  font-named-instance: "Regular";
   font-variation-settings: "wght" 500;
   font-variation-ligatures: normal;
   src: url("/font/Manrope.woff2") format("woff2-variations");

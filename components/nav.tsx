@@ -4,37 +4,43 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function Nav({ layoutData }: { layoutData: LayoutData }): JSX.Element {
+export default function Nav({
+  layoutData,
+}: {
+  layoutData: LayoutData;
+}): JSX.Element {
   const router = useRouter();
 
-  const [mainItems, setMainItems] = useState(apiPagesToMainItems([
-    ...(layoutData?.allPages ?? []),
-    {
-      title: "Portfolio",
-      slug: "portfolio",
-      hidden: false,
-      children: null,
-    },
-    // {
-    //   title: "Experiments",
-    //   slug: "experiments",
-    //   hidden: true,
-    //   children: [
-    //     {
-    //       title: "Learn Football (Interactive!)",
-    //       slug: "experiments/football",
-    //       hidden: false,
-    //       children: null
-    //     }
-    //   ],
-    // },
-    {
-      title: "Blog",
-      slug: "blog",
-      hidden: false,
-      children: null,
-    },
-  ]));
+  const [mainItems, setMainItems] = useState(
+    apiPagesToMainItems([
+      ...(layoutData?.allPages ?? []),
+      {
+        title: "Portfolio",
+        slug: "portfolio",
+        hidden: false,
+        children: null,
+      },
+      // {
+      //   title: "Experiments",
+      //   slug: "experiments",
+      //   hidden: true,
+      //   children: [
+      //     {
+      //       title: "Learn Football (Interactive!)",
+      //       slug: "experiments/football",
+      //       hidden: false,
+      //       children: null
+      //     }
+      //   ],
+      // },
+      {
+        title: "Blog",
+        slug: "blog",
+        hidden: false,
+        children: null,
+      },
+    ])
+  );
 
   return (
     <AppNavBar
@@ -45,7 +51,10 @@ export default function Nav({ layoutData }: { layoutData: LayoutData }): JSX.Ele
       }
       mainItems={mainItems}
       onMainItemSelect={(item) => {
-        const { slug, hidden } = item as NavItemT & { slug: string, hidden: boolean };
+        const { slug, hidden } = item as NavItemT & {
+          slug: string;
+          hidden: boolean;
+        };
         setMainItems(setItemActive(mainItems, item));
         if (!hidden) {
           router.push(`/${slug}`);
@@ -55,10 +64,10 @@ export default function Nav({ layoutData }: { layoutData: LayoutData }): JSX.Ele
         overrides: {
           SecondaryMenuContainer: {
             style: {
-              justifyContent: "flex-end"
-            }
-          }
-        }
+              justifyContent: "flex-end",
+            },
+          },
+        },
       } as any)}
     />
   );

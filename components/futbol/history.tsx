@@ -50,59 +50,84 @@ const History = (): JSX.Element => (
       }}
     />
     <div>
-      <div style={{
-        width: 240,
-        margin: "20px auto",
-        "padding": "10px",
-        "borderRadius": "3px",
-        "fontSize": "12px",
-        "color": "#222",
-        "textAlign": "center",
-        "borderWidth": "1px",
-        "borderStyle": "solid"
-      }}>
-        <div style={{
-          background: "rgb(249, 249, 249)",
-          position: "absolute",
-          zIndex: -1
-        }} />
-        <div style={{
-          textAlign: 'left'
-        }}>
-          <div style={{
-            fontWeight: "bold",
-            fontVariationSettings: '"wght" 700',
-            fontSize: "130%"
-          }}>The evolution of football</div>
-          <div style={{
-            marginTop: 4,
-            fontWeight: "bold",
-            fontVariationSettings: '"wght" 700'
-          }}>Legend:</div>
-          <div style={{
-              lineHeight: 1 }}>
-          <div style={{ display: "flex", alignItems: 'center', marginTop: 4 }}>
-            <div style={{
-              display: "inline-block",
-              height: "1em",
-              width: "1em",
-              marginRight: 4,
-              background: "#fdd",
-              flexShrink: 0
-            }} />
-            Popular today
+      <div
+        style={{
+          width: 240,
+          margin: "20px auto",
+          padding: "10px",
+          borderRadius: "3px",
+          fontSize: "12px",
+          color: "#222",
+          textAlign: "center",
+          borderWidth: "1px",
+          borderStyle: "solid",
+        }}
+      >
+        <div
+          style={{
+            background: "rgb(249, 249, 249)",
+            position: "absolute",
+            zIndex: -1,
+          }}
+        />
+        <div
+          style={{
+            textAlign: "left",
+          }}
+        >
+          <div
+            style={{
+              fontWeight: "bold",
+              fontVariationSettings: '"wght" 700',
+              fontSize: "130%",
+            }}
+          >
+            The evolution of football
           </div>
-          <div style={{ display: "flex", alignItems: 'center', marginTop: 4 }}>
-            <div style={{
-              display: "inline-block",
-              height: "1em",
-              width: "1em",
-              marginRight: 4,
-              background: "#faa",
-              flexShrink: 0
-            }} />
-            Association football (soccer)
+          <div
+            style={{
+              marginTop: 4,
+              fontWeight: "bold",
+              fontVariationSettings: '"wght" 700',
+            }}
+          >
+            Legend:
           </div>
+          <div
+            style={{
+              lineHeight: 1,
+            }}
+          >
+            <div
+              style={{ display: "flex", alignItems: "center", marginTop: 4 }}
+            >
+              <div
+                style={{
+                  display: "inline-block",
+                  height: "1em",
+                  width: "1em",
+                  marginRight: 4,
+                  background: "#fdd",
+                  flexShrink: 0,
+                }}
+              />
+              Popular today
+            </div>
+            <div
+              style={{ display: "flex", alignItems: "center", marginTop: 4 }}
+            >
+              <div
+                style={{
+                  display: "inline-block",
+                  height: "1em",
+                  width: "1em",
+                  marginRight: 4,
+                  background: "#faa",
+                  flexShrink: 0,
+                }}
+              />
+              Association football (soccer)
+            </div>
           </div>
         </div>
       </div>
@@ -112,7 +137,7 @@ const History = (): JSX.Element => (
         position: "relative",
         width: 310,
         height: 1475,
-        margin: "20px auto"
+        margin: "20px auto",
       }}
     >
       <div
@@ -306,7 +331,7 @@ const History = (): JSX.Element => (
                 ),
               },
               position: { x: 160, y: 630 },
-            }
+            },
           ]}
           paneMoveable={false}
           nodesDraggable={false}

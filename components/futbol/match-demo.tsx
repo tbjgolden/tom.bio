@@ -12,7 +12,8 @@ import {
   COMPETITIONS,
   Competition,
   Team,
-  Round, FIXTURE_TYPES
+  Round,
+  FIXTURE_TYPES,
 } from "./match-demo.data";
 
 // ---
@@ -34,7 +35,9 @@ type MatchReport = {
   penalties: [number, number] | null;
 };
 
-function colorToBadge<T extends { colorA: string; colorB: string; pattern?: string }>({
+function colorToBadge<
+  T extends { colorA: string; colorB: string; pattern?: string }
+>({
   colorA,
   colorB,
 }: T): {
@@ -408,7 +411,7 @@ const Minute = ({
       suffix: "",
       team: {
         colorA: "#ffffff",
-        colorB: "#000000"
+        colorB: "#000000",
       },
     },
     H: {
@@ -454,7 +457,8 @@ const Minute = ({
         <div
           className={`bottom-half ${whoScored === "A" ? "goal" : ""}`}
           style={{
-            background: away.colorA.toLowerCase() === "#ffffff" ? "#777" : away.colorA,
+            background:
+              away.colorA.toLowerCase() === "#ffffff" ? "#777" : away.colorA,
           }}
         />
         <div className={`tick-top ${topClass}`} data-whoscored={whoScored} />
@@ -740,7 +744,7 @@ const Timeline = ({
         .break:not([data-before]) {
           flex-basis: 4px;
         }
-        
+
         @media (max-width: 480px) {
           .break[data-before="HT"] {
             flex-basis: 4px;
@@ -761,14 +765,14 @@ const Match = ({
   len,
   i,
   x,
-  usesNeutralVenue
+  usesNeutralVenue,
 }: {
   home: Team;
   away: Team;
   len: number;
   i: number;
   x: StructuredMatchReport;
-  usesNeutralVenue: boolean
+  usesNeutralVenue: boolean;
 }) => {
   let resultMessage: string | null = null;
   if (i === len - 1) {
@@ -788,8 +792,8 @@ const Match = ({
         if (x.aetScore) {
           resultMessage += ` after extra time`;
         }
-        if (x.aggScore && (x.aggScore[0] === x.aggScore[1])) {
-          resultMessage += ` on away goals`
+        if (x.aggScore && x.aggScore[0] === x.aggScore[1]) {
+          resultMessage += ` on away goals`;
         }
       }
     }
@@ -803,9 +807,11 @@ const Match = ({
 
   return (
     <div style={{ marginTop: i === 0 ? 0 : 16 }}>
-      <div style={{
-        margin: "16px 0 0"
-      }}>
+      <div
+        style={{
+          margin: "16px 0 0",
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -823,7 +829,8 @@ const Match = ({
               }}
             >
               {len === 1 ? null : `Match ${i + 1} - `}
-              {home.stadium}{home.city ? ` (${home.city})` : null}
+              {home.stadium}
+              {home.city ? ` (${home.city})` : null}
             </div>
           ) : null}
           <div
@@ -888,12 +895,12 @@ const RandomFixtureReport = ({
   home,
   away,
   round,
-  randomizeTeams
+  randomizeTeams,
 }: {
   home: Team;
   away: Team;
   round: Round;
-  randomizeTeams?: null | (() => void)
+  randomizeTeams?: null | (() => void);
 }) => {
   const {
     fixtureType,
@@ -901,7 +908,7 @@ const RandomFixtureReport = ({
     usesAwayGoalsInET,
     usesGoldenGoal,
     usesAwayGoals,
-  } = round.rules
+  } = round.rules;
 
   const [regenerate, setRegenerate] = useState(0);
   const fixtureReport = useMemo(() => {
@@ -935,18 +942,21 @@ const RandomFixtureReport = ({
             fontSize: "120%",
             fontWeight: 700,
             fontVariationSettings: '"wght" 700',
-            marginRight: 16
+            marginRight: 16,
           }}
         >
           Example <span style={{ display: "inline-block" }}>Match Report</span>
         </h3>
         <div>
-          <Button size="compact" onClick={() => {
-            setRegenerate(regenerate + 1)
-            if (randomizeTeams) {
-              randomizeTeams()
-            }
-          }}>
+          <Button
+            size="compact"
+            onClick={() => {
+              setRegenerate(regenerate + 1);
+              if (randomizeTeams) {
+                randomizeTeams();
+              }
+            }}
+          >
             Regenerate
           </Button>
         </div>
@@ -972,58 +982,59 @@ const ContentOverride = {
     style: {
       borderTop: "1px solid rgb(203, 203, 203)",
       padding: "20px",
-      background: "#fafafa"
-    }
-  }
-}
+      background: "#fafafa",
+    },
+  },
+};
 
-type Fixture = [{ label: string, id: FixtureType }]
+type Fixture = [{ label: string; id: FixtureType }];
 
 const MatchDemo = (): JSX.Element => {
   const [regenerate, setRegenerate] = useState(0);
-  const [expanded, setExpanded] = React.useState<React.Key[]>([
-    '0',
-  ]);
+  const [expanded, setExpanded] = React.useState<React.Key[]>(["0"]);
 
   const [competition, setCompetition] = useState<[Competition]>([
     COMPETITIONS[0],
   ]);
   const { teamA, teamB, competitionData } = useMemo(() => {
-    const competitionData = COMPETITIONS_MAP[competition[0].id]
-    let teamA: Team
-    let teamB: Team
-    let rivalry: string | null = null
+    const competitionData = COMPETITIONS_MAP[competition[0].id];
+    let teamA: Team;
+    let teamB: Team;
+    let rivalry: string | null = null;
     if (competitionData.teams.length === 2) {
-      teamA = competitionData.teams[0]
-      teamB = competitionData.teams[1]
+      teamA = competitionData.teams[0];
+      teamB = competitionData.teams[1];
     } else {
-      const noOfTeams = competitionData.teams.length
-      const firstIndex = Math.floor(Math.random() * noOfTeams)
-      let secondIndex = Math.floor(Math.random() * (noOfTeams - 1))
-      if (secondIndex >= firstIndex) secondIndex += 1
-      teamA = competitionData.teams[firstIndex]
-      teamB = competitionData.teams[secondIndex]
-      const rivalryId = (teamA.id < teamB.id) ? `${teamA.id}_${teamB.id}` : `${teamB.id}_${teamA.id}`
-      rivalry = RIVALRY_MAP[rivalryId]?.description || null
+      const noOfTeams = competitionData.teams.length;
+      const firstIndex = Math.floor(Math.random() * noOfTeams);
+      let secondIndex = Math.floor(Math.random() * (noOfTeams - 1));
+      if (secondIndex >= firstIndex) secondIndex += 1;
+      teamA = competitionData.teams[firstIndex];
+      teamB = competitionData.teams[secondIndex];
+      const rivalryId =
+        teamA.id < teamB.id
+          ? `${teamA.id}_${teamB.id}`
+          : `${teamB.id}_${teamA.id}`;
+      rivalry = RIVALRY_MAP[rivalryId]?.description || null;
     }
     return {
       teamA,
       teamB,
       rivalry,
-      competitionData
-    }
-  }, [competition, regenerate])
+      competitionData,
+    };
+  }, [competition, regenerate]);
   const [roundIndex, setRoundIndex] = useState<number>(0);
-  const round = competitionData.rounds[
-    roundIndex < competitionData.rounds.length ? roundIndex : 0
-  ]
+  const round =
+    competitionData.rounds[
+      roundIndex < competitionData.rounds.length ? roundIndex : 0
+    ];
 
   useEffect(() => {
     if (competitionData.rounds.length > 0) {
-      setRoundIndex(0)
+      setRoundIndex(0);
     }
-  }, [competitionData])
-
+  }, [competitionData]);
 
   const [fixtureType, setFixtureType] = useState<Fixture>([
     { label: "Single match", id: "single-draw" },
@@ -1050,7 +1061,11 @@ const MatchDemo = (): JSX.Element => {
             setExpanded([key]);
           }}
         >
-          <Panel key="0" title="Competition Selector" overrides={ContentOverride}>
+          <Panel
+            key="0"
+            title="Competition Selector"
+            overrides={ContentOverride}
+          >
             <Select
               searchable={false}
               clearable={false}
@@ -1062,22 +1077,26 @@ const MatchDemo = (): JSX.Element => {
                 }
               }}
               getOptionLabel={({ option }): JSX.Element => {
-                const id = `${option?.id ?? ""}`
-                const competition = COMPETITIONS_MAP[id]
+                const id = `${option?.id ?? ""}`;
+                const competition = COMPETITIONS_MAP[id];
                 return (
                   <div>
                     <div>{competition.name}</div>
-                    <div style={{ fontSize: "80%" }}>{competition.shortDescription}</div>
+                    <div style={{ fontSize: "80%" }}>
+                      {competition.shortDescription}
+                    </div>
                   </div>
                 );
               }}
               getValueLabel={({ option }): JSX.Element => {
-                const id = `${option?.id ?? ""}`
-                const competition = COMPETITIONS_MAP[id]
+                const id = `${option?.id ?? ""}`;
+                const competition = COMPETITIONS_MAP[id];
                 return (
                   <div>
                     <div>{competition.name}</div>
-                    <div style={{ fontSize: "80%" }}>{competition.shortDescription}</div>
+                    <div style={{ fontSize: "80%" }}>
+                      {competition.shortDescription}
+                    </div>
                   </div>
                 );
               }}
@@ -1089,10 +1108,12 @@ const MatchDemo = (): JSX.Element => {
                   size="compact"
                   searchable={false}
                   clearable={false}
-                  options={competitionData.rounds.map(({ id, round }, i) => ({ id, label: round, i }))}
-                  value={[
-                    competitionData.rounds[roundIndex]
-                  ]}
+                  options={competitionData.rounds.map(({ id, round }, i) => ({
+                    id,
+                    label: round,
+                    i,
+                  }))}
+                  value={[competitionData.rounds[roundIndex]]}
                   onChange={(params) => {
                     if (params.value.length === 1) {
                       setRoundIndex(params.value[0].i);
@@ -1194,27 +1215,30 @@ const MatchDemo = (): JSX.Element => {
             home={teamA}
             away={teamB}
             round={
-              expanded[0] === '0' ? round : {
-                id: `Sandbox_${Math.random()}`,
-                round: "Sandbox",
-                usesNeutralVenue: (
-                  fixtureTypeId === "single-no-draw" ||
-                  fixtureTypeId === "replay-1" ||
-                  fixtureTypeId === "replay-inf"
-                ),
-                rules: {
-                  fixtureType: fixtureTypeId,
-                  usesExtraTime,
-                  usesGoldenGoal,
-                  usesAwayGoals,
-                  usesAwayGoalsInET
-                }
-              }
+              expanded[0] === "0"
+                ? round
+                : {
+                    id: `Sandbox_${Math.random()}`,
+                    round: "Sandbox",
+                    usesNeutralVenue:
+                      fixtureTypeId === "single-no-draw" ||
+                      fixtureTypeId === "replay-1" ||
+                      fixtureTypeId === "replay-inf",
+                    rules: {
+                      fixtureType: fixtureTypeId,
+                      usesExtraTime,
+                      usesGoldenGoal,
+                      usesAwayGoals,
+                      usesAwayGoalsInET,
+                    },
+                  }
             }
             randomizeTeams={
-              competitionData.teams.length > 2 ? () => {
-                setRegenerate(regenerate + 1)
-              } : null
+              competitionData.teams.length > 2
+                ? () => {
+                    setRegenerate(regenerate + 1);
+                  }
+                : null
             }
           />
         </Card>

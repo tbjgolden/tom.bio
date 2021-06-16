@@ -1,8 +1,10 @@
 article {
-  font-family: 'Literata Safe', serif;
+  font-family: "Literata Safe", serif;
 }
 @supports (font-variation-settings: normal) {
-  article { font-family: 'Literata', serif; }
+  article {
+    font-family: "Literata", serif;
+  }
 }
 
 .p {
@@ -28,7 +30,7 @@ article {
 
 .b {
   font-weight: bold;
-  font-variation-settings: 'wght' 700;
+  font-variation-settings: "wght" 700;
 }
 
 .hr {
@@ -43,7 +45,7 @@ article {
 .link {
   color: #666;
   text-decoration: none;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 
   &:hover {
     color: #000;
@@ -75,7 +77,12 @@ article {
   font-size: 1em;
   line-height: 1.3;
 }
-.h1, .h2, .h3, .h4, .h5, .h6 {
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   text-decoration: underline;
   text-decoration-color: #ccc;
   text-decoration-width: 2px;
@@ -93,7 +100,7 @@ article {
 }
 
 .ul > li::before {
-  content: '★';
+  content: "★";
 }
 .ol > li {
   counter-increment: step-counter;
@@ -101,7 +108,7 @@ article {
 .ol > li::before {
   @extend .b;
 
-  content: counter(step-counter) '';
+  content: counter(step-counter) "";
   display: inline-block;
   background: #000;
   color: #fff;
@@ -118,7 +125,7 @@ li > .ul:first-child {
 }
 
 .code {
-  font-family: 'FantasqueSansMono', monospace;
+  font-family: "FantasqueSansMono", monospace;
 }
 
 .h-scroll {
@@ -168,15 +175,15 @@ li > .ul:first-child {
   th {
     @extend .b;
     color: #333;
-    font-size: .8em;
+    font-size: 0.8em;
   }
 
   td {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
-  td:nth-child(n+2),
-  th:nth-child(n+2) {
+  td:nth-child(n + 2),
+  th:nth-child(n + 2) {
     padding-left: 16px;
   }
 }

@@ -7,9 +7,13 @@ export default function FormattedDate({
 }): JSX.Element {
   const date = new Date(dateString);
   return (
-    <time dateTime={dateString} style={{
-      fontVariantNumeric: "tabular-nums"
-    }} {...props}>
+    <time
+      dateTime={dateString}
+      style={{
+        fontVariantNumeric: "tabular-nums",
+      }}
+      {...props}
+    >
       {date.toLocaleDateString(undefined)}
     </time>
   );

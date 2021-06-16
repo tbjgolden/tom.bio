@@ -11,7 +11,10 @@ export default function Link({
   prefetch,
   className,
   ...props
-}: LinkProps & { className?: string; children?: React.ReactNode }): JSX.Element {
+}: LinkProps & {
+  className?: string;
+  children?: React.ReactNode;
+}): JSX.Element {
   const { asPath } = useRouter();
   const isActive = (_as ?? href) === asPath;
 
@@ -26,8 +29,7 @@ export default function Link({
       prefetch={prefetch}
     >
       <a
-        className={`dIB fowB ${isActive ? "" : "tdN o-tdU"} ${className ??
-          ""}`}
+        className={`dIB fowB ${isActive ? "" : "tdN o-tdU"} ${className ?? ""}`}
         style={{
           textDecorationThickness: 2,
         }}

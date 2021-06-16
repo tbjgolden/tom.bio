@@ -19,10 +19,7 @@ export default function Portfolio({
         );
 
         return (
-          <Card
-            key={name}
-            className="m"
-          >
+          <Card key={name} className="m">
             <div
               style={{
                 display: "flex",

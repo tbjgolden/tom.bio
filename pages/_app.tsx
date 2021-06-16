@@ -12,7 +12,10 @@ import { styletron, theme } from "../styletron";
 import { getLayoutData } from "lib/api";
 import Layout from "components/layout";
 
-function _App({ Component, pageProps: { layoutData, ...pageProps } }: AppProps): JSX.Element {
+function _App({
+  Component,
+  pageProps: { layoutData, ...pageProps },
+}: AppProps): JSX.Element {
   return (
     <StyletronProvider value={styletron}>
       <BaseProvider theme={theme}>
@@ -27,16 +30,16 @@ function _App({ Component, pageProps: { layoutData, ...pageProps } }: AppProps):
 _App.getInitialProps = async (appContext: AppContext) => {
   const [appProps, layoutData] = await Promise.all([
     App.getInitialProps(appContext),
-    await getLayoutData()
+    await getLayoutData(),
   ]);
 
   return {
     ...appProps,
     pageProps: {
       ...appProps.pageProps,
-      layoutData
+      layoutData,
     },
-  }
-}
+  };
+};
 
 export default _App;

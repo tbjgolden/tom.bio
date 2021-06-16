@@ -6,20 +6,23 @@ import Markdown from "components/markdown";
 import Details from "components/details";
 import fs from "fs/promises";
 import path from "path";
-import { markdownToHtml } from "lib/markdown"
-import { GetStaticProps } from "next"
+import { markdownToHtml } from "lib/markdown";
+import { GetStaticProps } from "next";
 
-const Football = ({
-  htmls
-}: {
-  htmls: string[]
-}): JSX.Element => {
+const Football = ({ htmls }: { htmls: string[] }): JSX.Element => {
   return (
     <div>
       <div>
         <div className="markdown">
-          <p>{'"'}Football{'"'} is the shared name for many distinct sports.</p>
-          <p>Association football (soccer), rugby football, American football, Australian rules football, Canadian football and Gaelic football are all commonly played versions of the game - <strong>though their rules are all vastly different</strong>.</p>
+          <p>
+            {'"'}Football{'"'} is the shared name for many distinct sports.
+          </p>
+          <p>
+            Association football (soccer), rugby football, American football,
+            Australian rules football, Canadian football and Gaelic football are
+            all commonly played versions of the game -{" "}
+            <strong>though their rules are all vastly different</strong>.
+          </p>
           <p>They share a rich common history - here it is:</p>
         </div>
       </div>
@@ -34,20 +37,26 @@ const Football = ({
       </div>
     </div>
   );
-}
+};
 
-export default Football
+export default Football;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const base = path.join(process.cwd(), "components/futbol/markdown")
-  const files = (await fs.readdir(base)).filter(name => name.endsWith(".md")).sort((a, b) => a > b ? 1 : -1)
-  const htmls = await Promise.all(files.map(file => fs.readFile(path.join(base, file), 'utf8').then(markdownToHtml)))
+  const base = path.join(process.cwd(), "components/futbol/markdown");
+  const files = (await fs.readdir(base))
+    .filter((name) => name.endsWith(".md"))
+    .sort((a, b) => (a > b ? 1 : -1));
+  const htmls = await Promise.all(
+    files.map((file) =>
+      fs.readFile(path.join(base, file), "utf8").then(markdownToHtml)
+    )
+  );
   return {
     props: {
-      htmls
-    }
-  }
-}
+      htmls,
+    },
+  };
+};
 
 /*
 
@@ -604,4 +613,3 @@ so i've been wanting to start following soccer for a while now but as an america
 `}</EmbedCSS>
 
 */
-

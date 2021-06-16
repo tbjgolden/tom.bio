@@ -27,11 +27,14 @@ export default function PostHeader({
         />
       </div>
       <h1 className="h2 m-sm">{title}</h1>
-      <div className="m" style={{
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: "center"
-      }}>
+      <div
+        className="m"
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+        }}
+      >
         <div style={{ fontSize: ".8em", textAlign: "right" }}>
           <div>{author.name}</div>
           <Date dateString={date} />
@@ -43,7 +46,7 @@ export default function PostHeader({
             style={{
               borderRadius: 9999,
               margin: "0 0 0 .8em",
-              height: "2.5em"
+              height: "2.5em",
             }}
           />
         </div>

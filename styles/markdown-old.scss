@@ -787,8 +787,8 @@ $color-map: (
   }
 
   details {
-    margin: 1em 1em .5em 1em;
-    padding: 0 .5em .5em .5em;
+    margin: 1em 1em 0.5em 1em;
+    padding: 0 0.5em 0.5em 0.5em;
     position: relative;
     font-size: 90%;
 
@@ -816,7 +816,7 @@ $color-map: (
 
       th {
         font-weight: bold;
-        font-variation-settings: 'wght' 700;
+        font-variation-settings: "wght" 700;
       }
 
       td,
@@ -854,7 +854,6 @@ $color-map: (
         line-height: size("line-height-min");
       }
     }
-
 
     &[open] {
       margin-bottom: 1.5em;

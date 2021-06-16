@@ -22,31 +22,29 @@ export default function Page({
     return <ErrorPage statusCode={404} />;
   }
 
-  return (
-    (router.isFallback || page === null) ? null : (
-      <article>
-        <div>
-          <Head>
-            <title>{page.title}</title>
-          </Head>
-          <Markdown>{page.content}</Markdown>
-        </div>
-      </article>
-    )
+  return router.isFallback || page === null ? null : (
+    <article>
+      <div>
+        <Head>
+          <title>{page.title}</title>
+        </Head>
+        <Markdown>{page.content}</Markdown>
+      </div>
+    </article>
   );
 }
 
 export const getStaticProps: GetStaticProps = async ({
   params,
-  preview = false
+  preview = false,
 }) => {
   const data = await getPage((params as { slug: string }).slug, preview);
 
   return {
     props: {
       preview,
-      page: data?.page
-    }
+      page: data?.page,
+    },
   };
 };
 
@@ -55,6 +53,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: allPages?.map((page: { slug: string }) => `/${page.slug}`) ?? [],
-    fallback: true
+    fallback: true,
   };
 };

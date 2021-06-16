@@ -1,14 +1,14 @@
 const Details = ({
   summary,
-  children
+  children,
 }: {
-  summary: string,
-  children: React.ReactChild
+  summary: string;
+  children: React.ReactChild;
 }): JSX.Element => (
   <details>
     <summary>{summary}</summary>
     {children}
   </details>
-)
+);
 
-export default Details
+export default Details;
