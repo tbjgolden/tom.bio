@@ -68,8 +68,8 @@ export default class _Document extends Document {
         >
           <Main />
           <NextScript />
-          <style id="fouc" dangerouslySetInnerHTML={{ __html: `svg{opacity:0}` }} />
-          <script dangerouslySetInnerHTML={{ __html: `setTimeout(function(){document.getElementById("fouc").remove()},10000)` }} />
+          <style id="fouc" dangerouslySetInnerHTML={{ __html: `body{opacity:0}` }} />
+          <script dangerouslySetInnerHTML={{ __html: `setTimeout(function(){document.getElementById("fouc").remove()},100)` }} />
         </body>
       </Html>
     );
