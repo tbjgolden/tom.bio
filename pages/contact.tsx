@@ -247,7 +247,7 @@ export default function Contact(): JSX.Element {
               )}
             </div>
           ) : null}
-          <Button onClick={() => onSubmit()} loading={isSending} disabled={isSending}>
+          <Button onClick={() => onSubmit()} isLoading={isSending} disabled={isSending}>
             Send
           </Button>
           <div tabIndex={-1} className="sr-only">
