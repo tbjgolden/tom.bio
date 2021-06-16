@@ -20,26 +20,35 @@ export default function PostHeader({
 }) {
   return (
     <>
-      <h1 className="foszH2 fowB mab30">{title}</h1>
-      <div className="mab30">
+      <div className="m">
         <CoverImage
           title={title}
           responsiveImage={coverImage.responsiveImage}
         />
       </div>
-      <div className="dFL jcFE aiC mab30">
+      <h1 className="h2 m-sm">{title}</h1>
+      <div className="m" style={{
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center"
+      }}>
+        <div style={{ fontSize: ".8em", textAlign: "right" }}>
+          <div>{author.name}</div>
+          <Date dateString={date} />
+        </div>
         <div>
           <img
             src={author.picture.url}
             alt={author.name}
-            className="h45 borX mar25"
+            style={{
+              borderRadius: 9999,
+              margin: "0 0 0 .8em",
+              height: "2.5em"
+            }}
           />
         </div>
-        <div>
-          <div>{author.name}</div>
-          <Date dateString={date} />
-        </div>
       </div>
+      <hr className="hr m" />
     </>
   );
 }

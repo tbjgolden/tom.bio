@@ -7,7 +7,9 @@ export default function FormattedDate({
 }) {
   const date = new Date(dateString);
   return (
-    <time dateTime={dateString} {...props}>
+    <time dateTime={dateString} style={{
+      fontVariantNumeric: "tabular-nums"
+    }} {...props}>
       {date.toLocaleDateString(undefined)}
     </time>
   );

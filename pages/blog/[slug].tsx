@@ -1,11 +1,9 @@
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import Container from "components/container";
 import Markdown from "components/markdown";
 import MoreStories from "components/more-stories";
 import PostHeader from "components/post-header";
 import SectionSeparator from "components/section-separator";
-import Layout from "components/layout";
 import {
   getAllPostsWithSlug,
   getPostAndMorePosts,
@@ -38,11 +36,9 @@ type DatoPost = {
 export default function Post({
   post,
   morePosts,
-  preview,
 }: {
   post: DatoPost;
   morePosts: DatoPost[];
-  preview: boolean;
 }): JSX.Element {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
@@ -60,7 +56,7 @@ export default function Post({
               <title>{post.title}</title>
               <meta property="og:image" content={post.ogImage.url} />
             </Head>
-            <div className="mat30 mab40">
+            <div>
               <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
@@ -87,7 +83,6 @@ export const getStaticProps: GetStaticProps = async ({
   );
   return {
     props: {
-      preview,
       post: data?.post,
       morePosts: data?.morePosts ?? [],
     },

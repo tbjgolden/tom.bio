@@ -15,19 +15,19 @@ export default function Nav({ layoutData }: { layoutData: LayoutData }) {
       hidden: false,
       children: null,
     },
-    {
-      title: "Experiments",
-      slug: "experiments",
-      hidden: true,
-      children: [
-        {
-          title: "Learn Football (Interactive!)",
-          slug: "experiments/football",
-          hidden: false,
-          children: null
-        }
-      ],
-    },
+    // {
+    //   title: "Experiments",
+    //   slug: "experiments",
+    //   hidden: true,
+    //   children: [
+    //     {
+    //       title: "Learn Football (Interactive!)",
+    //       slug: "experiments/football",
+    //       hidden: false,
+    //       children: null
+    //     }
+    //   ],
+    // },
     {
       title: "Blog",
       slug: "blog",
