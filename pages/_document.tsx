@@ -63,13 +63,13 @@ export default class _Document extends Document {
             fontFamily:
               "'Manrope VF',Manrope,-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',sans-serif",
             fontWeight: 500,
-            fontVariationSettings: "'wght' 500",
-            opacity: 0
+            fontVariationSettings: "'wght' 500"
           }}
         >
           <Main />
           <NextScript />
-          <script dangerouslySetInnerHTML={{ __html: `document.addEventListener("DOMContentLoaded", function () { setTimeout(function () { document.body.style.opacity = "1"; }, 100); })` }} />
+          <style id="fouc" dangerouslySetInnerHTML={{ __html: `svg{opacity:0}` }} />
+          <script dangerouslySetInnerHTML={{ __html: `setTimeout(function(){document.getElementById("fouc").remove()},10000)` }} />
         </body>
       </Html>
     );
