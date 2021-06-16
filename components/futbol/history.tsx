@@ -10,7 +10,7 @@ const Event = ({
   place: string;
   time: string;
   event: string;
-}) => {
+}): JSX.Element => {
   return (
     <div>
       {bg ? (
@@ -37,7 +37,7 @@ const Event = ({
   );
 };
 
-const History = () => (
+const History = (): JSX.Element => (
   <div>
     <style
       dangerouslySetInnerHTML={{

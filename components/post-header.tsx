@@ -17,7 +17,7 @@ export default function PostHeader({
     };
     name: string;
   };
-}) {
+}): JSX.Element {
   return (
     <>
       <div className="m">

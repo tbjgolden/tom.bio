@@ -5,7 +5,7 @@ export default function Markdown({
 }: {
   html: string;
   className?: string;
-}) {
+}): JSX.Element {
   return (
     <div
       className={`markdown ${className ?? ""}`}

@@ -19,7 +19,7 @@ export default function HeroPost({
   date: string;
   excerpt: string;
   slug: string;
-}) {
+}): JSX.Element {
   return (
     <Card style={{ padding: 0 }}>
       <section>

@@ -24,7 +24,7 @@ export default function MoreStories({
     excerpt: string;
     slug: string;
   }[];
-}) {
+}): JSX.Element {
   return (
     <FlexGrid
       as="section"

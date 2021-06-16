@@ -3,6 +3,7 @@ import { Checkbox, LABEL_PLACEMENT } from "baseui/checkbox";
 import { Select } from "baseui/select";
 import React, { useEffect, useMemo, useState } from "react";
 import { StatelessAccordion, Panel } from "baseui/accordion";
+import Card from "components/card";
 import {
   FixtureType,
   RANDOMIZER_DATA,
@@ -267,7 +268,7 @@ function generateMatchReport({
 
       if (winner === null) {
         // decided on penalties
-        let rand = Math.random();
+        const rand = Math.random();
         let sum = 0;
         for (const [score, p] of RANDOMIZER_DATA.P) {
           sum += p;
@@ -614,7 +615,7 @@ const Timeline = ({
         data-after={x.htScore.join(" - ")}
       />
       <div className="second-half">
-        {x.secondHalf.map(({ id, whoScored, time }, i) => (
+        {x.secondHalf.map(({ id, whoScored, time }) => (
           <Minute
             key={id}
             time={time}
@@ -632,7 +633,7 @@ const Timeline = ({
             data-after={x.ftScore.join(" - ")}
           />
           <div className="first-half-et">
-            {x.firstHalfET.map(({ id, whoScored, time }, i) => (
+            {x.firstHalfET.map(({ id, whoScored, time }) => (
               <Minute
                 key={id}
                 time={time}
@@ -648,7 +649,7 @@ const Timeline = ({
         <>
           <div className="break" />
           <div className="second-half-et">
-            {x.secondHalfET.map(({ id, whoScored, time }, i) => (
+            {x.secondHalfET.map(({ id, whoScored, time }) => (
               <Minute
                 key={id}
                 time={time}
@@ -978,7 +979,7 @@ const ContentOverride = {
 
 type Fixture = [{ label: string, id: FixtureType }]
 
-const MatchDemo = () => {
+const MatchDemo = (): JSX.Element => {
   const [regenerate, setRegenerate] = useState(0);
   const [expanded, setExpanded] = React.useState<React.Key[]>([
     '0',
@@ -987,7 +988,7 @@ const MatchDemo = () => {
   const [competition, setCompetition] = useState<[Competition]>([
     COMPETITIONS[0],
   ]);
-  const { teamA, teamB, rivalry, competitionData } = useMemo(() => {
+  const { teamA, teamB, competitionData } = useMemo(() => {
     const competitionData = COMPETITIONS_MAP[competition[0].id]
     let teamA: Team
     let teamB: Team
@@ -997,7 +998,7 @@ const MatchDemo = () => {
       teamB = competitionData.teams[1]
     } else {
       const noOfTeams = competitionData.teams.length
-      let firstIndex = Math.floor(Math.random() * noOfTeams)
+      const firstIndex = Math.floor(Math.random() * noOfTeams)
       let secondIndex = Math.floor(Math.random() * (noOfTeams - 1))
       if (secondIndex >= firstIndex) secondIndex += 1
       teamA = competitionData.teams[firstIndex]
@@ -1053,7 +1054,7 @@ const MatchDemo = () => {
             <Select
               searchable={false}
               clearable={false}
-              options={COMPETITIONS.map(({ id, name}) => ({ id }))}
+              options={COMPETITIONS.map(({ id }) => ({ id }))}
               value={competition}
               onChange={(params) => {
                 if (params.value.length === 1) {
@@ -1188,15 +1189,7 @@ const MatchDemo = () => {
 
       <div style={{ marginTop: 16 }}>
         {/*{rivalry ? <div style={{ marginBottom: 16 }}>{rivalry}</div> : null}*/}
-        <Card
-          overrides={{
-            Root: {
-              style: {
-                borderColor: "#000",
-              },
-            },
-          }}
-        >
+        <Card style={{ borderColor: "#000", padding: 16 }}>
           <RandomFixtureReport
             home={teamA}
             away={teamB}
@@ -1224,7 +1217,7 @@ const MatchDemo = () => {
               } : null
             }
           />
-        </div>
+        </Card>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export default function CoverImage({
   responsiveImage: ResponsiveImageType;
   slug?: string;
   [key: string]: any;
-}) {
+}): JSX.Element {
   const image = (
     <Image
       data={{

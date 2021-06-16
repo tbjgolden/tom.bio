@@ -4,7 +4,7 @@ const VideoEmbed = ({
 }: {
   yt: string,
   aspectRatio: [number, number]
-}) => {
+}): JSX.Element => {
   return (
     <div>
       <div style={{ padding: `${(aspectRatio[1] * 100 / aspectRatio[0]).toFixed(3)}% 0 0`, position: "relative" }}>

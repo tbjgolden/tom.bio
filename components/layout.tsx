@@ -12,7 +12,7 @@ export default function Layout({
   preview?: boolean;
   layoutData: LayoutData;
   children: React.ReactNode;
-}) {
+}): JSX.Element {
   return (
     <>
       <Meta />

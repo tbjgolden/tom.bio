@@ -1,3 +1,3 @@
-export default function SectionSeparator() {
+export default function SectionSeparator(): JSX.Element {
   return <hr />;
 }

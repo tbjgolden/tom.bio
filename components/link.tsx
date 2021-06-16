@@ -11,7 +11,7 @@ export default function Link({
   prefetch,
   className,
   ...props
-}: LinkProps & { className?: string; children?: React.ReactNode }) {
+}: LinkProps & { className?: string; children?: React.ReactNode }): JSX.Element {
   const { asPath } = useRouter();
   const isActive = (_as ?? href) === asPath;
 

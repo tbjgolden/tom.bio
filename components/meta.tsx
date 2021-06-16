@@ -8,7 +8,7 @@ export default function Meta({
   title?: string;
   description?: string;
   ogImage?: string;
-}) {
+}): JSX.Element {
   title = title ?? "";
   description = description ?? "";
   ogImage = ogImage ?? "";

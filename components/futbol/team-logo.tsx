@@ -19,7 +19,7 @@ export type TeamLogoProps = {
 const TeamLogo = ({
   type,
   size = 1
-}: TeamLogoProps) => {
+}: TeamLogoProps): JSX.Element => {
   if (type === "kangaroo") return <Image size={size} src="/futbol/kangaroo.png" />
   else return <Image size={size} src="/futbol/penguin.png" />
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function Nav({ layoutData }: { layoutData: LayoutData }) {
+export default function Nav({ layoutData }: { layoutData: LayoutData }): JSX.Element {
   const router = useRouter();
 
   const [mainItems, setMainItems] = useState(apiPagesToMainItems([
@@ -51,13 +51,15 @@ export default function Nav({ layoutData }: { layoutData: LayoutData }) {
           router.push(`/${slug}`);
         }
       }}
-      overrides={{
-        SecondaryMenuContainer: {
-          style: {
-            justifyContent: "flex-end"
+      {...({
+        overrides: {
+          SecondaryMenuContainer: {
+            style: {
+              justifyContent: "flex-end"
+            }
           }
         }
-      }}
+      } as any)}
     />
   );
 }

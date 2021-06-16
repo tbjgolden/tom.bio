@@ -3,8 +3,8 @@ import { getAllProjects } from "lib/api";
 import { AllProjects } from "types";
 import Markdown from "components/markdown";
 import Card from "components/card";
-import { Button } from "baseui/button";
-import { Image, ResponsiveImageType } from "react-datocms";
+// import { Button } from "baseui/button";
+// import { Image, ResponsiveImageType } from "react-datocms";
 
 export default function Portfolio({
   allProjects,
@@ -21,8 +21,6 @@ export default function Portfolio({
         return (
           <Card
             key={name}
-            headerImage={media?.url ?? null}
-            title={name}
             className="m"
           >
             <div

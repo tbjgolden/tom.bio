@@ -1,12 +1,13 @@
-import EmbedCSS from "components/embed-css";
+// import EmbedCSS from "components/embed-css";
 import History from "components/futbol/history";
-import Video from "components/futbol/video";
-import VideoEmbed from "components/futbol/video-embed";
+// import Video from "components/futbol/video";
+// import VideoEmbed from "components/futbol/video-embed";
 import Markdown from "components/markdown";
 import Details from "components/details";
 import fs from "fs/promises";
 import path from "path";
 import { markdownToHtml } from "lib/markdown"
+import { GetStaticProps } from "next"
 
 const Football = ({
   htmls
@@ -17,7 +18,7 @@ const Football = ({
     <div>
       <div>
         <div className="markdown">
-          <p>"Football" is the shared name for many distinct sports.</p>
+          <p>{'"'}Football{'"'} is the shared name for many distinct sports.</p>
           <p>Association football (soccer), rugby football, American football, Australian rules football, Canadian football and Gaelic football are all commonly played versions of the game - <strong>though their rules are all vastly different</strong>.</p>
           <p>They share a rich common history - here it is:</p>
         </div>

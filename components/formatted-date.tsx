@@ -4,7 +4,7 @@ export default function FormattedDate({
 }: {
   dateString: string;
   [key: string]: any;
-}) {
+}): JSX.Element {
   const date = new Date(dateString);
   return (
     <time dateTime={dateString} style={{

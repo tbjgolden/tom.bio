@@ -1,6 +1,6 @@
 import Container from "./container";
 
-export default function Alert() {
+export default function Alert(): JSX.Element {
   return (
     <div>
       <Container>

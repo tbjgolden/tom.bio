@@ -4,10 +4,10 @@ export default function Excerpt({
 }: {
   children: React.ReactNode;
   [key: string]: any;
-}) {
+}): JSX.Element {
   let excerpt = children;
   if (typeof excerpt === "string" && excerpt.length > 100) {
-    let slice = excerpt.slice(0, 100);
+    const slice = excerpt.slice(0, 100);
     excerpt = `${slice.slice(0, slice.lastIndexOf(" "))}...`;
   }
 

@@ -109,12 +109,7 @@ const Code = ({ node: _, inline, className, children, ...props }) => {
   }
 
   return match ? (
-    <SyntaxHighlighter
-      style={dark}
-      language={match[1]}
-      PreTag="div"
-      {...props}
-    >
+    <SyntaxHighlighter style={dark} language={match[1]} PreTag="div" {...props}>
       {String(children).replace(/\n$/, "")}
     </SyntaxHighlighter>
   ) : (
@@ -124,31 +119,29 @@ const Code = ({ node: _, inline, className, children, ...props }) => {
   );
 };
 
-const components = {
-  h1: H1,
-  h2: H2,
-  h3: H3,
-  h4: H4,
-  h5: H5,
-  h6: H6,
-  p: P,
-  strong: Strong,
-  em: Em,
-  blockquote: Blockquote,
-  hr: Hr,
-  a: A,
-  ul: Ul,
-  ol: Ol,
-  li: Li,
-  pre: Pre,
-  code: Code,
-  table: Table
-};
-
 const Markdown = React.memo(
   ({ children }: { children: React.ReactChild }): JSX.Element => (
     <ReactMarkdown
-      components={components}
+      components={{
+        h1: H1,
+        h2: H2,
+        h3: H3,
+        h4: H4,
+        h5: H5,
+        h6: H6,
+        p: P,
+        strong: Strong,
+        em: Em,
+        blockquote: Blockquote,
+        hr: Hr,
+        a: A,
+        ul: Ul,
+        ol: Ol,
+        li: Li,
+        pre: Pre,
+        code: Code,
+        table: Table,
+      } as any}
       rehypePlugins={[rehypeRaw]}
       remarkPlugins={[gfm]}
     >
