@@ -64,10 +64,12 @@ export default class _Document extends Document {
               "'Manrope VF',Manrope,-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',sans-serif",
             fontWeight: 500,
             fontVariationSettings: "'wght' 500",
+            opacity: 0
           }}
         >
           <Main />
           <NextScript />
+          <script dangerouslySetInnerHTML={{ __html: `document.addEventListener("DOMContentLoaded", function () { setTimeout(function () { document.body.style.opacity = "1"; }, 100); })` }} />
         </body>
       </Html>
     );
