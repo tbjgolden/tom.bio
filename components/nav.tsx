@@ -15,6 +15,12 @@ export default function Nav({
     apiPagesToMainItems([
       ...(layoutData?.allPages ?? []),
       {
+        title: "CV / Resume",
+        slug: "cv",
+        hidden: false,
+        children: null,
+      },
+      {
         title: "Portfolio",
         slug: "portfolio",
         hidden: false,
