@@ -22,6 +22,8 @@
     ]
   },
   "dependencies": {
+    "@nivo/core": "^0.73.0",
+    "@nivo/pie": "^0.73.0",
     "@types/marked": "^2.0.3",
     "@types/styletron-engine-atomic": "^1.1.0",
     "@types/styletron-react": "^5.0.2",
@@ -63,6 +65,7 @@
     "husky": "^6.0.0",
     "isomorphic-unfetch": "^3.1.0",
     "lint-staged": "^11.0.0",
+    "neat-csv": "^6.0.1",
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.3.0",

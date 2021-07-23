@@ -38,6 +38,12 @@ export default function Nav({
           //   children: null
           // },
           {
+            title: "100 Days of Recruiters",
+            slug: "experiments/recruiters",
+            hidden: false,
+            children: null
+          },
+          {
             title: "Days Until Move",
             slug: "experiments/days-until",
             hidden: false,
