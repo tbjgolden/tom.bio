@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { endOfDay, differenceInDays, parseISO } from "date-fns";
 
-const flightDate = parseISO("2021-09-17T18:20-05");
+const flightDate = parseISO("2021-10-15T18:20-05");
 
 export default function Experiments(): JSX.Element {
   const [daysUntilMove, setDaysUntilMove] = useState(
