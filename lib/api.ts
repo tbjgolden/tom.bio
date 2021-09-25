@@ -1,3 +1,5 @@
+import dedent from "dedent";
+
 const API_URL = "https://graphql.datocms.com";
 const API_TOKEN = process.env.DATOCMS_API_TOKEN;
 
@@ -20,6 +22,8 @@ const responsiveImageFragment = `
 
 const cache = new Map();
 
+const DEBUG = false;
+
 async function fetchAPI(
   query: string,
   opts?: { variables?: Record<string, any>; preview?: boolean }
@@ -31,6 +35,12 @@ async function fetchAPI(
   let output = cache.get(key);
 
   if (!output) {
+    if (DEBUG) {
+      console.debug("QUERY:");
+      console.debug(dedent(query));
+      console.debug("VARIABLES:");
+      console.debug(JSON.stringify(variables, null, 2));
+    }
     const res = await fetch(`${API_URL}${preview ? "/preview" : ""}`, {
       method: "POST",
       headers: {
@@ -44,12 +54,18 @@ async function fetchAPI(
     });
     output = await res.json();
     cache.set(key, output);
+
+    if (DEBUG) {
+      console.debug("OUTPUT:");
+      console.debug(JSON.stringify(output, null, 2));
+    }
   }
 
   if (output.errors) {
     console.error(output.errors);
     throw new Error("Failed to fetch API");
   }
+
   return output.data;
 }
 
@@ -68,7 +84,7 @@ export async function getPreviewPostBySlug(slug: string) {
       },
     }
   );
-  return data?.post;
+  return data?.post ?? null;
 }
 
 export async function getAllPostsWithSlug() {
@@ -79,7 +95,7 @@ export async function getAllPostsWithSlug() {
       }
     }
   `);
-  return data?.allPosts;
+  return data?.allPosts ?? null;
 }
 
 export async function getAllPostsForHome(preview: boolean) {
@@ -109,7 +125,7 @@ export async function getAllPostsForHome(preview: boolean) {
   `,
     { preview }
   );
-  return data?.allPosts;
+  return data?.allPosts ?? null;
 }
 
 export async function getPostAndMorePosts(slug: string, preview: boolean) {
@@ -175,11 +191,9 @@ export async function getLayoutData() {
         allPages (filter: { parent: { exists: false } }) {
           title
           slug
-          hidden
           children {
             title
             slug
-            hidden
           }
         }
       }
@@ -207,7 +221,7 @@ export async function getAllProjects() {
       }
     `
   );
-  return data?.allProjects;
+  return data?.allProjects ?? null;
 }
 
 export async function getPage(slug: string, preview = false) {
@@ -217,7 +231,6 @@ export async function getPage(slug: string, preview = false) {
         page(filter: { slug: { eq: $slug } }) {
           title
           slug
-          hidden
           content
         }
       }
@@ -229,7 +242,7 @@ export async function getPage(slug: string, preview = false) {
       },
     }
   );
-  return data;
+  return data?.page ?? null;
 }
 
 export async function getAllPagesWithSlug() {
@@ -242,5 +255,5 @@ export async function getAllPagesWithSlug() {
       }
     }
   `);
-  return data?.allPages;
+  return data?.allPages ?? null;
 }

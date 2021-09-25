@@ -11,7 +11,6 @@ export default function Page({
   page: null | {
     title: string;
     slug: null | string;
-    hidden: boolean;
     content: string;
   };
   preview: boolean;
@@ -38,12 +37,12 @@ export const getStaticProps: GetStaticProps = async ({
   params,
   preview = false,
 }) => {
-  const data = await getPage((params as { slug: string }).slug, preview);
+  const page = await getPage((params as { slug: string }).slug, preview);
 
   return {
     props: {
       preview,
-      page: data?.page,
+      page,
     },
   };
 };

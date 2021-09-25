@@ -26,11 +26,11 @@ export default function Index({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await getPage("");
+  const page = await getPage("");
 
   return {
     props: {
-      page: data?.page,
+      page,
     },
   };
 };
