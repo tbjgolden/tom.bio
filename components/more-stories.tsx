@@ -18,6 +18,7 @@ export default function MoreStories({
   posts: {
     title: string;
     coverImage: {
+      url: string;
       responsiveImage: ResponsiveImageType;
     };
     date: string;
@@ -39,6 +40,7 @@ export default function MoreStories({
             <CoverImage
               slug={slug}
               title={title}
+              imageUrl={coverImage.url}
               responsiveImage={coverImage.responsiveImage}
             />
             <div className="p" style={{ borderTop: "2px solid #ccc" }}>

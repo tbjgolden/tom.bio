@@ -9,7 +9,7 @@ export default function PostHeader({
   author,
 }: {
   title: string;
-  coverImage: { responsiveImage: ResponsiveImageType };
+  coverImage: { url: string; responsiveImage: ResponsiveImageType };
   date: string;
   author: {
     picture: {
@@ -23,6 +23,7 @@ export default function PostHeader({
       <div className="m">
         <CoverImage
           title={title}
+          url={coverImage.url}
           responsiveImage={coverImage.responsiveImage}
         />
       </div>

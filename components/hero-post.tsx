@@ -14,6 +14,7 @@ export default function HeroPost({
 }: {
   title: string;
   coverImage: {
+    url: string;
     responsiveImage: ResponsiveImageType;
   };
   date: string;
@@ -25,6 +26,7 @@ export default function HeroPost({
       <section>
         <CoverImage
           title={title}
+          imageUrl={coverImage.url}
           responsiveImage={coverImage.responsiveImage}
           slug={slug}
         />
