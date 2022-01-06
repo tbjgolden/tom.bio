@@ -14,17 +14,6 @@ export default function CoverImage({
   slug?: string;
   [key: string]: any;
 }): JSX.Element {
-  type ResponsiveImageType = {
-    /** The HTML5 `sizes` attribute for the image */
-    sizes?: string;
-    /** The fallback `src` attribute for the image */
-    src?: string;
-    /** The HTML5 `srcSet` attribute for the image */
-    srcSet?: string;
-    /** The HTML5 `srcSet` attribute for the image in WebP format, for browsers that support the format */
-    webpSrcSet?: string;
-  };
-
   const image = (
     <Image
       data={{

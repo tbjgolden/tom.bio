@@ -31,12 +31,6 @@ export default function Nav({
         slug: "experiments",
         hidden: true,
         children: [
-          // {
-          //   title: "Learn Football (Interactive!)",
-          //   slug: "experiments/football",
-          //   hidden: false,
-          //   children: null
-          // },
           {
             title: "100 Days of Recruiters",
             slug: "experiments/recruiters",
@@ -44,11 +38,11 @@ export default function Nav({
             children: null
           },
           {
-            title: "Days Until Move",
-            slug: "experiments/days-until",
+            title: "Evolution of Football",
+            slug: "experiments/evolution-of-football",
             hidden: false,
             children: null
-          }
+          },
         ],
       },
       {
