@@ -23,7 +23,7 @@ export default function PostHeader({
       <div className="m">
         <CoverImage
           title={title}
-          url={coverImage.url}
+          imageUrl={coverImage.url}
           responsiveImage={coverImage.responsiveImage}
         />
       </div>
