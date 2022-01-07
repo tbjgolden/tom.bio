@@ -461,6 +461,10 @@ const History = (): JSX.Element => (
             })
           }
           document.addEventListener("DOMContentLoaded", window.fixNulls);
+          window.fixNulls();
+          setInterval(function () {
+            window.fixNulls();
+          }, 1000);
         `,
       }}
     />

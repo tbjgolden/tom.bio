@@ -69,7 +69,17 @@ export default class _Document extends Document {
           <Main />
           <NextScript />
           <style id="fouc" dangerouslySetInnerHTML={{ __html: `body{opacity:0}` }} />
-          <script dangerouslySetInnerHTML={{ __html: `setTimeout(function(){document.getElementById("fouc").remove()},100)` }} />
+          <script dangerouslySetInnerHTML={{ __html: `
+            setTimeout(function(){document.getElementById("fouc").remove()},100)
+            window.fixNulls = function () {
+              document.querySelectorAll(".null-event").forEach(function (el) {
+                el.parentNode.classList.add("react-flow__node-null")
+              })
+            }
+            document.addEventListener("DOMContentLoaded", window.fixNulls);
+            window.fixNulls();
+            setInterval(function(){window.fixNulls()},1000);
+          ` }} />
         </body>
       </Html>
     );
