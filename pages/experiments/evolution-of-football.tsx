@@ -1,3 +1,7 @@
 import History from "components/futbol/history";
 
-export default History;
+const EvolutionOfFootball = (): JSX.Element => <div>
+  <History />
+</div>;
+
+export default EvolutionOfFootball;

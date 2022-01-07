@@ -197,6 +197,10 @@ export async function getLayoutData() {
           children {
             title
             slug
+            children {
+              title
+              slug
+            }
           }
         }
       }

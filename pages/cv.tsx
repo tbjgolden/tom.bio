@@ -51,6 +51,7 @@ export default function CV(): JSX.Element {
           />
         </div>
       </div>
+      <style dangerouslySetInnerHTML={{ __html: `#mw{max-width:none !important}` }} />
       <style jsx>{`
         iframe {
           display: block;

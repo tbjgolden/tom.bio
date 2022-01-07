@@ -1,8 +1,7 @@
 export type NavItem = {
   title: string;
   slug: string;
-  hidden: boolean;
-  children: null | NavItem[];
+  children: NavItem[];
 };
 
 export type LayoutData = null | {
@@ -11,8 +10,7 @@ export type LayoutData = null | {
     | {
         title: string;
         slug: string;
-        hidden: boolean;
-        children: null | NavItem[];
+        children: NavItem[];
       }[];
 };
 

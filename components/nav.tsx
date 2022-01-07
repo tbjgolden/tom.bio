@@ -1,104 +1,336 @@
 import { LayoutData, NavItem } from "types";
-import { AppNavBar, NavItemT, setItemActive } from "baseui/app-nav-bar";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Nav({
   layoutData,
 }: {
   layoutData: LayoutData;
 }): JSX.Element {
-  const router = useRouter();
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const [mainItems, setMainItems] = useState(
-    apiPagesToMainItems([
-      ...(layoutData?.allPages ?? []),
-      {
-        title: "CV / Resume",
-        slug: "cv",
-        hidden: false,
-        children: null,
-      },
-      {
-        title: "Portfolio",
-        slug: "portfolio",
-        hidden: false,
-        children: null,
-      },
-      {
-        title: "Experiments",
-        slug: "experiments",
-        hidden: true,
-        children: [
-          {
-            title: "100 Days of Recruiters",
-            slug: "experiments/recruiters",
-            hidden: false,
-            children: null
-          },
-          {
-            title: "Evolution of Football",
-            slug: "experiments/evolution-of-football",
-            hidden: false,
-            children: null
-          },
-          {
-            title: "Football Simulator",
-            slug: "experiments/football-simulator",
-            hidden: false,
-            children: null
-          },
-        ],
-      },
-      {
-        title: "Blog",
-        slug: "blog",
-        hidden: false,
-        children: null,
-      },
-    ])
-  );
+  useEffect(() => {
+    const mediaQueryList = window.matchMedia("(min-width: 680px)");
+    function handleResponsiveNavChange(mql) {
+      if (mql.matches) {
+        setIsMobileOpen(false);
+        document.documentElement.style.overflow = "initial";
+        document.body.style.overflow = "initial";
+      }
+    }
+    handleResponsiveNavChange(mediaQueryList);
+    mediaQueryList.addEventListener('change', handleResponsiveNavChange);
+    return () => {
+      mediaQueryList.removeEventListener('change', handleResponsiveNavChange);
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "initial";
+      document.body.style.overflow = "initial";
+    }
+  }, [isMobileOpen])
+
+  const mainItems: NavItem[] = [
+    ...(layoutData?.allPages ?? []),
+    {
+      title: "CV / Resume",
+      slug: "cv",
+      children: [],
+    },
+    {
+      title: "Portfolio",
+      slug: "portfolio",
+      children: [],
+    },
+    {
+      title: "Experiments",
+      slug: "experiments",
+      children: [
+        {
+          title: "100 Days of Recruiters",
+          slug: "experiments/recruiters",
+          children: []
+        },
+        {
+          title: "Evolution of Football",
+          slug: "experiments/evolution-of-football",
+          children: []
+        },
+        {
+          title: "Football Simulator",
+          slug: "experiments/football-simulator",
+          children: []
+        },
+      ],
+    },
+    {
+      title: "Blog",
+      slug: "blog",
+      children: [],
+    },
+  ];
 
   return (
-    <AppNavBar
-      title={
+    <div className="nav-wrapper">
+      <nav className="desktop-nav">
         <Link href="/">
-          <a style={{ textDecoration: "none" }}>tom.bio</a>
+          <a className="home-link" tabIndex={0}>tom.bio</a>
         </Link>
-      }
-      mainItems={mainItems}
-      onMainItemSelect={(item) => {
-        const { slug, hidden } = item as NavItemT & {
-          slug: string;
-          hidden: boolean;
-        };
-        setMainItems(setItemActive(mainItems, item));
-        if (!hidden) {
-          router.push(`/${slug}`);
+
+        <ul className="nav-links">
+          {
+            mainItems.filter(({ slug }) => slug !== "").map(({ title, slug, children }) => (
+              <li key={slug} className="nav-link" tabIndex={0} data-slug={slug}>
+                {
+                  children.length > 0
+                    ? <>
+                        <span>
+                          <span className="inactive-link">
+                            <span style={{ textDecoration: "underline" }}>{title}</span>
+                            {" ↓"}
+                          </span>
+                        </span>
+                        <ul className="submenu">
+                          {
+                            children.filter(({ children }) => children.length === 0).map(({ title, slug }) => (
+                              <Link key={slug} href={`/${slug}`}>
+                                <a className="submenu-link" tabIndex={0}>
+                                  {title}
+                                </a>
+                              </Link>
+                            ))
+                          }
+                        </ul>
+                      </>
+                    : <Link href={`/${slug}`}>
+                      <a className="active-link" tabIndex={0}>
+                        {title}
+                      </a>
+                    </Link>
+                }
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <nav className="mobile-nav">
+        <Link href="/">
+          <a className="home-link" tabIndex={0}>tom.bio</a>
+        </Link>
+        <button tabIndex={0} className="mobile-nav-button" onClick={() => {
+          setIsMobileOpen(!isMobileOpen)
+        }}>Menu <span className="mobile-nav-button-icon">☰</span></button>
+        <ul className="nav-links" style={{ display: isMobileOpen ? "flex" : "none" }}>
+          {
+            mainItems.filter(({ slug }) => slug !== "").map(({ title, slug, children }) => (
+              <li key={slug} className="nav-link" tabIndex={0} data-slug={slug}>
+                {
+                  children.length > 0
+                    ? <>
+                        <span>
+                          <span className="inactive-link">
+                            <span>{title}:</span>
+                          </span>
+                        </span>
+                        <ul className="submenu">
+                          {
+                            children.filter(({ children }) => children.length === 0).map(({ title, slug }) => (
+                              <Link key={slug} href={`/${slug}`}>
+                                <a className="submenu-link" tabIndex={0}>
+                                  {title}
+                                </a>
+                              </Link>
+                            ))
+                          }
+                        </ul>
+                      </>
+                    : <Link href={`/${slug}`}>
+                      <a className="active-link" tabIndex={0}>
+                        {title}
+                      </a>
+                    </Link>
+                }
+              </li>
+            ))
+          }
+          <div
+            className="mobile-nav-backdrop"
+            onClick={(event) => {
+              event.stopPropagation();
+              setIsMobileOpen(false);
+            }}
+          />
+        </ul>
+      </nav>
+      <style jsx>{`
+        .nav-wrapper {
+          height: 40px;
         }
-      }}
-      {...({
-        overrides: {
-          SecondaryMenuContainer: {
-            style: {
-              justifyContent: "flex-end",
-            },
-          },
-        },
-      } as any)}
-    />
+      
+        .desktop-nav {
+          display: none;
+          height: 40px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          justify-content: space-between;
+          border-bottom: 2px solid #ccc;
+          background: #fff;
+        }
+        .desktop-nav .nav-links {
+          display: flex;
+        }
+        .desktop-nav .nav-link {
+          white-space: pre;
+          display: flex;
+          align-items: center;
+        }
+        .desktop-nav .home-link {
+          text-decoration: none;
+          align-self: center;
+          padding: 6px 16px;
+          font-weight: bold;
+          font-variation-settings: "wght" 700;
+        }
+        .desktop-nav .active-link {
+          padding: 6px 16px;
+        }
+        .desktop-nav .inactive-link {
+          cursor: pointer;
+          padding: 6px 16px;
+        }
+        .desktop-nav .submenu {
+          display: none;
+          position: absolute;
+          top: 38px;
+          left: 0;
+          right: 0;
+          height: 40px;
+          justify-content: flex-end;
+          background: #fff;
+          border-top: 1px solid #ccc;
+          border-bottom: 2px solid #ccc;
+        }
+
+        .desktop-nav .submenu-link {
+          white-space: pre;
+          padding: 6px 16px;
+          display: flex;
+          align-items: center;
+        }
+        .desktop-nav .nav-link:hover,
+        .desktop-nav .nav-link:focus,
+        .desktop-nav .nav-link:focus-within,
+        .desktop-nav .nav-link:active,
+        .desktop-nav .submenu-link:hover,
+        .desktop-nav .submenu-link:focus,
+        .desktop-nav .submenu-link:focus-within,
+        .desktop-nav .submenu-link:active  {
+          background: #f7f7f7;
+        }
+        .desktop-nav .nav-link:hover > .submenu,
+        .desktop-nav .nav-link:focus > .submenu,
+        .desktop-nav .nav-link:focus-within > .submenu,
+        .desktop-nav .nav-link:active > .submenu,
+        .desktop-nav .submenu:hover {
+          display: flex;
+        }
+      
+        .mobile-nav {
+          display: flex;
+          height: 40px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          justify-content: space-between;
+          border-bottom: 2px solid #ccc;
+          background: #fff;
+        }
+        .mobile-nav-button {
+          line-height: 1.3;
+          padding: 0 16px;
+        }
+        .mobile-nav-button-icon {
+          font-size: 1.3em;
+          line-height: 1;
+        }
+        .mobile-nav .nav-links {
+          width: 100%;
+          height: auto;
+          position: absolute;
+          z-index: 99;
+          top: 38px;
+          left: 0;
+          right: 0;
+          border-top: 1px solid #ccc;
+          border-bottom: 1px solid #ccc;
+          flex-direction: column;
+        }
+        .mobile-nav .nav-link {
+          white-space: pre;
+          display: flex;
+          background: #f9f9f9;
+          width: 100%;
+          border-bottom: 1px solid #ccc;
+        }
+        .mobile-nav .home-link {
+          text-decoration: none;
+          align-self: center;
+          padding: 6px 16px;
+          font-weight: bold;
+          font-variation-settings: "wght" 700;
+        }
+        .mobile-nav .active-link {
+          display: block;
+          flex: 1 1 1px;
+          padding: 6px 16px;
+        }
+        .mobile-nav .inactive-link {
+          display: block;
+          cursor: pointer;
+          padding: 6px 16px;
+          color: #777;
+        }
+        .mobile-nav .submenu {
+          flex: 1 1 1px;
+        }
+        .mobile-nav .submenu-link {
+          white-space: pre;
+          padding: 6px 16px;
+          display: flex;
+          align-items: center;
+        }
+        .mobile-nav .submenu-link::before {
+          content: "";
+          display: inline-block;
+          width: 4px;
+          height: 4px;
+          margin-right: 8px;
+          background-color: #000;
+        }
+        .mobile-nav-backdrop {
+          width: 100%;
+          height: 100vh;
+          border-top: 1px solid #ccc;
+          background: rgba(255,255,255,0.8);
+        }
+
+        @media (min-width: 680px) {
+          .desktop-nav {
+            display: flex;
+          }
+          .mobile-nav {
+            display: none;
+          }
+        }
+      `}</style>
+    </div>
   );
 }
-
-const apiPagesToMainItems = (apiPages: NavItem[]): NavItemT[] => {
-  const mainItems: NavItemT[] = apiPages.map(
-    ({ title, slug, hidden, children }) => ({
-      label: title,
-      hidden,
-      slug,
-      children: children ? apiPagesToMainItems(children) : undefined,
-    })
-  );
-  return mainItems;
-};
