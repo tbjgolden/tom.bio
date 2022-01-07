@@ -43,6 +43,12 @@ export default function Nav({
             hidden: false,
             children: null
           },
+          {
+            title: "Football Simulator",
+            slug: "experiments/football-simulator",
+            hidden: false,
+            children: null
+          },
         ],
       },
       {

@@ -33,6 +33,23 @@ const twoLegTournament = (knockoutRounds = 4): RawRounds => [
     parts: ["Group Stage"],
   },
 ];
+const twoLegNoAwayGoalsTournament = (knockoutRounds = 4): RawRounds => [
+  {
+    rules: "knockout",
+    parts: [["Final"]],
+  },
+  {
+    rules: "2-leg-no-away",
+    parts: ["Semifinal", "Quarterfinal", "Last 16"].slice(
+      0,
+      knockoutRounds - 1
+    ),
+  },
+  {
+    rules: "league",
+    parts: ["Group Stage"],
+  },
+];
 
 export type Pattern = "plain" | "stripes";
 
@@ -71,8 +88,8 @@ const teamMap: Record<string, Omit<Team, "id">> = {
   barca: {
     name: "Barcelona",
     stadium: "Camp Nou",
-    colorA: "#004d98",
-    colorB: "#a50044",
+    colorA: "#006edb",
+    colorB: "#6b002d",
     pattern: "stripes",
     city: "Barcelona",
   },
@@ -153,7 +170,7 @@ const teamMap: Record<string, Omit<Team, "id">> = {
     stadium: "BVB Stadion Dortmund",
     colorA: "#FDE100",
     colorB: "#000000",
-    city: "Munich",
+    city: "Dortmund",
   },
   germany: {
     name: "Germany",
@@ -324,7 +341,12 @@ const competitionMap: Record<
     rounds: standardTournament(),
   },
   ucl: {
-    name: "UEFA Champions League",
+    name: "UEFA Champions League (2022 and later)",
+    shortDescription: "Primary European Tournament",
+    rounds: twoLegNoAwayGoalsTournament(),
+  },
+  uclpre22: {
+    name: "UEFA Champions League (2021 and earlier)",
     shortDescription: "Primary European Tournament",
     rounds: twoLegTournament(),
   },
@@ -500,52 +522,42 @@ export const RIVALRY_MAP: Record<
   arsenal_spurs: {
     teams: ["arsenal", "spurs"],
     competitions: ["fa", "epl", "elc", "europa"],
-    description: "These guys love each other",
   },
   chelsea_spurs: {
     teams: ["chelsea", "spurs"],
     competitions: ["fa", "epl", "elc"],
-    description: "These guys love each other",
   },
   barca_real: {
     teams: ["barca", "real"],
-    competitions: ["liga", "delrey", "ucl"],
-    description: "These guys love each other",
+    competitions: ["liga", "delrey", "ucl", "uclpre22"],
   },
   chelsea_city: {
     teams: ["chelsea", "city"],
-    competitions: ["fa", "epl", "elc", "ucl"],
-    description: "These guys love each other",
+    competitions: ["fa", "epl", "elc", "ucl", "uclpre22"],
   },
   galaxy_lafc: {
     teams: ["galaxy", "lafc"],
     competitions: ["mls", "usopen", "concacaf"],
-    description: "These guys love each other",
   },
   "liverpool-united": {
     teams: ["liverpool", "united"],
-    competitions: ["fa", "epl", "elc", "ucl"],
-    description: "These guys love each other",
+    competitions: ["fa", "epl", "elc", "ucl", "uclpre22"],
   },
   ac_inter: {
     teams: ["ac", "inter"],
-    competitions: ["seriea", "coppa", "ucl"],
-    description: "These guys love each other",
+    competitions: ["seriea", "coppa", "ucl", "uclpre22"],
   },
   everton_liverpool: {
     teams: ["liverpool", "everton"],
     competitions: ["fa", "epl", "elc"],
-    description: "These guys love each other",
   },
   city_united: {
     teams: ["united", "city"],
     competitions: ["fa", "epl", "elc"],
-    description: "These guys love each other",
   },
   bayern_dortmund: {
     teams: ["bayern", "dortmund"],
-    competitions: ["bundes", "german", "ucl"],
-    description: "These guys love each other",
+    competitions: ["bundes", "german", "ucl", "uclpre22"],
   },
   eu: {
     teams: ["germany", "portugal", "france", "spain", "england"],
@@ -714,10 +726,12 @@ for (const competition of Object.keys(competitionMap)) {
 for (const { teams, competitions } of Object.values(RIVALRY_MAP)) {
   for (const competition of competitions) {
     for (const team of teams) {
-      COMPETITIONS_MAP[competition].teams.push({
-        id: team,
-        ...teamMap[team],
-      });
+      if (!COMPETITIONS_MAP[competition].teams.some(t => t.id === team)) {
+        COMPETITIONS_MAP[competition].teams.push({
+          id: team,
+          ...teamMap[team],
+        });
+      }
     }
   }
 }

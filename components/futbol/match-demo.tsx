@@ -45,14 +45,23 @@ function colorToBadge<
   fg: string;
   b: string;
 } {
-  // if (colorB === undefined) {
-  //   const luminance =
-  //     0.2126 * parseInt(colorA.slice(1, 3), 16) +
-  //     0.7152 * parseInt(colorA.slice(3, 5), 16) +
-  //     0.0722 * parseInt(colorA.slice(5, 7), 16);
-  //
-  //   colorB = luminance < 100 ? "#fff" : "#000";
-  // }
+  const luminanceA =
+    0.2126 * parseInt(colorA.slice(1, 3), 16) +
+    0.7152 * parseInt(colorA.slice(3, 5), 16) +
+    0.0722 * parseInt(colorA.slice(5, 7), 16);
+
+  if (colorB === undefined) {
+    colorB = luminanceA < 100 ? "#fff" : "#000";
+  } else {
+    const luminanceB =
+      0.2126 * parseInt(colorB.slice(1, 3), 16) +
+      0.7152 * parseInt(colorB.slice(3, 5), 16) +
+      0.0722 * parseInt(colorB.slice(5, 7), 16);
+
+    if (Math.abs(luminanceB - luminanceA) < 40) {
+      colorB = luminanceA < 100 ? "#fff" : "#000";
+    }
+  }
 
   return {
     bg: colorA,
@@ -425,11 +434,22 @@ const Minute = ({
   }[whoScored || ""];
   const { bg, fg } = colorToBadge(team);
 
+  const isAddedTime = time.includes("+")
+  const factor = isAddedTime ? 0.6 : 0.7;
+
+  let timelineGoalBg = bg
+  const bgR = parseInt(bg.slice(1, 3), 16);
+  const bgG = parseInt(bg.slice(3, 5), 16);
+  const bgB = parseInt(bg.slice(5, 7), 16);
+  if (bgR + bgG + bgB > 680) {
+    timelineGoalBg = `rgb(${Math.round(factor * bgR)},${Math.round(factor * bgG)},${Math.round(factor * bgB)})`
+  }
+
   return (
     <>
       <div
         key={time}
-        className={`minute ${time.includes("+") ? "added-time" : ""}`}
+        className={`minute ${isAddedTime ? "added-time" : ""}`}
       >
         <div
           className="popover"
@@ -451,14 +471,13 @@ const Minute = ({
         <div
           className={`top-half ${whoScored === "H" ? "goal" : ""}`}
           style={{
-            background: home.colorA,
+            background: whoScored === "H" ? timelineGoalBg : home.colorA
           }}
         />
         <div
           className={`bottom-half ${whoScored === "A" ? "goal" : ""}`}
           style={{
-            background:
-              away.colorA.toLowerCase() === "#ffffff" ? "#777" : away.colorA,
+            background: whoScored === "A" ? timelineGoalBg : away.colorA,
           }}
         />
         <div className={`tick-top ${topClass}`} data-whoscored={whoScored} />
@@ -477,7 +496,7 @@ const Minute = ({
         }
 
         .minute.added-time {
-          background: #ccc;
+          background: #ddd;
         }
 
         .popover-arrow {
@@ -533,6 +552,8 @@ const Minute = ({
         .top-half.goal,
         .bottom-half.goal {
           opacity: 1;
+          left: 10%;
+          width: 80%;
         }
         .tick-top,
         .tick-bottom {
@@ -766,6 +787,7 @@ const Match = ({
   i,
   x,
   usesNeutralVenue,
+  fixtureType
 }: {
   home: Team;
   away: Team;
@@ -773,6 +795,7 @@ const Match = ({
   i: number;
   x: StructuredMatchReport;
   usesNeutralVenue: boolean;
+  fixtureType: FixtureType;
 }) => {
   let resultMessage: string | null = null;
   if (i === len - 1) {
@@ -802,6 +825,14 @@ const Match = ({
       resultMessage = `Agg ${x.aggScore.join(
         "-"
       )} \u00a0\u00b7\u00a0 ${resultMessage}`;
+    }
+
+    if (fixtureType === 'single-draw') {
+      if (x.winner === null) {
+        resultMessage += `\n(League Table: ${home.name} +1pt, ${away.name} +1pt)`
+      } else {
+        resultMessage += `\n(League Table: ${(x.winner === "H" ? home : away).name} +3pts, ${(x.winner === "H" ? away : home).name} 0pts)`
+      }
     }
   }
 
@@ -880,6 +911,7 @@ const Match = ({
                 marginTop: 16,
                 borderTop: "1px solid #ccc",
                 paddingTop: 16,
+                whiteSpace: "pre-wrap"
               }}
             >
               {resultMessage}
@@ -965,6 +997,7 @@ const RandomFixtureReport = ({
       {fixtureReport.map((x, i) => (
         <Match
           key={x.id}
+          fixtureType={fixtureType}
           usesNeutralVenue={round.usesNeutralVenue}
           home={i % 2 === 0 ? home : away}
           away={i % 2 === 0 ? away : home}
@@ -981,8 +1014,11 @@ const ContentOverride = {
   Content: {
     style: {
       borderTop: "1px solid rgb(203, 203, 203)",
-      padding: "20px",
-      background: "#fafafa",
+      paddingLeft: "20px",
+      paddingRight: "20px",
+      paddingBottom: "20px",
+      paddingTop: "20px",
+      backgroundColor: "#fafafa",
     },
   },
 };
@@ -998,25 +1034,19 @@ const MatchDemo = (): JSX.Element => {
   ]);
   const { teamA, teamB, competitionData } = useMemo(() => {
     const competitionData = COMPETITIONS_MAP[competition[0].id];
-    let teamA: Team;
-    let teamB: Team;
+
     let rivalry: string | null = null;
-    if (competitionData.teams.length === 2) {
-      teamA = competitionData.teams[0];
-      teamB = competitionData.teams[1];
-    } else {
-      const noOfTeams = competitionData.teams.length;
-      const firstIndex = Math.floor(Math.random() * noOfTeams);
-      let secondIndex = Math.floor(Math.random() * (noOfTeams - 1));
-      if (secondIndex >= firstIndex) secondIndex += 1;
-      teamA = competitionData.teams[firstIndex];
-      teamB = competitionData.teams[secondIndex];
-      const rivalryId =
-        teamA.id < teamB.id
-          ? `${teamA.id}_${teamB.id}`
-          : `${teamB.id}_${teamA.id}`;
-      rivalry = RIVALRY_MAP[rivalryId]?.description || null;
-    }
+    const noOfTeams = competitionData.teams.length;
+    const firstIndex = Math.floor(Math.random() * noOfTeams);
+    let secondIndex = Math.floor(Math.random() * (noOfTeams - 1));
+    if (secondIndex >= firstIndex) secondIndex += 1;
+    const teamA = competitionData.teams[firstIndex];
+    const teamB = competitionData.teams[secondIndex];
+    const rivalryId =
+      teamA.id < teamB.id
+        ? `${teamA.id}_${teamB.id}`
+        : `${teamB.id}_${teamA.id}`;
+    rivalry = RIVALRY_MAP[rivalryId]?.description || null;
     return {
       teamA,
       teamB,
@@ -1024,6 +1054,7 @@ const MatchDemo = (): JSX.Element => {
       competitionData,
     };
   }, [competition, regenerate]);
+
   const [roundIndex, setRoundIndex] = useState<number>(0);
   const round =
     competitionData.rounds[
@@ -1209,7 +1240,6 @@ const MatchDemo = (): JSX.Element => {
       </div>
 
       <div style={{ marginTop: 16 }}>
-        {/*{rivalry ? <div style={{ marginBottom: 16 }}>{rivalry}</div> : null}*/}
         <Card style={{ borderColor: "#000", padding: 16 }}>
           <RandomFixtureReport
             home={teamA}
@@ -1234,11 +1264,9 @@ const MatchDemo = (): JSX.Element => {
                   }
             }
             randomizeTeams={
-              competitionData.teams.length > 2
-                ? () => {
-                    setRegenerate(regenerate + 1);
-                  }
-                : null
+              () => {
+                setRegenerate(regenerate + 1);
+              }
             }
           />
         </Card>
