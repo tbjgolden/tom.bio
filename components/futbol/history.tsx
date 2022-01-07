@@ -452,22 +452,6 @@ const History = (): JSX.Element => (
         />
       </div>
     </div>
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `
-          window.fixNulls = function () {
-            document.querySelectorAll(".null-event").forEach(function (el) {
-              el.parentNode.classList.add("react-flow__node-null")
-            })
-          }
-          document.addEventListener("DOMContentLoaded", window.fixNulls);
-          window.fixNulls();
-          setInterval(function () {
-            window.fixNulls();
-          }, 1000);
-        `,
-      }}
-    />
   </div>
 );
 
