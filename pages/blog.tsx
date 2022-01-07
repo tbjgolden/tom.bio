@@ -10,6 +10,7 @@ export default function Blog({
   allPosts: {
     title: string;
     coverImage: {
+      url: string;
       responsiveImage: ResponsiveImageType;
     };
     date: string;

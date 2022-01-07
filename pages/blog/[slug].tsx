@@ -13,6 +13,7 @@ import { GetStaticProps } from "next";
 type DatoPost = {
   title: string;
   coverImage: {
+    url: string;
     responsiveImage: ResponsiveImageType;
   };
   date: string;
