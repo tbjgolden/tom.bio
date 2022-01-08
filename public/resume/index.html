@@ -8,16 +8,15 @@
 <body>
   <main>
     <h1 style="font-weight:800;">Tom <span id="name"></span></h1>
-    <h2>Engineering Manager &middot; Senior Software Engineer</h2>
+    <h2>Senior Software Engineer / Engineering Manager</h2>
     <p>
-      <strong>
+      <strong style="display:block;margin-bottom:3px">
         <a href="https://tom.bio">tom.bio</a>
         &middot;
         <span class="dib">hey@<span id="domain"></span></span>
         &middot;
         <span class="dib"></span>London/Remote</span>
       </strong>
-      <br />
       <span class="dib"></span>UK +44 (07365) <span id="uk-num"></span></span>
       &middot;
       <span class="dib"></span>US +1 (209) <span id="us-num"></span></span>
@@ -31,7 +30,7 @@
       </small>
     </p>
 
-    <h2>Experience</h2>
+    <h2 class="line">Experience</h2>
 
     <div class="job">
       <h3 class="company-name">
@@ -94,7 +93,7 @@
         05/18 - current
       </div>
       <p class="description">
-        Developing an automated passive-income football analytical engine. The ambition is to develop an API that
+        Developing an automated passive-income football analytical engine. The aim is to develop an API that
         can be accessed by football websites to provide up to date transfer rumours.
       </p>
     </div>
@@ -180,7 +179,7 @@
     </div>
 
 
-    <h2>Education</h2>
+    <h2 class="line">Education</h2>
 
     <div class="edu">
       <h3 class="school-name">
@@ -207,11 +206,11 @@
       </div>
     </div>
 
-    <h2>Skills</h2>
+    <h2 class="line">Skills</h2>
 
-    <p>Experience with leading a team both as a manager and a primary code contributor. My project management style is not strictly structured and adapts to fit the team and situation. Strong at resolving conflicts and maintaining a happy, confident and productive engineering team.</p>
+    <p>Technical experience with:<br><strong>JavaScript (ES6, ES7 via Babel), React, Next.js, GraphQL, Apollo, Rust, React Native, Node, UX/UI Design, </strong><small>Jest, Express.js, Astro, OpenGL, Git, MacOS, Linux, Java, Python, Docker, SQL, Dart, Flutter, Ionic, WASM, Haskell, C, AWS, MATLAB</small></p>
 
-    <p>Technical experience with:<br><strong>JavaScript (ES6, ES7 via Babel), React, Next.js, GraphQL, Apollo, Rust, React Native, Node, UX/UI Design, </strong><small>Jest, Express.js, OpenGL, Express.js, JSON, Git, MacOS, Linux, Java, Python, Docker, SQL, Dart, Flutter, Ionic, WASM, Haskell, C, AWS, MATLAB</small></p>
+    <p>Particularly effective at maintaining team harmony, resolving interpersonal conflicts and problem-solving.</p>
   </main>
 
   <style>
@@ -252,11 +251,36 @@
     h1 {
       font-size: 30px;
       font-weight: 400;
+      margin-bottom: 0;
     }
     h2 {
       font-family: 'Heuristica';
       font-weight: 400;
       color: rgb(168, 115, 0);
+      position: relative;
+      display: inline-block;
+      margin: 24px 0 0;
+    }
+    h2.line::before {
+      content: "";
+      position: absolute;
+      background: rgb(168, 115, 0);
+      height: 2px;
+      top: .6em;
+      left: -50vw;
+      width: 200vw;
+      z-index: -2;
+    }
+    h2.line::after {
+      content: "";
+      position: absolute;
+      background: #fff;
+      height: 2px;
+      top: 0;
+      left: -8px;
+      right: -8px;
+      height: 1em;
+      z-index: -1;
     }
     h3, h4, h5, h6, .hl {
       font-weight: 700;
