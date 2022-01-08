@@ -19,7 +19,7 @@ export default function Layout({
       <Nav layoutData={layoutData} />
       {preview && <Alert />}
       <main className="p-res">
-        <div id="mw" style={{ maxWidth: "66ch", margin: "0 auto", padding: "1em 0" }}>{children}</div>
+        <div className="mw" style={{ margin: "0 auto", padding: "1em 0" }}>{children}</div>
       </main>
       <Footer />
     </>

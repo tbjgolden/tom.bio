@@ -13,6 +13,10 @@
   font-size: 0.8em;
 }
 
+.mw {
+  max-width: 66ch;
+}
+
 @media (max-width: 520px) {
   .hide-520 {
     display: none;

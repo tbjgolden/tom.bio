@@ -78,45 +78,49 @@ export default function Nav({
   return (
     <div className="nav-wrapper">
       <nav className="desktop-nav">
-        <Link href="/">
-          <a className="home-link" tabIndex={0}>tom.bio</a>
-        </Link>
+        <div className="mw">
+          <Link href="/">
+            <a className="home-link" tabIndex={0}>tom.bio</a>
+          </Link>
 
-        <ul className="nav-links">
-          {
-            mainItems.filter(({ slug }) => slug !== "").map(({ title, slug, children }) => (
-              <li key={slug} className="nav-link" tabIndex={0} data-slug={slug}>
-                {
-                  children.length > 0
-                    ? <>
-                        <span>
-                          <span className="inactive-link">
-                            <span style={{ textDecoration: "underline" }}>{title}</span>
-                            {" ↓"}
+          <ul className="nav-links">
+            {
+              mainItems.filter(({ slug }) => slug !== "").map(({ title, slug, children }) => (
+                <li key={slug} className="nav-link" tabIndex={0} data-slug={slug}>
+                  {
+                    children.length > 0
+                      ? <>
+                          <span>
+                            <span className="inactive-link">
+                              <span style={{ textDecoration: "underline" }}>{title}</span>
+                              {" ↓"}
+                            </span>
                           </span>
-                        </span>
-                        <ul className="submenu">
-                          {
-                            children.filter(({ children }) => children.length === 0).map(({ title, slug }) => (
-                              <Link key={slug} href={`/${slug}`}>
-                                <a className="submenu-link" tabIndex={0}>
-                                  {title}
-                                </a>
-                              </Link>
-                            ))
-                          }
-                        </ul>
-                      </>
-                    : <Link href={`/${slug}`}>
-                      <a className="active-link" tabIndex={0}>
-                        {title}
-                      </a>
-                    </Link>
-                }
-              </li>
-            ))
-          }
-        </ul>
+                          <ul className="submenu">
+                            <div className="mw">
+                              {
+                                children.filter(({ children }) => children.length === 0).map(({ title, slug }) => (
+                                  <Link key={slug} href={`/${slug}`}>
+                                    <a className="submenu-link" tabIndex={0}>
+                                      {title}
+                                    </a>
+                                  </Link>
+                                ))
+                              }
+                            </div>
+                          </ul>
+                        </>
+                      : <Link href={`/${slug}`}>
+                        <a className="active-link" tabIndex={0}>
+                          {title}
+                        </a>
+                      </Link>
+                  }
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </nav>
       <nav className="mobile-nav">
         <Link href="/">
@@ -176,12 +180,14 @@ export default function Nav({
           display: none;
           height: 40px;
           position: fixed;
+          z-index: 9;
           top: 0;
           left: 0;
           width: 100%;
-          justify-content: space-between;
+          justify-content: center;
           border-bottom: 2px solid #ccc;
           background: #fff;
+          filter: drop-shadow(0 2px 10px rgba(0,0,0,.2));
         }
         .desktop-nav .nav-links {
           display: flex;
@@ -212,7 +218,7 @@ export default function Nav({
           left: 0;
           right: 0;
           height: 40px;
-          justify-content: flex-end;
+          justify-content: center;
           background: #fff;
           border-top: 1px solid #ccc;
           border-bottom: 2px solid #ccc;
@@ -241,17 +247,29 @@ export default function Nav({
         .desktop-nav .submenu:hover {
           display: flex;
         }
+        .desktop-nav > .mw {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+        }
+        .desktop-nav .submenu > .mw {
+          display: flex;
+          width: 100%;
+          justify-content: flex-end;
+        }
       
         .mobile-nav {
           display: flex;
           height: 40px;
           position: fixed;
+          z-index: 9;
           top: 0;
           left: 0;
           width: 100%;
           justify-content: space-between;
           border-bottom: 2px solid #ccc;
           background: #fff;
+          filter: drop-shadow(0 2px 10px rgba(0,0,0,.2));
         }
         .mobile-nav-button {
           line-height: 1.3;
@@ -279,6 +297,12 @@ export default function Nav({
           background: #f9f9f9;
           width: 100%;
           border-bottom: 1px solid #ccc;
+          position: relative;
+          z-index: 2;
+        }
+        .mobile-nav .nav-link:last-of-type {
+          filter: drop-shadow(0 2px 10px rgba(0,0,0,.2));
+          z-index: 1;
         }
         .mobile-nav .home-link {
           text-decoration: none;
@@ -319,7 +343,7 @@ export default function Nav({
           width: 100%;
           height: 100vh;
           border-top: 1px solid #ccc;
-          background: rgba(255,255,255,0.8);
+          background: rgba(255,255,255,0.6);
         }
 
         @media (min-width: 680px) {
