@@ -180,7 +180,7 @@ export default function Nav({
           display: none;
           height: 40px;
           position: fixed;
-          z-index: 9;
+          z-index: 99;
           top: 0;
           left: 0;
           width: 100%;

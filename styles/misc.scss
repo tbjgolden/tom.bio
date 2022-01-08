@@ -17,6 +17,10 @@
   max-width: 66ch;
 }
 
+[data-baseweb="popover"] {
+  z-index: 101;
+}
+
 @media (max-width: 520px) {
   .hide-520 {
     display: none;
