@@ -19,11 +19,11 @@ export default function Nav({
       }
     }
     handleResponsiveNavChange(mediaQueryList);
-    mediaQueryList.addEventListener('change', handleResponsiveNavChange);
+    mediaQueryList.addEventListener("change", handleResponsiveNavChange);
     return () => {
-      mediaQueryList.removeEventListener('change', handleResponsiveNavChange);
-    }
-  }, [])
+      mediaQueryList.removeEventListener("change", handleResponsiveNavChange);
+    };
+  }, []);
 
   useEffect(() => {
     if (isMobileOpen) {
@@ -33,7 +33,7 @@ export default function Nav({
       document.documentElement.style.overflow = "initial";
       document.body.style.overflow = "initial";
     }
-  }, [isMobileOpen])
+  }, [isMobileOpen]);
 
   const mainItems: NavItem[] = [
     ...(layoutData?.allPages ?? []),
@@ -54,17 +54,17 @@ export default function Nav({
         {
           title: "100 Days of Recruiters",
           slug: "experiments/recruiters",
-          children: []
+          children: [],
         },
         {
           title: "Evolution of Football",
           slug: "experiments/evolution-of-football",
-          children: []
+          children: [],
         },
         {
           title: "Football Simulator",
           slug: "experiments/football-simulator",
-          children: []
+          children: [],
         },
       ],
     },
@@ -80,88 +80,108 @@ export default function Nav({
       <nav className="desktop-nav">
         <div className="mw">
           <Link href="/">
-            <a className="home-link" tabIndex={0}>tom.bio</a>
+            <a className="home-link" tabIndex={0}>
+              tom.bio
+            </a>
           </Link>
 
           <ul className="nav-links">
-            {
-              mainItems.filter(({ slug }) => slug !== "").map(({ title, slug, children }) => (
-                <li key={slug} className="nav-link" tabIndex={0} data-slug={slug}>
-                  {
-                    children.length > 0
-                      ? <>
-                          <span>
-                            <span className="inactive-link">
-                              <span style={{ textDecoration: "underline" }}>{title}</span>
-                              {" ↓"}
-                            </span>
+            {mainItems
+              .filter(({ slug }) => slug !== "")
+              .map(({ title, slug, children }) => (
+                <li
+                  key={slug}
+                  className="nav-link"
+                  tabIndex={0}
+                  data-slug={slug}
+                >
+                  {children.length > 0 ? (
+                    <>
+                      <span>
+                        <span className="inactive-link">
+                          <span style={{ textDecoration: "underline" }}>
+                            {title}
                           </span>
-                          <ul className="submenu">
-                            <div className="mw">
-                              {
-                                children.filter(({ children }) => children.length === 0).map(({ title, slug }) => (
-                                  <Link key={slug} href={`/${slug}`}>
-                                    <a className="submenu-link" tabIndex={0}>
-                                      {title}
-                                    </a>
-                                  </Link>
-                                ))
-                              }
-                            </div>
-                          </ul>
-                        </>
-                      : <Link href={`/${slug}`}>
-                        <a className="active-link" tabIndex={0}>
-                          {title}
-                        </a>
-                      </Link>
-                  }
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </nav>
-      <nav className="mobile-nav">
-        <Link href="/">
-          <a className="home-link" tabIndex={0}>tom.bio</a>
-        </Link>
-        <button tabIndex={0} className="mobile-nav-button" onClick={() => {
-          setIsMobileOpen(!isMobileOpen)
-        }}>Menu <span className="mobile-nav-button-icon">☰</span></button>
-        <ul className="nav-links" style={{ display: isMobileOpen ? "flex" : "none" }}>
-          {
-            mainItems.filter(({ slug }) => slug !== "").map(({ title, slug, children }) => (
-              <li key={slug} className="nav-link" tabIndex={0} data-slug={slug}>
-                {
-                  children.length > 0
-                    ? <>
-                        <span>
-                          <span className="inactive-link">
-                            <span>{title}:</span>
-                          </span>
+                          {" ↓"}
                         </span>
-                        <ul className="submenu">
-                          {
-                            children.filter(({ children }) => children.length === 0).map(({ title, slug }) => (
+                      </span>
+                      <ul className="submenu">
+                        <div className="mw">
+                          {children
+                            .filter(({ children }) => children.length === 0)
+                            .map(({ title, slug }) => (
                               <Link key={slug} href={`/${slug}`}>
                                 <a className="submenu-link" tabIndex={0}>
                                   {title}
                                 </a>
                               </Link>
-                            ))
-                          }
-                        </ul>
-                      </>
-                    : <Link href={`/${slug}`}>
+                            ))}
+                        </div>
+                      </ul>
+                    </>
+                  ) : (
+                    <Link href={`/${slug}`}>
                       <a className="active-link" tabIndex={0}>
                         {title}
                       </a>
                     </Link>
-                }
+                  )}
+                </li>
+              ))}
+          </ul>
+        </div>
+      </nav>
+      <nav className="mobile-nav">
+        <Link href="/">
+          <a className="home-link" tabIndex={0}>
+            tom.bio
+          </a>
+        </Link>
+        <button
+          tabIndex={0}
+          className="mobile-nav-button"
+          onClick={() => {
+            setIsMobileOpen(!isMobileOpen);
+          }}
+        >
+          Menu <span className="mobile-nav-button-icon">☰</span>
+        </button>
+        <ul
+          className="nav-links"
+          style={{ display: isMobileOpen ? "flex" : "none" }}
+        >
+          {mainItems
+            .filter(({ slug }) => slug !== "")
+            .map(({ title, slug, children }) => (
+              <li key={slug} className="nav-link" tabIndex={0} data-slug={slug}>
+                {children.length > 0 ? (
+                  <>
+                    <span>
+                      <span className="inactive-link">
+                        <span>{title}:</span>
+                      </span>
+                    </span>
+                    <ul className="submenu">
+                      {children
+                        .filter(({ children }) => children.length === 0)
+                        .map(({ title, slug }) => (
+                          <Link key={slug} href={`/${slug}`}>
+                            <a className="submenu-link" tabIndex={0}>
+                              {title}
+                            </a>
+                          </Link>
+                        ))}
+                    </ul>
+                  </>
+                ) : (
+                  <Link href={`/${slug}`}>
+                    <a className="active-link" tabIndex={0}>
+                      {title}
+                    </a>
+                  </Link>
+                )}
               </li>
-            ))
-          }
+            ))}
           <div
             className="mobile-nav-backdrop"
             onClick={(event) => {
@@ -175,7 +195,7 @@ export default function Nav({
         .nav-wrapper {
           height: 40px;
         }
-      
+
         .desktop-nav {
           display: none;
           height: 40px;
@@ -187,7 +207,7 @@ export default function Nav({
           justify-content: center;
           border-bottom: 2px solid #ccc;
           background: #fff;
-          filter: drop-shadow(0 2px 10px rgba(0,0,0,.2));
+          filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
         }
         .desktop-nav .nav-links {
           display: flex;
@@ -237,7 +257,7 @@ export default function Nav({
         .desktop-nav .submenu-link:hover,
         .desktop-nav .submenu-link:focus,
         .desktop-nav .submenu-link:focus-within,
-        .desktop-nav .submenu-link:active  {
+        .desktop-nav .submenu-link:active {
           background: #f7f7f7;
         }
         .desktop-nav .nav-link:hover > .submenu,
@@ -257,7 +277,7 @@ export default function Nav({
           width: 100%;
           justify-content: flex-end;
         }
-      
+
         .mobile-nav {
           display: flex;
           height: 40px;
@@ -269,7 +289,7 @@ export default function Nav({
           justify-content: space-between;
           border-bottom: 2px solid #ccc;
           background: #fff;
-          filter: drop-shadow(0 2px 10px rgba(0,0,0,.2));
+          filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
         }
         .mobile-nav-button {
           line-height: 1.3;
@@ -301,7 +321,7 @@ export default function Nav({
           z-index: 2;
         }
         .mobile-nav .nav-link:last-of-type {
-          filter: drop-shadow(0 2px 10px rgba(0,0,0,.2));
+          filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
           z-index: 1;
         }
         .mobile-nav .home-link {
@@ -343,10 +363,13 @@ export default function Nav({
           width: 100%;
           height: 100vh;
           border-top: 1px solid #ccc;
-          background: rgba(255,255,255,0.6);
+          background: rgba(255, 255, 255, 0.6);
         }
 
         @media (min-width: 680px) {
+          .nav-wrapper {
+            height: 72px;
+          }
           .desktop-nav {
             display: flex;
           }
