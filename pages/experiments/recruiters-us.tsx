@@ -1,4 +1,5 @@
 import { PieSvgProps, ResponsivePie } from "@nivo/pie";
+import Link from "next/link";
 
 const CenteredMetric = ({ dataWithArc, centerX, centerY }) => (
   <>
@@ -94,12 +95,17 @@ export default function Recruiters(): JSX.Element {
   return (
     <section>
       <div id="calendar">
-        <h1 className="h1 m-sm">100 Days of Recruiters</h1>
+        <h1 className="h1 m-sm">100 Days of Recruiters (US Edition)</h1>
         <p className="m">
           Like many software engineers, my inboxes are full of spam from
           recruiters.
           <br />
-          Here's the highlights from the last 100 days.
+          Here{"'"}s the highlights from the last 100 days.
+        </p>
+        <p className="m">
+          <Link href="/experiments/recruiters-uk">
+            Click here for the newer (UK-based) version
+          </Link>
         </p>
         <Pie
           data={[
@@ -203,43 +209,44 @@ export default function Recruiters(): JSX.Element {
           <div className="aside">React has only been around for 8 years</div>
         </blockquote>
         <h2 className="h2 m-sm">Companies</h2>
-        <p className="m-sm">Finally, here's the full list of the companies that were named:</p>
+        <p className="m-sm">
+          Finally, here's the full list of the companies that were named:
+        </p>
         <ul>
-          {
-            [
-              { id: "Amazon", value: 2, color: '#111' },
-              { id: "Apple", value: 1, color: '#111' },
-              { id: "Beachbody", value: 1, color: '#111' },
-              { id: "Vinli", value: 1, color: '#111' },
-              { id: "Spiff", value: 1, color: '#111' },
-              { id: "Copy.AI", value: 1, color: '#111' },
-              { id: "Rocket Loans", value: 1, color: '#111' },
-              { id: "Bevy", value: 1, color: '#111' },
-              { id: "Graphiant", value: 1, color: '#111' },
-              { id: "Ticketmaster", value: 1, color: '#111' },
-              { id: "ZURB", value: 1, color: '#111' },
-              { id: "EPAM", value: 1, color: '#111' },
-              { id: "Adobe", value: 1, color: '#111' },
-              { id: "Collibra", value: 1, color: '#111' },
-              { id: "Postscript.io", value: 1, color: '#111' },
-              { id: "Reggora", value: 1, color: '#111' },
-              { id: "Thirty Madison", value: 1, color: '#111' },
-              { id: "Walmart", value: 1, color: '#111' },
-              { id: "Checkr", value: 1, color: '#111' },
-              { id: "Virtasant", value: 1, color: "#777" },
-              { id: "Bank of America", value: 1, color: "#666" },
-              { id: "Northwestern Mutual", value: 1, color: "#555" },
-              { id: "HIMSS", value: 1, color: "#444" },
-              { id: "IndigoAg", value: 1, color: "#333" },
-              { id: "FastRadius", value: 1, color: "#222" },
-              { id: "AlphaSights", value: 1, color: "#111" },
-              { id: "Metaview", value: 1, color: "#000" },
-            ].map(({ id, value }) => (
-              <li key={id}>
-                {id}{value === 2 ? ` (twice)` : ""}
-              </li>
-            ))
-          }
+          {[
+            { id: "Amazon", value: 2, color: "#111" },
+            { id: "Apple", value: 1, color: "#111" },
+            { id: "Beachbody", value: 1, color: "#111" },
+            { id: "Vinli", value: 1, color: "#111" },
+            { id: "Spiff", value: 1, color: "#111" },
+            { id: "Copy.AI", value: 1, color: "#111" },
+            { id: "Rocket Loans", value: 1, color: "#111" },
+            { id: "Bevy", value: 1, color: "#111" },
+            { id: "Graphiant", value: 1, color: "#111" },
+            { id: "Ticketmaster", value: 1, color: "#111" },
+            { id: "ZURB", value: 1, color: "#111" },
+            { id: "EPAM", value: 1, color: "#111" },
+            { id: "Adobe", value: 1, color: "#111" },
+            { id: "Collibra", value: 1, color: "#111" },
+            { id: "Postscript.io", value: 1, color: "#111" },
+            { id: "Reggora", value: 1, color: "#111" },
+            { id: "Thirty Madison", value: 1, color: "#111" },
+            { id: "Walmart", value: 1, color: "#111" },
+            { id: "Checkr", value: 1, color: "#111" },
+            { id: "Virtasant", value: 1, color: "#777" },
+            { id: "Bank of America", value: 1, color: "#666" },
+            { id: "Northwestern Mutual", value: 1, color: "#555" },
+            { id: "HIMSS", value: 1, color: "#444" },
+            { id: "IndigoAg", value: 1, color: "#333" },
+            { id: "FastRadius", value: 1, color: "#222" },
+            { id: "AlphaSights", value: 1, color: "#111" },
+            { id: "Metaview", value: 1, color: "#000" },
+          ].map(({ id, value }) => (
+            <li key={id}>
+              {id}
+              {value === 2 ? ` (twice)` : ""}
+            </li>
+          ))}
         </ul>
       </div>
       <style jsx>{`

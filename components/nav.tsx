@@ -52,8 +52,13 @@ export default function Nav({
       slug: "experiments",
       children: [
         {
-          title: "100 Days of Recruiters",
-          slug: "experiments/recruiters",
+          title: "100 Days of Recruiters (US Edition)",
+          slug: "experiments/recruiters-us",
+          children: [],
+        },
+        {
+          title: "100 Days of Recruiters (UK Edition)",
+          slug: "experiments/recruiters-uk",
           children: [],
         },
         {
@@ -237,11 +242,13 @@ export default function Nav({
           top: 38px;
           left: 0;
           right: 0;
-          height: 40px;
           justify-content: center;
           background: #fff;
           border-top: 1px solid #ccc;
           border-bottom: 2px solid #ccc;
+        }
+        .desktop-nav .submenu .mw {
+          flex-wrap: wrap;
         }
 
         .desktop-nav .submenu-link {
