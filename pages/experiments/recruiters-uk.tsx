@@ -100,7 +100,10 @@ export default function Recruiters(): JSX.Element {
           Like many software engineers, my inboxes are full of spam from
           recruiters.
           <br />
-          Here{"'"}s the highlights from the last 100 days.
+          During these 100 days, my LinkedIn status was {"'"}Open to
+          Opportunities{"'"}.
+          <br />
+          Here{"'"}s the stats from the last 100 days of messages.
         </p>
         <p className="m">
           <Link href="/experiments/recruiters-us">
@@ -109,10 +112,9 @@ export default function Recruiters(): JSX.Element {
         </p>
         <Pie
           data={[
-            // { id: "Text", value: 1, color: "#000" },
-            { id: "LinkedIn", value: 238, color: "#333" },
-            // { id: "Email", value: 3, color: "#222" },
-            // { id: "Phone", value: 2, color: "#111" },
+            { id: "LinkedIn", value: 268, color: "#333" },
+            { id: "Email", value: 30, color: "#222" },
+            { id: "Phone", value: 2, color: "#111" },
           ]}
           layers={[
             "arcs",
@@ -130,21 +132,21 @@ export default function Recruiters(): JSX.Element {
         </p>
         <Pie
           data={[
-            { id: "Low", value: 42, color: "#060" },
-            { id: "Moderate", value: 97, color: "#f90" },
-            { id: "High", value: 87, color: "#c00" },
-            { id: "No Bullshit", value: 12, color: "#090" },
+            { id: "Low", value: 48, color: "#060" },
+            { id: "Moderate", value: 113, color: "#f90" },
+            { id: "High", value: 124, color: "#c00" },
+            { id: "No Bullshit", value: 15, color: "#090" },
           ]}
         />
         <h2 className="h2 m-sm">In-House Recruiters</h2>
         <p>
-          14% of the recruiters were in-house recruiters, the rest were external
+          15% of the recruiters were in-house recruiters, the rest were external
           recruiters.
         </p>
         <Pie
           data={[
-            { id: "External", value: 205, color: "#c00" },
-            { id: "Internal", value: 33, color: "#090" },
+            { id: "External", value: 256, color: "#c00" },
+            { id: "Internal", value: 44, color: "#090" },
           ]}
         />
         <p>
@@ -153,8 +155,8 @@ export default function Recruiters(): JSX.Element {
         </p>
         <Pie
           data={[
-            { id: "Did name", value: 57, color: "#090" },
-            { id: "Didn't name", value: 126, color: "#c00" },
+            { id: "Did name", value: 67, color: "#090" },
+            { id: "Didn't name", value: 149, color: "#c00" },
           ]}
         />
         <h2 className="h2 m-sm">Copy Paste</h2>
@@ -164,53 +166,118 @@ export default function Recruiters(): JSX.Element {
         </p>
         <Pie
           data={[
-            { id: "Full copy-paste", value: 233, color: "#c00" },
-            { id: "Mostly copy-paste", value: 5, color: "#060" },
+            { id: "Full copy-paste", value: 292, color: "#c00" },
+            { id: "Mostly copy-paste", value: 8, color: "#060" },
           ]}
         />
-        {/* <h2 className="h2 m">Weak Sauce Quotes</h2>
-        <p className="m">There was flattery...</p>
+        <p className="m">
+          I make a point to reply to each message that was actually written - at
+          least in part - by a human.
+        </p>
+        <h2 className="h2 m-sm">You Had One Job</h2>
+        <p className="m">
+          Somehow I'm not even surprised when recruiters forget to list the key
+          languages or tech I'll be working on.
+        </p>
+        <p>
+          The surprise this time was that some{" "}
+          <strong className="b">
+            also forgot to specify whether a role was Front-End, Back-End or
+            Full Stack...
+          </strong>{" "}
+          In this chart, incomplete means not specifying the job role.
+        </p>
+        <Pie
+          data={[
+            { id: "Didn't try to list job", value: 42, color: "#fc0" },
+            { id: "Adequate job listing", value: 253, color: "#090" },
+            { id: "Incomplete job listing", value: 5, color: "#c00" },
+          ]}
+        />
+        <h2 className="h2 m">Weak Sauce Quotes</h2>
+        <p className="m">
+          Unlike their American counterparts, there were far less wacky attempts
+          at recruiter clickbait.
+        </p>
+        <p className="m">
+          Instead, I received some pathetic attempts at apologies for spamming.
+        </p>
         <blockquote className="quote border p m-sm">
-          Hey There Rock Star
+          I appreciate you probably get bombarded with messages from people like
+          me
+        </blockquote>
+        <blockquote className="quote border p m-sm">
+          I can only imagine how flooded your inbox is with recruiter{"'"}s
+          messages
+        </blockquote>
+        <blockquote className="quote border p m-sm">
+          I imagine you{"'"}ve had a million messages (this is the 3rd alone
+          from me!)
         </blockquote>
         <blockquote className="quote border p m">
-          It{"'"}s like finding a unicorn in the wild!
+          I appreciate you probably get bombarded with messages from people like
+          me
+          <div className="aside">
+            oh it{"'"}s you from yesterday, same again tomorrow?
+          </div>
         </blockquote>
-        <p className="m">...and sympathy...</p>
+        <p className="m">
+          ...so why do these folks keep spamming if they know it{"'"}s annoying?
+          If only they would explain...
+        </p>
         <blockquote className="quote border p m-sm">
-          Hi Tom,
-          <br />I hope you and your loved ones are safe and healthy currently.
+          Apologies for the double messaging, I can imagine your inbox is full
+          of similar messages, so I wanted to make sure you got this one!
+          <div className="aside">
+            i.e. I{"'"}m sorry everyone else is messaging you LOL
+          </div>
         </blockquote>
         <blockquote className="quote border p m">
-          Hey Tom,
-          <br />
-          Good Morning!
-          <br />I hope you and your loved ones are safe, healthy and prospering.
+          I thought I{"'"}d send you a follow up as I know you must get tons of
+          messages / irrelevant spam and I wanted to stand out
+          <div className="aside">at least you{"'"}re honest</div>
         </blockquote>
-        <p className="m">Some really sold their socks off</p>
-        <blockquote className="quote border p m-sm">
-          incredible perks
+        <p className="m">Some really believed their own hype...</p>
+        <blockquote className="quote border p m">
+          I have just taken on a Full Stack Developer role within a company I
+          {"'"}d consider modern-day Eco heroes.
+          <div className="aside">
+            <video width="249" height="139" loop autoPlay preload="none">
+              <source src="/bullshit.mp4" type="video/mp4" />
+            </video>
+          </div>
         </blockquote>
         <blockquote className="quote border p m">
-          Indigo was #3 on CNBC’s 2020 Top Disruptor List
-        </blockquote>
-        <p className="m">Others were seemingly looking to hire a murderer</p>
-        <blockquote className="quote border p m-sm">
-          Killer background
+          Your role is more than a Software Engineer
+          <div className="aside">Press X To Doubt</div>
         </blockquote>
         <blockquote className="quote border p m">
-          terrific opportunity for aggressive career advancement
+          Yats are self-sovereign emoji usernames... Creators use our
+          custom-designed emojis to compose beautiful works of art with deep,
+          human messages.
+          <div className="aside">
+            A simple {'"'}Please join our NFT fraud scheme{'"'} would suffice
+          </div>
         </blockquote>
-        <p className="m">And some didn{"'"}t do their homework</p>
-        <blockquote className="quote border clown p m-sm">
-          I know you are with a great organization
-          <div className="aside">If by organization you mean unemployed</div>
+        <blockquote className="quote border p m">
+          Hi Tom, Let{"'"}s talk about Intuit, the 2nd best tech company to work
+          for in the UK
+          <div className="aside">
+            2nd best? Another company bribed the judges more?
+          </div>
         </blockquote>
-        <blockquote className="quote border clown p m">
-          i have a react js developer and location CA, client looking for
-          10+years
-          <div className="aside">React has only been around for 8 years</div>
-        </blockquote> */}
+        <p className="m">
+          And of course, there was a sprinkle of weird clickbait
+        </p>
+        <blockquote className="quote border p m-sm">
+          Well, I can tell you that Cristiano Ronaldo{"'"}s legs are insured for
+          €100 million
+        </blockquote>
+        <blockquote className="quote border p m">
+          The company could be described as a combination of Amazon, TikTok and
+          QVC.
+          <div className="aside">My bets on Wish.com</div>
+        </blockquote>
         <h2 className="h2 m-sm">Companies</h2>
         <p className="m-sm">
           Finally, here{"'"}s the full list of the companies that were named:
@@ -286,6 +353,25 @@ export default function Recruiters(): JSX.Element {
             { id: "BAE Systems", value: 1 },
             { id: "Global Relay", value: 1 },
             { id: "WeGift", value: 1 },
+            { id: "Signal AI", value: 1 },
+            { id: "Elder", value: 1 },
+            { id: "Pubgenius", value: 1 },
+            { id: "Unboxed", value: 1 },
+            { id: "Foolproof", value: 1 },
+            { id: "Neural Alpha", value: 1 },
+            { id: "Hudson River Trading", value: 1 },
+            { id: "iProov", value: 1 },
+            { id: "Fast Break Labs", value: 1 },
+            { id: "Beamery", value: 1 },
+            { id: "Labelbox", value: 1 },
+            { id: "Pearl Health", value: 1 },
+            { id: "Miter", value: 1 },
+            { id: "Cabinet", value: 1 },
+            { id: "Guideline", value: 1 },
+            { id: "Boost", value: 1 },
+            { id: "Quit Genius", value: 1 },
+            { id: "The Nerdery", value: 1 },
+            { id: "Switchboard", value: 1 },
           ].map(({ id, value }) => (
             <li key={id}>
               {id}

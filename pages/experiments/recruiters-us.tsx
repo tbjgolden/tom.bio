@@ -100,6 +100,9 @@ export default function Recruiters(): JSX.Element {
           Like many software engineers, my inboxes are full of spam from
           recruiters.
           <br />
+          During these 100 days, my LinkedIn status was {"'"}Closed to
+          Opportunities{"'"}.
+          <br />
           Here{"'"}s the highlights from the last 100 days.
         </p>
         <p className="m">
