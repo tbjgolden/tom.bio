@@ -10,7 +10,15 @@ export default function Experiments(): JSX.Element {
             <Link href="/experiments/recruiters">100 Days of Recruiters</Link>
           </li>
           <li className="m-sm">
-            <Link href="/experiments/days-until">Days Until</Link>
+            <Link href="/experiments/evolution-of-football">
+              Evolution of Football
+            </Link>
+          </li>
+          <li className="m-sm">
+            <Link href="/experiments/recruiters-uk">Recruiters (UK)</Link>
+          </li>
+          <li className="m-sm">
+            <Link href="/experiments/recruiters-us">Recruiters (US)</Link>
           </li>
         </ul>
       </Card>

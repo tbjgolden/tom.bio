@@ -1,13 +1,19 @@
 import { LayoutData, NavItem } from "types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Nav({
   layoutData,
 }: {
   layoutData: LayoutData;
 }): JSX.Element {
+  const router = useRouter();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [router.asPath]);
 
   useEffect(() => {
     const mediaQueryList = window.matchMedia("(min-width: 680px)");

@@ -58,7 +58,9 @@ export default function Post({
             date={post.date}
             author={post.author}
           />
-          <Markdown>{post.content}</Markdown>
+          <div className="m-xl">
+            <Markdown>{post.content}</Markdown>
+          </div>
         </div>
       </article>
       <SectionSeparator />
