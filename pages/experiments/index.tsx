@@ -7,7 +7,14 @@ export default function Experiments(): JSX.Element {
       <Card>
         <ul className="m">
           <li className="m-sm">
-            <Link href="/experiments/recruiters">100 Days of Recruiters</Link>
+            <Link href="/experiments/media-query-playground">
+              Media Query Playground
+            </Link>
+          </li>
+          <li className="m-sm">
+            <Link href="/experiments/football-simulator">
+              Football Simulator
+            </Link>
           </li>
           <li className="m-sm">
             <Link href="/experiments/evolution-of-football">

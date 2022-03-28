@@ -58,6 +58,11 @@ export default function Nav({
       slug: "experiments",
       children: [
         {
+          title: "Media Query Playground",
+          slug: "experiments/media-query-playground",
+          children: [],
+        },
+        {
           title: "100 Days of Recruiters (US Edition)",
           slug: "experiments/recruiters-us",
           children: [],

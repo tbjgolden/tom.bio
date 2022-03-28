@@ -35,6 +35,7 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.15.21",
     "marked": "^2.0.6",
+    "media-query-fns": "^1.3.2",
     "next": "latest",
     "number-to-words": "^1.2.4",
     "react": "^17.0.2",
