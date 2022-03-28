@@ -213,7 +213,7 @@ export default function Recruiters(): JSX.Element {
         </blockquote>
         <h2 className="h2 m-sm">Companies</h2>
         <p className="m-sm">
-          Finally, here's the full list of the companies that were named:
+          Finally, here{"'"}s the full list of the companies that were named:
         </p>
         <ul>
           {[

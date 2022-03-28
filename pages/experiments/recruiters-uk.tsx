@@ -176,8 +176,8 @@ export default function Recruiters(): JSX.Element {
         </p>
         <h2 className="h2 m-sm">You Had One Job</h2>
         <p className="m">
-          Somehow I'm not even surprised when recruiters forget to list the key
-          languages or tech I'll be working on.
+          Somehow I{"'"}m not even surprised when recruiters forget to list the
+          key languages or tech I{"'"}ll be working on.
         </p>
         <p>
           The surprise this time was that some{" "}
