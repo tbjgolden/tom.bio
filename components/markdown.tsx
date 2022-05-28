@@ -367,7 +367,7 @@ const Ol = ({ children, ordered: _, ...props }) => (
     {children}
   </ol>
 );
-const Li = ({ children, ...props }) => (
+const Li = ({ children, ordered: _, ...props }) => (
   <li className="m-sm" {...props}>
     {children}
   </li>
