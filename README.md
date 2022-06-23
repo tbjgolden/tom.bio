@@ -1,45 +1,102 @@
-# tom.bio
+# Astro Boilerplate with TypeScript [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40Ixartz)](https://twitter.com/ixartz)
 
-This website is my personal website.
+🚀 Astro Boilerplate is starter code for your blog or portfolio based on Astro. ⚡️ Made with Astro, TypeScript, ESLint, Prettier.
 
-I use it primarily to:
+Clone this project and use it to create your own Astro blog. You can check the [Astro templates demo](https://creativedesignsguru.com/demo/astro-boilerplate/).
 
-- Write blog posts on tech, and ideas and thoughts I have that I'd like to document somewhere
-- list my web freelancing services
-- show my CV
-- show some previous things I've built
-- play host to some little interactive experiments I've built
+### Features
 
-## The tech stack
+A complete Blog feature:
 
-From back to front:
+- 🎈 Syntax Highlighting
+- 🤖 SEO friendly with sitemap.xml and robots.txt
+- ⚙️ RSS feed
+- 📖 Pagination
+- 🌈 Include a dark blog theme
+- ⬇️ Markdown
+- 📦 Image lazy loading
+- 💎 Responsive design
 
-- The content is dynamic and stored in a headless CMS called DatoCMS. I use this CMS to change the navigation, posts, pages and any related images
-- The client builds are hosted on Vercel
-- I'm using Next.js as my front-end toolchain
-- The front-end is built with React and TypeScript
-- The styles are written in plain hand written SCSS
+Developer experience first:
 
-Most of these bullets have changed over time through rewrites but I'm pretty happy with where the architectural decisions are.
+- 🔥 Astro
+- 🎉 TypeScript
+- ✏️ ESLint compatible with .astro files
+- 🛠 Prettier compatible with .astro files
+- 🦊 Husky
+- 🚫 lint-staged
+- 🚨 Commitlint
+- 🔧 One-click deploy on Netlify (or, manual if you prefer)
 
-I did attempt to rewrite the website in Astro, but Astro had some dealbreaker bugs at the time, so that may well come later.
+ESLint with:
 
-## Mobile responsiveness
+- Airbnb styled guide
+- TypeScript compatible
+- Astro compatible
+- Automatically remove unused imports
+- Import sorting
 
-One aim of this website is that everything is mobile responsive.
+### Philosophy
 
-Not everything is perfect on mobile or desktop, but everything is easy to use on any device.
+- Minimal code
+- SEO-friendly
+- 🚀 Production-ready
 
-Some notable challenges for this aim:
+### Requirements
 
-- Pretty much all of the experiments section
-- Getting the mobile nav to work with Next.js automatic static site generation
-- The CV is responsive, which is actually useful as I can print it in either A4 or Letter size paper!
+- Node.js and npm
 
-## Typography
+### Getting started
 
-The fonts used for the website is Manrope as sans-serif, Literata as serif and Fantasque Sans Mono as monospace.
+Run the following command on your local environment:
 
-Manrope and Literata are both variable fonts which reduces the net file size when using multiple weights.
+```
+git clone --depth=1 https://github.com/ixartz/Astro-boilerplate
+cd my-project-name
+npm install
+```
 
-My CV uses different fonts (Inter and Heuristica) as they look more appropriate for a CV.
+Then, you can run locally in development mode with live reload:
+
+```
+npm run dev
+```
+
+Open http://localhost:3000 with your favorite browser to see your project.
+
+### Deploy to production (manual)
+
+You can create an optimized production build with:
+
+```shell
+npm run build-prod
+```
+
+Now, your blog is ready to be deployed. All generated files are located at `dist` folder, which you can deploy the folder to any hosting service you prefer.
+
+### Deploy to Netlify
+
+Clone this repository on own GitHub account and deploy to Netlify:
+
+[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ixartz/Astro-boilerplate)
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command           | Action                                       |
+| :---------------- | :------------------------------------------- |
+| `npm install`     | Installs dependencies                        |
+| `npm run dev`     | Starts local dev server at `localhost:3000`  |
+| `npm run build`   | Build your production site to `./dist/`      |
+| `npm run preview` | Preview your build locally, before deploying |
+| `npm run clean`   | Remove `./dist` folder                       |
+| `npm run lint`    | Run ESLint and report styling error          |
+
+### Contributions
+
+Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
+
+### License
+
+Licensed under the MIT License, Copyright © 2022
