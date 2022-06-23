@@ -11,6 +11,11 @@ const ignorePatterns = require("fs")
 
 const getConfig = (isTypeScript = false) => {
   return {
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     extends: [
       "eslint:recommended",
       ...(isTypeScript ? ["plugin:@typescript-eslint/recommended"] : []),
@@ -71,16 +76,7 @@ const getConfig = (isTypeScript = false) => {
             "@typescript-eslint/no-array-constructor": ["error"],
           }
         : {}),
-      "unicorn/filename-case": [
-        "error",
-        {
-          cases: {
-            camelCase: true,
-            pascalCase: true,
-          },
-          ignore: ["-env\\.d\\.ts$"],
-        },
-      ],
+      "unicorn/filename-case": "off",
       "unicorn/no-null": "off",
       "unicorn/prevent-abbreviations": [
         "error",

@@ -6,7 +6,7 @@ import {
   Section,
 } from "astro-boilerplate-components";
 
-const Navbar = () => (
+const Navbar = () => {return (
   <Section>
     <NavbarTwoColumns>
       <a href="/">
@@ -39,6 +39,6 @@ const Navbar = () => (
       </NavMenu>
     </NavbarTwoColumns>
   </Section>
-);
+)};
 
 export { Navbar };

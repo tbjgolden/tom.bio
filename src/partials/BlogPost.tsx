@@ -9,12 +9,12 @@ type IBlogPostProps = {
   children: ReactNode;
 };
 
-const BlogPost = (props: IBlogPostProps) => (
+const BlogPost = (props: IBlogPostProps) => {return (
   <Section>
     <PostHeader content={props.frontmatter} author={AppConfig.author} />
 
     <PostContent content={props.frontmatter}>{props.children}</PostContent>
   </Section>
-);
+)};
 
 export { BlogPost };

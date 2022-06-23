@@ -3,7 +3,7 @@ import rss from "@astrojs/rss";
 import { AppConfig } from "@/utils/AppConfig";
 
 export const get = () =>
-  rss({
+  {return rss({
     // `<title>` field in output xml
     title: AppConfig.title,
     // `<description>` field in output xml
@@ -17,4 +17,4 @@ export const get = () =>
     items: import.meta.glob("./**/*.md"),
     // (optional) inject custom xml
     customData: `<language>en-us</language>`,
-  });
+  })};

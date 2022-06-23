@@ -10,7 +10,7 @@ type IRecentPostsProps = {
   postList: MarkdownInstance<IFrontmatter>[];
 };
 
-const RecentPosts = (props: IRecentPostsProps) => (
+const RecentPosts = (props: IRecentPostsProps) => {return (
   <Section
     title={
       <div className="flex items-baseline justify-between">
@@ -26,6 +26,6 @@ const RecentPosts = (props: IRecentPostsProps) => (
   >
     <BlogGallery postList={props.postList} />
   </Section>
-);
+)};
 
 export { RecentPosts };

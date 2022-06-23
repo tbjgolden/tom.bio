@@ -5,7 +5,7 @@ import {
   Section,
 } from "astro-boilerplate-components";
 
-const Hero = () => (
+const Hero = () => {return (
   <Section>
     <HeroAvatar
       title={
@@ -64,6 +64,6 @@ const Hero = () => (
       }
     />
   </Section>
-);
+)};
 
 export { Hero };
