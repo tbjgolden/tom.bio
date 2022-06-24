@@ -2,7 +2,7 @@
 
 - [x] short who am i
 - [x] short career overview
-- [ ] cv
+- [x] cv
 - [ ] portfolio
 - [ ] experiments
 - [ ] blog

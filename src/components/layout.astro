@@ -118,9 +118,10 @@ const { pageTitle, maxWidth } = Astro.props;
 
       code,
       kbd {
-        background: #d4e2fc;
+        background: #000;
+        border: 1px solid #f4be00;
         border-radius: 4px;
-        color: #174291;
+        color: #f4be00;
         display: inline-block;
         font-size: 0.8em;
         padding: 0.034em 0.35em 0;
@@ -129,19 +130,20 @@ const { pageTitle, maxWidth } = Astro.props;
       }
 
       kbd {
-        background: #174291;
+        background: #f4be00;
         color: #fff;
       }
 
       pre {
         line-height: 1.4em;
         overflow: auto;
+        padding: 6px 8px;
 
         code {
-          font-size: 1em;
+          font-size: 0.9em;
           background: none;
           border: 0;
-          line-height: 1.65em;
+          line-height: 1.6;
           padding: 0;
         }
       }
@@ -160,7 +162,7 @@ const { pageTitle, maxWidth } = Astro.props;
       blockquote {
         margin-left: 0;
         padding-left: 1em;
-        border-left: 2px solid #174291;
+        border-left: 2px solid #f4be00;
       }
 
       var,
@@ -447,26 +449,24 @@ const { pageTitle, maxWidth } = Astro.props;
         }
 
         hr {
-          margin-top: $margin-top;
-          margin-bottom: $margin-bottom;
+          margin: 48px;
           border: 0;
-          border-bottom: 2px solid #e2e2e2;
+          border-bottom: 2px solid #333;
         }
 
         li {
-          margin-top: 0.4em;
-          margin-bottom: 0.4em;
+          margin-top: 0.15em;
+          margin-bottom: 0.15em;
 
           > * {
-            margin-top: 0;
+            margin-top: 0.3em;
             margin-bottom: 0.3em;
           }
         }
 
-        li > ul:first-child,
-        li > ol:first-child {
-          margin-top: 0.2em;
-          margin-bottom: 0.3em;
+        li > ul:last-child,
+        li > ol:last-child {
+          margin-bottom: 0.5em;
         }
       }
 
@@ -506,6 +506,11 @@ const { pageTitle, maxWidth } = Astro.props;
       a[href] {
         word-break: break-word;
         overflow-wrap: break-word;
+      }
+
+      article pre {
+        border: 1px solid #f4be00;
+        border-radius: 4px;
       }
     </style>
   </body>

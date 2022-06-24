@@ -1,0 +1,84 @@
+---
+import Layout from "../../components/layout.astro";
+
+const posts = [
+  {
+    imageUrl: "https://picsum.photos/300/200",
+    publishedDate: new Date(),
+    slug: "article-name",
+    name: "Article Name",
+    snippet:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut felis imperdiet, pellentesque urna eget, tempus purus. Mauris sed ex feugiat, mattis dui vitae, commodo mi. Aenean fermentum orci ac tellus condimentum, vel tincidunt leo aliquet. Morbi massa nisl, porttitor ut magna ac, efficitur tristique metus. Sed accumsan felis non enim congue, eu imperdiet massa semper. Suspendisse nec tortor id eros egestas efficitur. Aliquam non justo diam. Ut id nunc imperdiet, tempor diam quis, convallis odio. Suspendisse pellentesque, urna sed accumsan tincidunt, nulla velit auctor magna, id ornare lectus diam quis nunc. Suspendisse consectetur tempus ex condimentum lobortis. Nam aliquam auctor neque sit amet pulvinar. Quisque ut viverra quam, vitae ultrices tellus. Nam sollicitudin in enim nec egestas. Vestibulum blandit ex a massa maximus pellentesque. In dictum vitae ipsum ac porta.",
+  },
+  {
+    imageUrl: "https://picsum.photos/300/200?",
+    publishedDate: new Date(),
+    slug: "article-name-2",
+    name: "Article Name 2",
+    snippet:
+      "2 Lorem 2 ipsum dolor sit amet, consectetur adipiscing elit. Sed ut felis imperdiet, pellentesque urna eget, tempus purus. Mauris sed ex feugiat, mattis dui vitae, commodo mi. Aenean fermentum orci ac tellus condimentum, vel tincidunt leo aliquet. Morbi massa nisl, porttitor ut magna ac, efficitur tristique metus. Sed accumsan felis non enim congue, eu imperdiet massa semper. Suspendisse nec tortor id eros egestas efficitur. Aliquam non justo diam. Ut id nunc imperdiet, tempor diam quis, convallis odio. Suspendisse pellentesque, urna sed accumsan tincidunt, nulla velit auctor magna, id ornare lectus diam quis nunc. Suspendisse consectetur tempus ex condimentum lobortis. Nam aliquam auctor neque sit amet pulvinar. Quisque ut viverra quam, vitae ultrices tellus. Nam sollicitudin in enim nec egestas. Vestibulum blandit ex a massa maximus pellentesque. In dictum vitae ipsum ac porta.",
+  },
+];
+---
+
+<Layout pageTitle="posts of tom">
+  <h1 style="text-align:center">posts of <a href=".">tom</a></h1>
+  <p style="text-align:center">
+    <a href="./cv">cv</a>
+    &middot; <a href="./portfolio">portfolio</a>
+    &middot; posts
+  </p>
+  <ul style="list-style:none;padding:0;text-align:center">
+    <div
+      class="grid"
+      style="display:grid;grid-template-columns:repeat(auto-fit,minmax(182px,1fr));grid-gap:12px;padding:12px 0;"
+    >
+      {posts.map((post) => {
+        return (
+          <a class="post" href={`./posts/${post.slug}`}>
+            <li>
+              <img src={post.imageUrl} loading="lazy" />
+              <p>{post.name}</p>
+              <p class="P-XS snippet">{post.snippet}</p>
+            </li>
+          </a>
+        )
+      })}
+      {posts.length === 1 ? <div /> : null}
+    </div>
+  </ul>
+</Layout>
+<style lang="scss">
+  .post {
+    border: 1px solid #fff;
+    padding: 12px 12px 8px;
+    text-decoration: none;
+    text-align: left;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border: 1px solid #f4be00;
+      outline: 1px solid #f4be00;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    img {
+      aspect-ratio: 3/2;
+      background: #222;
+    }
+  }
+  .snippet {
+    line-height: 1.3;
+    height: 5.2em;
+    overflow: hidden;
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    color: #fff;
+  }
+</style>
