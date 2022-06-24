@@ -1,13 +1,33 @@
 ---
-
+import Layout from "../components/layout.astro";
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+
+<Layout>
+  <h1 style="text-align:center">tom</h1>
+  <p style="text-align:center">
+    <a href="./cv">cv</a> &middot; <a href="./portfolio">portfolio</a>
+  </p>
+  <article>
+    <h2 class="PL-L">summary</h2>
+    <p>
+      i am a web dev from london who likes writing open source software for fun
+      and inventing over-engineered tech
+    </p>
+  </article>
+  <article>
+    <h2 class="PL-L">career</h2>
+    <p>
+      in 2016, i received a degree in discrete mathematics <span
+        style="color:rgba(255,255,255,.5)"
+        >(i.e. theoretical computer science)
+      </span> from the university of warwick
+    </p>
+    <p>the same year, i moved to san francisco where i became a web dev</p>
+    <p>
+      now i exist mainly in the github and stackoverflow metaverse, solving
+      problems mainly for folks i'll never meet
+    </p>
+    <p style="color:rgba(255,255,255,.5)">(i quite like it actually)</p>
+    <p>and now i have returned to my wonderful home, london</p>
+  </article>
+</Layout>

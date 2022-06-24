@@ -1,0 +1,25 @@
+---
+import Layout from "../components/layout.astro";
+---
+
+<Layout pageTitle="cv" maxWidth={794}>
+  <h1 style="text-align:center">cv of <a href=".">tom</a></h1>
+  <p style="text-align:center">
+    cv &middot; <a href="./portfolio">portfolio</a>
+  </p>
+  <iframe
+    id="cv"
+    src="./raw/index.html"
+    style="width:100%;height:29.7cm;border:0;height:1000px"></iframe>
+  <script>
+    window.addEventListener(
+      "message",
+      (event) => {
+        if (event.origin === window.location.origin) {
+          document.getElementById("cv").style.height = event.data + 1 + "px";
+        }
+      },
+      false
+    );
+  </script>
+</Layout>
