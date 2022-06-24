@@ -11,56 +11,19 @@ const ignorePatterns = require("fs")
 
 const getConfig = (isTypeScript = false) => {
   return {
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
     extends: [
       "eslint:recommended",
       ...(isTypeScript ? ["plugin:@typescript-eslint/recommended"] : []),
-      "plugin:react/recommended",
-      "plugin:react-hooks/recommended",
       "plugin:unicorn/recommended",
       "prettier",
     ],
-    plugins: ["react", "unicorn", "prettier"],
+    plugins: ["unicorn", "prettier"],
     rules: {
       "arrow-body-style": ["warn", "always"],
       "no-array-constructor": "off",
       "no-console": "warn",
-      "react/react-in-jsx-scope": "off",
-      "react/no-unescaped-entities": ["warn", { forbid: [">", "}"] }],
       ...(isTypeScript
         ? {
-            "@typescript-eslint/no-restricted-imports": [
-              "error",
-              {
-                paths: [
-                  {
-                    name: "baseui/link",
-                    message:
-                      "Use \"import { Link } from '_/components/Link'\" instead.",
-                  },
-                  {
-                    name: "react-router-dom",
-                    importNames: ["Link"],
-                    message:
-                      "Use \"import { Link } from '_/components/Link'\" instead.",
-                  },
-                  {
-                    name: "baseui/modal",
-                    message:
-                      "Use \"import { Modal } from '_/components/Modal'\" instead.",
-                  },
-                  {
-                    name: "baseui/drawer",
-                    message:
-                      "Use \"import { Drawer } from '_/components/Drawer'\" instead.",
-                  },
-                ],
-              },
-            ],
             "@typescript-eslint/no-unused-vars": [
               "error",
               {
@@ -103,7 +66,6 @@ const getConfig = (isTypeScript = false) => {
         },
       ],
       "unicorn/prefer-switch": ["error", { minimumCases: 5 }],
-      "unicorn/no-new-array": "off",
     },
   };
 };
