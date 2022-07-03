@@ -1,19 +1,13 @@
 ---
 import MarkdownSection from "src/components/markdown-section.astro";
 import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
 ---
 
 <Layout>
-  <h1 style="text-align:center">tom</h1>
-  <p style="text-align:center">
-    <a href="./cv">cv</a> &middot; <a href="./portfolio">portfolio</a>
-    &middot; <a href="./posts">posts</a>
-  </p>
+  <Header actualPath="" />
 
   <article>
-    <MarkdownSection name="home-primary" />
-  </article>
-  <article>
-    <MarkdownSection name="home-secondary" />
+    <MarkdownSection name="home" />
   </article>
 </Layout>

@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 
-import turbolinks from "@astrojs/turbolinks";
 import sitemap from "@astrojs/sitemap";
+import preact from "@astrojs/preact";
 import shiki from "shiki";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,10 +12,8 @@ const theme = await shiki.loadTheme(
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    // turbolinks(),
-    sitemap(),
-  ],
+  base: "",
+  integrations: [preact(), sitemap()],
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {

@@ -1,46 +1,39 @@
 ---
-import { Markdown } from "astro/components";
 import Layout from "src/components/layout.astro";
 import Header from "src/components/header.astro";
+import { Markdown } from "astro/components";
+
 export const getStaticPaths = async () => {
-  let posts = [];
+  let portfolios = [];
   try {
-    posts = await Astro.glob("../../../data/posts/*.md");
+    portfolios = await Astro.glob("../../../../data/portfolio/*.md");
   } catch {}
-  return posts.map((post) => {
-    const slug = post.file.split("/").at(-1).slice(0, -3);
+  return portfolios.map((portfolio) => {
+    const slug = portfolio.file.split("/").at(-1).slice(0, -3);
     return {
       params: { slug },
       props: {
-        post,
+        portfolio: {
+          ...portfolio.frontmatter,
+          slug,
+          markdown: portfolio.rawContent(),
+        },
       },
     };
   });
 };
 
 const { slug } = Astro.params;
-const {
-  post: { frontmatter, rawContent, getHeaders },
-} = Astro.props;
-
-const headers = await getHeaders();
-const firstHeaderText = headers.find((h) => h.depth === 1)?.text;
-
-const shouldShowTitle = firstHeaderText !== frontmatter.title;
-
-const markdown = rawContent();
+const { portfolio } = Astro.props;
 ---
 
-<Layout pageTitle={`${frontmatter.title} · tom`}>
-  <Header actualPath={`posts/${slug}`} />
+<Layout pageTitle={`${portfolio.title} · tom`}>
+  <Header actualPath={`portfolio/${portfolio.slug}`} />
 
-  <img
-    src={frontmatter.imageUrl}
-    style="width:100%;aspect-ratio:3/2;background:#222"
-  />
-  {shouldShowTitle ? <h1>{frontmatter.title}</h1> : null}
-  <article id="article">
-    <Markdown content={markdown}>
+  <h1>{portfolio.title}</h1>
+
+  <article id="portfolio">
+    <Markdown content={portfolio.markdown}>
 
     </Markdown>
   </article>
@@ -48,7 +41,7 @@ const markdown = rawContent();
 <script>
   document
     .querySelectorAll(
-      "#article>h1,#article>h2,#article>h3,#article>h4,#article>h5,#article>h6"
+      "#portfolio>h1,#portfolio>h2,#portfolio>h3,#portfolio>h4,#portfolio>h5,#portfolio>h6"
     )
     .forEach(function (el) {
       const newNode = document.createElement("a");

@@ -1,49 +1,38 @@
 ---
-import { Markdown } from "astro/components";
 import Layout from "src/components/layout.astro";
 import Header from "src/components/header.astro";
+import EditableMd from "src/components/editable-md.astro";
+import EditableText from "src/components/editable-text.astro";
+
 export const getStaticPaths = async () => {
-  let posts = [];
-  try {
-    posts = await Astro.glob("../../../data/posts/*.md");
-  } catch {}
-  return posts.map((post) => {
-    const slug = post.file.split("/").at(-1).slice(0, -3);
+  const articles = [
+    {
+      slug: "example",
+      flex: "example flex",
+      title: "Example",
+      markdown: `## a\n\n## b\n`,
+    },
+  ];
+  return articles.map((article) => {
+    const slug = article.slug;
     return {
       params: { slug },
       props: {
-        post,
+        article,
       },
     };
   });
 };
 
-const { slug } = Astro.params;
-const {
-  post: { frontmatter, rawContent, getHeaders },
-} = Astro.props;
-
-const headers = await getHeaders();
-const firstHeaderText = headers.find((h) => h.depth === 1)?.text;
-
-const shouldShowTitle = firstHeaderText !== frontmatter.title;
-
-const markdown = rawContent();
+const { article } = Astro.props;
 ---
 
-<Layout pageTitle={`${frontmatter.title} · tom`}>
-  <Header actualPath={`posts/${slug}`} />
+<Layout pageTitle={`${article.title} · tom`}>
+  <Header actualPath={`portfolio/${article.slug}/edit`} />
 
-  <img
-    src={frontmatter.imageUrl}
-    style="width:100%;aspect-ratio:3/2;background:#222"
-  />
-  {shouldShowTitle ? <h1>{frontmatter.title}</h1> : null}
-  <article id="article">
-    <Markdown content={markdown}>
-
-    </Markdown>
-  </article>
+  <EditableText name={article.slug} type="portfolio" key="title" />
+  <EditableText name={article.slug} type="portfolio" key="flex" />
+  <EditableMd name={article.slug} type="portfolio" />
 </Layout>
 <script>
   document

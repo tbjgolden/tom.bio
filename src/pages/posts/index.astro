@@ -1,33 +1,62 @@
 ---
+import { remark } from "remark";
 import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
 
-const posts = [
-  {
-    imageUrl: "https://picsum.photos/300/200",
-    publishedDate: new Date(),
-    slug: "article-name",
-    name: "Article Name",
-    snippet:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut felis imperdiet, pellentesque urna eget, tempus purus. Mauris sed ex feugiat, mattis dui vitae, commodo mi. Aenean fermentum orci ac tellus condimentum, vel tincidunt leo aliquet. Morbi massa nisl, porttitor ut magna ac, efficitur tristique metus. Sed accumsan felis non enim congue, eu imperdiet massa semper. Suspendisse nec tortor id eros egestas efficitur. Aliquam non justo diam. Ut id nunc imperdiet, tempor diam quis, convallis odio. Suspendisse pellentesque, urna sed accumsan tincidunt, nulla velit auctor magna, id ornare lectus diam quis nunc. Suspendisse consectetur tempus ex condimentum lobortis. Nam aliquam auctor neque sit amet pulvinar. Quisque ut viverra quam, vitae ultrices tellus. Nam sollicitudin in enim nec egestas. Vestibulum blandit ex a massa maximus pellentesque. In dictum vitae ipsum ac porta.",
-  },
-  {
-    imageUrl: "https://picsum.photos/300/200?",
-    publishedDate: new Date(),
-    slug: "article-name-2",
-    name: "Article Name 2",
-    snippet:
-      "2 Lorem 2 ipsum dolor sit amet, consectetur adipiscing elit. Sed ut felis imperdiet, pellentesque urna eget, tempus purus. Mauris sed ex feugiat, mattis dui vitae, commodo mi. Aenean fermentum orci ac tellus condimentum, vel tincidunt leo aliquet. Morbi massa nisl, porttitor ut magna ac, efficitur tristique metus. Sed accumsan felis non enim congue, eu imperdiet massa semper. Suspendisse nec tortor id eros egestas efficitur. Aliquam non justo diam. Ut id nunc imperdiet, tempor diam quis, convallis odio. Suspendisse pellentesque, urna sed accumsan tincidunt, nulla velit auctor magna, id ornare lectus diam quis nunc. Suspendisse consectetur tempus ex condimentum lobortis. Nam aliquam auctor neque sit amet pulvinar. Quisque ut viverra quam, vitae ultrices tellus. Nam sollicitudin in enim nec egestas. Vestibulum blandit ex a massa maximus pellentesque. In dictum vitae ipsum ac porta.",
-  },
-];
+const SNIPPET_CHARS = 40;
+
+let posts = [];
+
+const getRawFromChildren = (node: any) => {
+  return ((node as any).children ?? []).reduce((str, next) => {
+    if ("value" in next) {
+      str += next.value;
+    } else if ("children" in next) {
+      str += getRawFromChildren(next);
+    }
+    return str;
+  }, "");
+};
+
+try {
+  const rawPosts = await Astro.glob("../../../data/posts/*.md");
+  posts = rawPosts.map((post) => {
+    // get slug from file path
+    const slug = post.file.split("/").at(-1).slice(0, -3);
+    // get snippet from post
+    let snippet = remark
+      .parse(post.rawContent())
+      .children.filter((node) => {
+        return node.type === "paragraph";
+      })
+      .map((node) => {
+        return getRawFromChildren(node);
+      })
+      .join("\n\n");
+
+    if (snippet.length > SNIPPET_CHARS) {
+      snippet = snippet.slice(0, SNIPPET_CHARS);
+      const lastNewLineIndex = snippet.lastIndexOf("\n");
+      const lastSpaceIndex = snippet.lastIndexOf(" ");
+      snippet =
+        snippet.slice(
+          0,
+          Math.max(lastNewLineIndex, lastSpaceIndex, SNIPPET_CHARS - 10)
+        ) + "…";
+    }
+
+    return {
+      slug,
+      snippet: snippet || "",
+      ...post.frontmatter,
+    };
+  });
+} catch {}
 ---
 
 <Layout pageTitle="posts of tom">
-  <h1 style="text-align:center">posts of <a href=".">tom</a></h1>
-  <p style="text-align:center">
-    <a href="./cv">cv</a>
-    &middot; <a href="./portfolio">portfolio</a>
-    &middot; posts
-  </p>
+  <Header actualPath="posts" />
+
   <ul style="list-style:none;padding:0;text-align:center">
     <div
       class="grid"
@@ -38,7 +67,7 @@ const posts = [
           <a class="post" href={`./posts/${post.slug}`}>
             <li>
               <img src={post.imageUrl} loading="lazy" />
-              <p>{post.name}</p>
+              <p>{post.title}</p>
               <p class="P-XS snippet">{post.snippet}</p>
             </li>
           </a>

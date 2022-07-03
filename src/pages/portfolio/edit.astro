@@ -1,0 +1,36 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+
+const articles = [
+  {
+    slug: "example",
+    flex: "example flex",
+    title: "Example",
+    markdown: `## a\n\n## b\n`,
+  },
+];
+---
+
+<Layout pageTitle="portfolio of tom" maxWidth={550}>
+  <Header actualPath="portfolio/edit" />
+
+  <ul style="list-style:none;padding:0">
+    <li style="margin-bottom:1.5em">
+      <p style="text-align:center">
+        <a href="">add new item</a>
+      </p>
+    </li>
+    {articles.map(({ slug, flex }) => {
+      return (
+        <li>
+          <p>
+            <a href={`./${slug}/edit`}>edit</a>
+            &middot;
+            <a href={`./${slug}`}>{flex}</a>
+          </p>
+        </li>
+      )
+    })}
+  </ul>
+</Layout>

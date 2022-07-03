@@ -1,0 +1,41 @@
+---
+import { readFile } from "easier-node";
+import EditableTextInner from "./editable-text-inner";
+import { parse } from 'yaml'
+const { name, type, key } = Astro.props;
+const content = await readFile(`${process.cwd()}/data/${type}/${name}.md`);
+const frontmatterRaw = content.match(/(?:(?:^|\n)\-\-\-\n)([\s\S]*?)(?:\n\-\-\-(?:\n|$))/)[1];
+const frontmatter = parse(frontmatterRaw)
+const initialValue = frontmatter[key]
+---
+
+<div class="editable-text">
+  <EditableTextInner
+    client:load
+    initialValue={initialValue}
+    name={name}
+    type={type}
+    key={key}
+    >{""}
+  </EditableTextInner>
+</div>
+<style>
+  .editable-text {
+    margin: 0 0 16px;
+  }
+  .editable-text :global(input) {
+    width: 100%;
+    display: block;
+    padding: 8px 12px;
+    border: 0;
+    margin: 8px 0;
+    color: #fff;
+    background: #000;
+  }
+  .editable-text :global(.error-message) {
+    color: #ffcccc;
+  }
+  .editable-text :global(.success-message) {
+    color: #ccffcc;
+  }
+</style>

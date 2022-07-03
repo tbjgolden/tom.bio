@@ -1,9 +1,0 @@
----
-import { readFile } from "easier-node";
-import { Markdown } from "astro/components";
-
-const { name } = Astro.props;
-const content = await readFile(`${process.cwd()}/data/sections/${name}.md`);
----
-
-<textarea value={content}></textarea>
