@@ -2,14 +2,17 @@
 import Layout from "src/components/layout.astro";
 import Header from "src/components/header.astro";
 
-const articles = [
-  {
-    slug: "example",
-    flex: "example flex",
-    title: "Example",
-    markdown: `## a\n\n## b\n`,
-  },
-];
+let portfolios = [];
+try {
+  portfolios = await Astro.glob("../../../data/portfolio/*.md");
+} catch {}
+portfolios = portfolios.map((portfolio) => {
+  const slug = portfolio.file.split("/").at(-1).slice(0, -3);
+  return {
+    slug,
+    ...portfolio.frontmatter,
+  };
+});
 ---
 
 <Layout pageTitle="portfolio of tom" maxWidth={550}>
@@ -18,10 +21,10 @@ const articles = [
   <ul style="list-style:none;padding:0">
     <li style="margin-bottom:1.5em">
       <p style="text-align:center">
-        <a href="">add new item</a>
+        <button onclick="addNewItem(event)">add new item</button>
       </p>
     </li>
-    {articles.map(({ slug, flex }) => {
+    {portfolios.map(({ slug, flex }) => {
       return (
         <li>
           <p>
@@ -33,4 +36,21 @@ const articles = [
       )
     })}
   </ul>
+  <script>
+    globalThis.addNewItem = (event) => {
+      event.target.textContent = "loading...";
+      event.target.setAttribute("disabled", "");
+      globalThis
+        .plz("/portfolio/new", {})
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data.id) {
+            globalThis.location.href = "./" + data.id + "/edit";
+          }
+        })
+        .catch(() => {});
+    };
+  </script>
 </Layout>

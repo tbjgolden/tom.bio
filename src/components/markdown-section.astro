@@ -4,8 +4,12 @@ import { Markdown } from "astro/components";
 
 const { name } = Astro.props;
 const content = await readFile(`${process.cwd()}/data/sections/${name}.md`);
+const withoutFrontmatter = content.replace(
+  /(?:(^|\n)\-\-\-\n)[\s\S]*?(\n\-\-\-(\n|$))/,
+  ""
+);
 ---
 
-<Markdown content={content}>
+<Markdown content={withoutFrontmatter}>
 
 </Markdown>

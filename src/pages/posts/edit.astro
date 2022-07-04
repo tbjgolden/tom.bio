@@ -60,7 +60,7 @@ try {
   <ul style="list-style:none;padding:0;text-align:center">
     <li style="margin-bottom:1.5em">
       <p style="text-align:center">
-        <a href="">add new item</a>
+        <button onclick="addNewItem(event)">add new item</button>
       </p>
     </li>
     <div
@@ -84,6 +84,24 @@ try {
       {posts.length === 1 ? <div /> : null}
     </div>
   </ul>
+
+  <script>
+    globalThis.addNewItem = (event) => {
+      event.target.textContent = "loading...";
+      event.target.setAttribute("disabled", "");
+      globalThis
+        .plz(`/posts/new`, {})
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data.id) {
+            window.location.href = "./" + data.id + "/edit";
+          }
+        })
+        .catch(() => {});
+    };
+  </script>
 </Layout>
 <style lang="scss">
   .post {

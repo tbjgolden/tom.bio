@@ -5,46 +5,54 @@ import EditableMd from "src/components/editable-md.astro";
 import EditableText from "src/components/editable-text.astro";
 
 export const getStaticPaths = async () => {
-  const articles = [
-    {
-      slug: "example",
-      flex: "example flex",
-      title: "Example",
-      markdown: `## a\n\n## b\n`,
-    },
-  ];
-  return articles.map((article) => {
-    const slug = article.slug;
+  let portfolios = [];
+  try {
+    portfolios = await Astro.glob("../../../../data/portfolio/*.md");
+  } catch {}
+  return portfolios.map((portfolio) => {
+    const slug = portfolio.file.split("/").at(-1).slice(0, -3);
     return {
       params: { slug },
       props: {
-        article,
+        portfolio: {
+          ...portfolio.frontmatter,
+          slug,
+          markdown: portfolio.rawContent(),
+        },
       },
     };
   });
 };
 
-const { article } = Astro.props;
+const { portfolio } = Astro.props;
 ---
 
-<Layout pageTitle={`${article.title} · tom`}>
-  <Header actualPath={`portfolio/${article.slug}/edit`} />
+<Layout pageTitle={`${portfolio.title} · tom`}>
+  <Header actualPath={`portfolio/${portfolio.slug}/edit`} />
 
-  <EditableText name={article.slug} type="portfolio" key="title" />
-  <EditableText name={article.slug} type="portfolio" key="flex" />
-  <EditableMd name={article.slug} type="portfolio" />
+  <EditableText name={portfolio.slug} type="portfolio" objKey="title" />
+  <EditableText name={portfolio.slug} type="portfolio" objKey="flex" />
+  <EditableMd name={portfolio.slug} type="portfolio" />
+
+  <p style="text-align:center;margin-top:1.5em">
+    <button onclick={`deleteItem(event, ${JSON.stringify(portfolio.slug)})`}>
+      delete item
+    </button>
+  </p>
 </Layout>
 <script>
-  document
-    .querySelectorAll(
-      "#article>h1,#article>h2,#article>h3,#article>h4,#article>h5,#article>h6"
-    )
-    .forEach(function (el) {
-      const newNode = document.createElement("a");
-      newNode.setAttribute("href", "#" + el.getAttribute("id"));
-      newNode.innerText = "#";
-      el.insertBefore(newNode, el.firstChild);
-    });
+  globalThis.deleteItem = (event, slug) => {
+    event.target.textContent = "loading...";
+    event.target.setAttribute("disabled", "");
+    globalThis
+      .plz(`/portfolio/delete`, { slug })
+      .then(() => {
+        globalThis.location.href = `/${globalThis.actualPath
+          .split("/")
+          .slice(0, -2)}`;
+      })
+      .catch(() => {});
+  };
 </script>
 <style>
   article :global(h1, h2, h3, h4, h5, h6) {

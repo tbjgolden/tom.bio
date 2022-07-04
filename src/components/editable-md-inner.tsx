@@ -103,25 +103,18 @@ export default function ({
         <button
           style="padding:2px 8px;border-radius:0;border:0;background:#000;color:#fff;font-weight:bold"
           onClick={() => {
-            fetch(`/api/${type}/${name}`, {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify({
+            globalThis
+              .plz(`/${type}/${name}`, {
                 markdown: viewRef?.current?.content ?? initialValue,
-              }),
-            })
+              })
               .then((response) => {
                 if (response.ok) {
                   setSuccessMessage("updated");
                   setErrorMessage("");
-                } else {
-                  setSuccessMessage("");
-                  setErrorMessage(response.status + ": " + response.statusText);
                 }
               })
               .catch((error) => {
+                setSuccessMessage("");
                 setErrorMessage(error.message);
               });
           }}

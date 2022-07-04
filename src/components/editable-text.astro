@@ -2,11 +2,11 @@
 import { readFile } from "easier-node";
 import EditableTextInner from "./editable-text-inner";
 import { parse } from 'yaml'
-const { name, type, key } = Astro.props;
+const { name, type, objKey } = Astro.props;
 const content = await readFile(`${process.cwd()}/data/${type}/${name}.md`);
 const frontmatterRaw = content.match(/(?:(?:^|\n)\-\-\-\n)([\s\S]*?)(?:\n\-\-\-(?:\n|$))/)[1];
 const frontmatter = parse(frontmatterRaw)
-const initialValue = frontmatter[key]
+const initialValue = frontmatter[objKey]
 ---
 
 <div class="editable-text">
@@ -15,7 +15,7 @@ const initialValue = frontmatter[key]
     initialValue={initialValue}
     name={name}
     type={type}
-    key={key}
+    objKey={objKey}
     >{""}
   </EditableTextInner>
 </div>

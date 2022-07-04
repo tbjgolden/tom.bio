@@ -5,46 +5,54 @@ import EditableMd from "src/components/editable-md.astro";
 import EditableText from "src/components/editable-text.astro";
 
 export const getStaticPaths = async () => {
-  const articles = [
-    {
-      slug: "example",
-      flex: "example flex",
-      title: "Example",
-      markdown: `## a\n\n## b\n`,
-    },
-  ];
-  return articles.map((article) => {
-    const slug = article.slug;
+  let posts = [];
+  try {
+    posts = await Astro.glob("../../../../data/posts/*.md");
+  } catch {}
+  return posts.map((post) => {
+    const slug = post.file.split("/").at(-1).slice(0, -3);
     return {
       params: { slug },
       props: {
-        article,
+        post: {
+          slug,
+          markdown: post.rawContent(),
+          ...post.frontmatter,
+        },
       },
     };
   });
 };
 
-const { article } = Astro.props;
+const { post } = Astro.props;
 ---
 
-<Layout pageTitle={`${article.title} · tom`}>
-  <Header actualPath={`posts/${article.slug}/edit`} />
+<Layout pageTitle={`${post.title} · tom`}>
+  <Header actualPath={`posts/${post.slug}/edit`} />
 
-  <EditableText name={article.slug} type="posts" key="title" />
-  <EditableText name={article.slug} type="posts" key="imageUrl" />
-  <EditableMd name={article.slug} type="posts" />
+  <EditableText name={post.slug} type="posts" objKey="title" />
+  <EditableText name={post.slug} type="posts" objKey="imageUrl" />
+  <EditableMd name={post.slug} type="posts" />
+
+  <p style="text-align:center;margin-top:1.5em">
+    <button onclick={`deleteItem(event, ${JSON.stringify(post.slug)})`}>
+      delete item
+    </button>
+  </p>
 </Layout>
 <script>
-  document
-    .querySelectorAll(
-      "#article>h1,#article>h2,#article>h3,#article>h4,#article>h5,#article>h6"
-    )
-    .forEach(function (el) {
-      const newNode = document.createElement("a");
-      newNode.setAttribute("href", "#" + el.getAttribute("id"));
-      newNode.innerText = "#";
-      el.insertBefore(newNode, el.firstChild);
-    });
+  globalThis.deleteItem = (event, slug) => {
+    event.target.textContent = "loading...";
+    event.target.setAttribute("disabled", "");
+    globalThis
+      .plz(`/posts/delete`, { slug })
+      .then(() => {
+        globalThis.location.href = `/${globalThis.actualPath
+          .split("/")
+          .slice(0, -2)}`;
+      })
+      .catch(() => {});
+  };
 </script>
 <style>
   article :global(h1, h2, h3, h4, h5, h6) {
