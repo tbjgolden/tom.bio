@@ -1,0 +1,16 @@
+name: webhook
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: webhook
+        run: |
+          curl -X POST $API_ENDPOINT -H 'content-type: application/json' -H "x-admin-secret: $SECRET_KEY"
+        env:
+          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}

@@ -1,0 +1,31 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+
+let portfolios = [];
+try {
+  portfolios = await Astro.glob("../../../data/portfolio/*.md");
+} catch {}
+portfolios = portfolios.map((portfolio) => {
+  return {
+    ...portfolio.frontmatter,
+    uid: portfolio.file.split("/").at(-1).slice(0, -3),
+  };
+});
+---
+
+<Layout pageTitle="portfolio of tom">
+  <Header actualPath="portfolio" />
+
+  <ul style="list-style:none;padding:0;text-align:center">
+    {portfolios.map(({ slug, flex }) => {
+      return (
+        <li>
+          <p>
+            <a href={`./portfolio/${slug}`}>{flex}</a>
+          </p>
+        </li>
+      )
+    })}
+  </ul>
+</Layout>

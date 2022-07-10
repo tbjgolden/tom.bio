@@ -1,0 +1,59 @@
+---
+const { actualPath } = Astro.props;
+
+const menuItems = [
+  {
+    url: "cv",
+    label: "cv",
+  },
+  {
+    url: "portfolio",
+    label: "portfolio",
+  },
+  {
+    url: "posts",
+    label: "posts",
+  },
+];
+
+const prefix = "";
+
+const isEditMode = `/${actualPath}`.endsWith("/edit");
+
+const url = actualPath.split("/").slice(0, -1).join("/");
+
+if (isEditMode) {
+  menuItems.push({
+    url,
+    label: "back",
+  });
+}
+
+const baseUrl = import.meta.env.BASE_URL;
+
+const scriptHtml = `globalThis.actualPath=${JSON.stringify(
+  actualPath
+)};globalThis.isEditMode=${isEditMode};const nonEditablePaths=new Set(["/cv"]);const urlPath=new URL(location.href).pathname;if(!globalThis.isEditMode&&localStorage.getItem("secret")&&!nonEditablePaths.has(urlPath)){const textNode=document.createTextNode(" · ");const linkNode=document.createElement("A");linkNode.setAttribute("href",urlPath.endsWith("/")?"./edit":urlPath+"/edit");linkNode.textContent="edit";const linksEl=document.getElementById("links");linksEl.appendChild(textNode);linksEl.appendChild(linkNode)}if(globalThis.isEditMode&&!localStorage.getItem("secret")){globalThis.location.href="."};globalThis.plz=(path,data)=>(fetch('/api'+path,{method:"POST",headers:{"content-type":"application/json","x-admin-secret":localStorage.getItem("secret")},body:JSON.stringify(data)}).then((response)=>{if(!response.ok){throw new Error(response.status)}return response}))`;
+---
+
+<h1 style="text-align:center">
+  {prefix ? prefix + " " : ""}
+  {actualPath === "" ? <span>tom</span> : <a href={`${baseUrl}`}>tom</a>}
+</h1>
+<p style="text-align:center;margin-bottom:24px" id="links">
+  {menuItems.map(({ url, label }, i) => {
+    return (
+      <>
+        {i === 0 ? "" : " · "}
+        {actualPath === `/${url}` ? (
+          <span>{label}</span>
+        ) : (
+          <a href={`${baseUrl}${url}`}>{label}</a>
+        )}
+      </>
+    )
+  })}
+</p>
+<script set:html={scriptHtml}>
+
+</script>

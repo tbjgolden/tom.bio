@@ -1,0 +1,78 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+import EditableMd from "src/components/editable-md.astro";
+import EditableText from "src/components/editable-text.astro";
+
+export const getStaticPaths = async () => {
+  let posts = [];
+  try {
+    posts = await Astro.glob("../../../../data/posts/*.md");
+  } catch {}
+  return posts.map((post) => {
+    const uid = post.file.split("/").at(-1).slice(0, -3);
+    return {
+      params: { slug: post.frontmatter.slug },
+      props: {
+        post: {
+          uid,
+          markdown: post.rawContent(),
+          ...post.frontmatter,
+        },
+      },
+    };
+  });
+};
+
+const { post } = Astro.props;
+---
+
+<Layout pageTitle={`${post.title} · tom`}>
+  <Header actualPath={`posts/${post.slug}/edit`} />
+
+  <EditableText name={post.uid} type="posts" objKey="title" />
+  <EditableText name={post.uid} type="posts" objKey="imageUrl" />
+  <EditableText name={post.uid} type="posts" objKey="slug" />
+  <EditableMd name={post.uid} type="posts" />
+
+  <p style="text-align:center;margin-top:1.5em">
+    <button onclick={`deleteItem(event, ${JSON.stringify(post.uid)})`}>
+      delete item
+    </button>
+  </p>
+</Layout>
+<script>
+  globalThis.deleteItem = (event, uid) => {
+    event.target.textContent = "loading...";
+    event.target.setAttribute("disabled", "");
+    globalThis
+      .plz(`/posts/delete`, { uid })
+      .then(() => {
+        globalThis.location.href = `/${globalThis.actualPath
+          .split("/")
+          .slice(0, -2)}`;
+      })
+      .catch(() => {});
+  };
+</script>
+<style>
+  article :global(h1, h2, h3, h4, h5, h6) {
+    position: relative;
+  }
+  article
+    :global(h1 > a:first-child, h2 > a:first-child, h3 > a:first-child, h4
+      > a:first-child, h5 > a:first-child, h6 > a:first-child) {
+    display: none;
+  }
+  article
+    :global(h1:hover > a:first-child, h2:hover > a:first-child, h3:hover
+      > a:first-child, h4:hover > a:first-child, h5:hover
+      > a:first-child, h6:hover > a:first-child) {
+    width: calc(100% + 1em);
+    height: 1em;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    position: absolute;
+  }
+</style>

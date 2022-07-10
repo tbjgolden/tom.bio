@@ -1,0 +1,13 @@
+---
+import Header from "src/components/header.astro";
+import Layout from "src/components/layout.astro";
+import Editable from "src/components/editable-md.astro";
+---
+
+<Layout>
+  <Header actualPath="edit" />
+
+  <article>
+    <Editable name="home" type="sections" />
+  </article>
+</Layout>

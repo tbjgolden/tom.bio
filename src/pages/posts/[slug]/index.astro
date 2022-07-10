@@ -1,0 +1,83 @@
+---
+import { Markdown } from "astro/components";
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+export const getStaticPaths = async () => {
+  let posts = [];
+  try {
+    posts = await Astro.glob("../../../../data/posts/*.md");
+  } catch {}
+  return posts.map((post) => {
+    const uid = post.file.split("/").at(-1).slice(0, -3);
+    return {
+      params: { slug: post.frontmatter.slug },
+      props: {
+        post: {
+          uid,
+          ...post.frontmatter,
+          markdown: post.rawContent(),
+          getHeaders: post.getHeaders,
+        },
+      },
+    };
+  });
+};
+
+const { slug } = Astro.params;
+const { post } = Astro.props;
+
+const headers = await post.getHeaders();
+const firstHeaderText = headers.find((h) => h.depth === 1)?.text;
+
+const shouldShowTitle = firstHeaderText !== post.title;
+---
+
+<Layout pageTitle={`${post.title} · tom`}>
+  <Header actualPath={`posts/${slug}`} />
+
+  {post.imageUrl ? (
+    <img
+      src={post.imageUrl}
+      style="width:100%;aspect-ratio:3/2;background:#222"
+    />
+  ) : null}
+  {shouldShowTitle ? <h1>{post.title}</h1> : null}
+  <article id="article">
+    <Markdown content={post.markdown}>
+
+    </Markdown>
+  </article>
+</Layout>
+<script>
+  document
+    .querySelectorAll(
+      "#article>h1,#article>h2,#article>h3,#article>h4,#article>h5,#article>h6"
+    )
+    .forEach(function (el) {
+      const newNode = document.createElement("a");
+      newNode.setAttribute("href", "#" + el.getAttribute("id"));
+      newNode.innerText = "#";
+      el.insertBefore(newNode, el.firstChild);
+    });
+</script>
+<style>
+  article :global(h1, h2, h3, h4, h5, h6) {
+    position: relative;
+  }
+  article
+    :global(h1 > a:first-child, h2 > a:first-child, h3 > a:first-child, h4
+      > a:first-child, h5 > a:first-child, h6 > a:first-child) {
+    display: none;
+  }
+  article
+    :global(h1:hover > a:first-child, h2:hover > a:first-child, h3:hover
+      > a:first-child, h4:hover > a:first-child, h5:hover
+      > a:first-child, h6:hover > a:first-child) {
+    width: calc(100% + 1em);
+    height: 1em;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    position: absolute;
+  }
+</style>

@@ -1,0 +1,517 @@
+---
+const { pageTitle, maxWidth } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{pageTitle ?? "tom"}</title>
+  </head>
+  <body>
+    <main class="px" style="text-align:center">
+      <div
+        class="rm-margin"
+        style={`display:inline-block;max-width:${
+          maxWidth || 500
+        }px;width:100%;text-align:left`}
+      >
+        <slot></slot>
+      </div>
+    </main>
+    <style is:global lang="scss">
+      /* Box sizing rules */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      /* Set core body defaults */
+      body {
+        background: #111;
+        color: #fff;
+        margin: 0;
+        min-height: 100vh;
+        text-rendering: optimizespeed;
+        line-height: 1.45;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a[href] {
+        color: #f4be00;
+      }
+
+      /* Remove list styles on ul, ol elements with a list role, which suggests
+      default styling will be removed */
+      ul[role="list"],
+      ol[role="list"] {
+        list-style: none;
+      }
+
+      /* Set core root defaults */
+      html:focus-within {
+        scroll-behavior: smooth;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: #f4be00;
+        line-height: 1.2;
+      }
+
+      /* Make images easier to work with */
+      img,
+      picture {
+        max-width: 100%;
+        display: block;
+      }
+
+      /* Inherit fonts for inputs and buttons */
+      input,
+      button,
+      textarea,
+      select {
+        font: inherit;
+      }
+
+      /* There's some debate over whether buttons should have a pointer when hovering
+      over, but users seem to expect it */
+      button {
+        cursor: pointer;
+      }
+
+      /* Remove all animations, transitions and smooth scroll for people that prefer
+      not to see them */
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      code,
+      kbd,
+      samp,
+      var,
+      output {
+        font-family: Menlo, "Lucida Console", Monaco, Consolas, "Courier New",
+          monospace;
+        font-size: 0.8em;
+      }
+
+      code,
+      kbd {
+        background: #000;
+        border: 1px solid #f4be00;
+        border-radius: 4px;
+        color: #f4be00;
+        display: inline-block;
+        font-size: 0.8em;
+        padding: 0.034em 0.35em 0;
+        vertical-align: baseline;
+        transform: translateY(-0.05em);
+      }
+
+      kbd {
+        background: #f4be00;
+        color: #fff;
+      }
+
+      pre {
+        line-height: 1.4em;
+        overflow: auto;
+        padding: 6px 8px;
+
+        code {
+          font-size: 0.9em;
+          background: none;
+          border: 0;
+          line-height: 1.6;
+          padding: 0;
+        }
+      }
+
+      mark {
+        background: #ffc;
+        padding: 0 0.2em;
+      }
+
+      ol,
+      ul {
+        margin-left: 0;
+        padding-left: 2em;
+      }
+
+      blockquote {
+        margin-left: 0;
+        padding-left: 1em;
+        border-left: 2px solid #f4be00;
+      }
+
+      var,
+      em,
+      i {
+        font-style: italic;
+      }
+
+      del,
+      s {
+        text-decoration: line-through;
+      }
+
+      ins,
+      u {
+        text-decoration: underline;
+      }
+
+      sub,
+      sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+      }
+
+      sup {
+        top: -0.5em;
+      }
+
+      sub {
+        bottom: -0.25em;
+      }
+
+      body {
+        font-family: -apple-system, system-ui, blinkmacsystemfont,
+          "Helvetica Neue", helvetica, arial, sans-serif;
+        font-synthesis: style;
+      }
+
+      .h1 {
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      h2 {
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .H-L,
+      h3 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .H-M,
+      .H,
+      h4 {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .H-S,
+      h5 {
+        font-size: 19px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .H-XS,
+      h6 {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .PL-L {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.3;
+      }
+
+      .PL-M,
+      .PL {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.3;
+      }
+
+      .PL-S {
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.3;
+      }
+
+      .PL-XS {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.3;
+      }
+
+      .P-L {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.45;
+      }
+
+      .P-M,
+      .P,
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.45;
+      }
+
+      .P-S {
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.45;
+      }
+
+      .P-XS {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.45;
+      }
+
+      .C-M,
+      .C {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+
+      @media (min-width: 720px) {
+        .D-L {
+          font-size: 96px;
+        }
+
+        .D-M,
+        .D {
+          font-size: 52px;
+        }
+
+        .D-S {
+          font-size: 44px;
+        }
+
+        .D-XS {
+          font-size: 36px;
+        }
+
+        .H-XXL,
+        h1 {
+          font-size: 40px;
+        }
+
+        .H-XL,
+        h2 {
+          font-size: 36px;
+        }
+
+        .H-L,
+        h3 {
+          font-size: 32px;
+        }
+
+        .H-M,
+        .H,
+        h4 {
+          font-size: 28px;
+        }
+
+        .H-S,
+        h5 {
+          font-size: 24px;
+        }
+
+        .H-XS,
+        h6 {
+          font-size: 20px;
+        }
+
+        .PL-L {
+          font-size: 20px;
+        }
+
+        .PL-M,
+        .PL {
+          font-size: 18px;
+        }
+
+        .PL-S {
+          font-size: 16px;
+        }
+
+        .PL-XS {
+          font-size: 14px;
+        }
+
+        .P-L {
+          font-size: 19px;
+        }
+
+        .P-M,
+        .P,
+        p {
+          font-size: 17px;
+        }
+
+        .P-S {
+          font-size: 15px;
+        }
+
+        .P-XS {
+          font-size: 13px;
+        }
+
+        .C-M,
+        .C {
+          font-size: 12px;
+        }
+      }
+
+      $margin-top: calc(0.1em + 12px);
+      $margin-bottom: 0;
+
+      body {
+        main,
+        .ProseMirror {
+          > :first-child {
+            margin-top: 0;
+          }
+
+          > :last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        address,
+        article,
+        aside,
+        blockquote,
+        details,
+        dialog,
+        dd,
+        dl,
+        dt,
+        fieldset,
+        figcaption,
+        figure,
+        footer,
+        form,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        header,
+        hgroup,
+        iframe,
+        nav,
+        ol,
+        p,
+        pre,
+        section,
+        ul {
+          margin-top: $margin-top;
+          margin-bottom: $margin-bottom;
+
+          > :first-child {
+            margin-top: 0;
+          }
+
+          > :last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        hr {
+          margin: 48px;
+          border: 0;
+          border-bottom: 2px solid #333;
+        }
+
+        li {
+          margin-top: 0.15em;
+          margin-bottom: 0.15em;
+
+          > * {
+            margin-top: 0.3em;
+            margin-bottom: 0.3em;
+          }
+        }
+
+        li > ul:last-child,
+        li > ol:last-child {
+          margin-bottom: 0.5em;
+        }
+      }
+
+      .rm-margin {
+        > :first-child {
+          margin-top: 0;
+        }
+
+        > :last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      :root {
+        --x: 16px;
+      }
+      @media (min-width: 480px) {
+        :root {
+          --x: 24px;
+        }
+      }
+      @media (min-width: 640px) {
+        :root {
+          --x: 32px;
+        }
+      }
+      @media (min-width: 1000px) {
+        :root {
+          --x: 48px;
+        }
+      }
+
+      .px {
+        padding: var(--x);
+      }
+
+      a[href] {
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+
+      article pre {
+        border: 1px solid #f4be00;
+        border-radius: 4px;
+      }
+    </style>
+  </body>
+</html>

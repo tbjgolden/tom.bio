@@ -1,0 +1,141 @@
+---
+import { remark } from "remark";
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+
+const SNIPPET_CHARS = 40;
+
+let posts = [];
+
+const getRawFromChildren = (node: any) => {
+  return ((node as any).children ?? []).reduce((str, next) => {
+    if ("value" in next) {
+      str += next.value;
+    } else if ("children" in next) {
+      str += getRawFromChildren(next);
+    }
+    return str;
+  }, "");
+};
+
+try {
+  const rawPosts = await Astro.glob("../../../data/posts/*.md");
+  posts = rawPosts.map((post) => {
+    // get slug from file path
+    const uid = post.file.split("/").at(-1).slice(0, -3);
+    // get snippet from post
+    let snippet = remark
+      .parse(post.rawContent())
+      .children.filter((node) => {
+        return node.type === "paragraph";
+      })
+      .map((node) => {
+        return getRawFromChildren(node);
+      })
+      .join("\n\n");
+
+    if (snippet.length > SNIPPET_CHARS) {
+      snippet = snippet.slice(0, SNIPPET_CHARS);
+      const lastNewLineIndex = snippet.lastIndexOf("\n");
+      const lastSpaceIndex = snippet.lastIndexOf(" ");
+      snippet =
+        snippet.slice(
+          0,
+          Math.max(lastNewLineIndex, lastSpaceIndex, SNIPPET_CHARS - 10)
+        ) + "…";
+    }
+
+    return {
+      uid,
+      snippet: snippet || "",
+      ...post.frontmatter,
+    };
+  });
+} catch {}
+---
+
+<Layout pageTitle="posts of tom">
+  <Header actualPath="posts/edit" />
+
+  <ul style="list-style:none;padding:0;text-align:center">
+    <li style="margin-bottom:1.5em">
+      <p style="text-align:center">
+        <button onclick="addNewItem(event)">add new item</button>
+      </p>
+    </li>
+    <div
+      class="grid"
+      style="display:grid;grid-template-columns:repeat(auto-fit,minmax(182px,1fr));grid-gap:12px;padding:12px 0;"
+    >
+      {posts.map((post) => {
+        return (
+          <div>
+            <a class="post" href={`./${post.slug}`}>
+              <li>
+                <img src={post.imageUrl} loading="lazy" />
+                <p>{post.title}</p>
+                <p class="P-XS snippet">{post.snippet}</p>
+              </li>
+            </a>
+            <a href={`./${post.slug}/edit`}>edit</a>
+          </div>
+        )
+      })}
+      {posts.length === 1 ? <div /> : null}
+    </div>
+  </ul>
+
+  <script>
+    globalThis.addNewItem = (event) => {
+      event.target.textContent = "loading...";
+      event.target.setAttribute("disabled", "");
+      globalThis
+        .plz(`/posts/new`, {})
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data.uid) {
+            window.location.href = "./" + data.uid + "/edit";
+          }
+        })
+        .catch(() => {});
+    };
+  </script>
+</Layout>
+<style lang="scss">
+  .post {
+    border: 1px solid #fff;
+    padding: 12px 12px 8px;
+    text-decoration: none;
+    text-align: left;
+    display: block;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border: 1px solid #f4be00;
+      outline: 1px solid #f4be00;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    img {
+      aspect-ratio: 3/2;
+      background: #222;
+      margin: 0;
+    }
+  }
+  .snippet {
+    line-height: 1.3;
+    height: 5.2em;
+    overflow: hidden;
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    color: #fff;
+  }
+</style>

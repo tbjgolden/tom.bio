@@ -1,0 +1,24 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+---
+
+<Layout pageTitle="cv of tom" maxWidth={794}>
+  <Header actualPath="cv" />
+
+  <iframe
+    id="cv"
+    src="./raw/index.html"
+    style="width:100%;height:29.7cm;border:0;height:1000px"></iframe>
+  <script>
+    globalThis.addEventListener(
+      "message",
+      (event) => {
+        if (event.origin === globalThis.location.origin) {
+          document.getElementById("cv").style.height = event.data + 1 + "px";
+        }
+      },
+      false
+    );
+  </script>
+</Layout>
