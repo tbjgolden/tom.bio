@@ -67,7 +67,7 @@ try {
           <a class="post" href={`./posts/${post.slug}`}>
             <li>
               <img src={post.imageUrl} loading="lazy" />
-              <p>{post.title}</p>
+              <p class="title">{post.title}</p>
               <p class="P-XS snippet">{post.snippet}</p>
             </li>
           </a>
@@ -95,6 +95,10 @@ try {
       margin: 0;
     }
 
+    .title {
+      line-height: 1.2;
+    }
+
     img {
       aspect-ratio: 3/2;
       background: #222;
@@ -103,7 +107,7 @@ try {
   }
   .snippet {
     line-height: 1.3;
-    height: 5.2em;
+    max-height: 5.2em;
     overflow: hidden;
     text-decoration: none;
     display: -webkit-box;
