@@ -9,6 +9,7 @@ export const getStaticPaths = async () => {
     portfolios = await Astro.glob("../../../../data/portfolio/*.md");
   } catch {}
   return portfolios.map((portfolio) => {
+    console.log(portfolio);
     return {
       params: { slug: portfolio.frontmatter.slug },
       props: {
