@@ -68,11 +68,13 @@ try {
     >
       {posts.map((post) => {
         return (
-          <div>
+          <div class="post-wrapper">
             <a class="post" href={`./${post.slug}`}>
               <li>
-                <img src={post.imageUrl} loading="lazy" />
-                <p>{post.title}</p>
+                {post.imageUrl ? (
+                  <img src={post.imageUrl} loading="lazy" />
+                ) : null}
+                <p class="title">{post.title}</p>
                 <p class="P-XS snippet">{post.snippet}</p>
               </li>
             </a>
@@ -103,6 +105,19 @@ try {
   </script>
 </Layout>
 <style lang="scss">
+  .post-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .post {
+      flex: 1 0 auto;
+    }
+
+    > * {
+      width: 100%;
+    }
+  }
+
   .post {
     border: 1px solid #fff;
     padding: 12px 12px 8px;
@@ -123,12 +138,13 @@ try {
 
     .title {
       line-height: 1.2;
+      margin-top: 0;
     }
 
     img {
       aspect-ratio: 3/2;
       background: #222;
-      margin: 0;
+      margin: 0 0 8px;
     }
   }
   .snippet {
