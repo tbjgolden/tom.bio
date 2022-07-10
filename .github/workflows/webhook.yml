@@ -1,3 +1,8 @@
+name: webhook
+on:
+  push:
+    branches:
+      - main
 jobs:
   webhook:
     runs-on: ubuntu-latest
