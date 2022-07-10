@@ -22,7 +22,7 @@ try {
   const rawPosts = await Astro.glob("../../../data/posts/*.md");
   posts = rawPosts.map((post) => {
     // get slug from file path
-    const slug = post.file.split("/").at(-1).slice(0, -3);
+    const uid = post.file.split("/").at(-1).slice(0, -3);
     // get snippet from post
     let snippet = remark
       .parse(post.rawContent())
@@ -46,7 +46,7 @@ try {
     }
 
     return {
-      slug,
+      uid,
       snippet: snippet || "",
       ...post.frontmatter,
     };
@@ -95,8 +95,8 @@ try {
           return response.json();
         })
         .then((data) => {
-          if (data.id) {
-            window.location.href = "./" + data.id + "/edit";
+          if (data.uid) {
+            window.location.href = "./" + data.uid + "/edit";
           }
         })
         .catch(() => {});

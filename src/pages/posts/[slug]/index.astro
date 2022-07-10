@@ -8,39 +8,42 @@ export const getStaticPaths = async () => {
     posts = await Astro.glob("../../../../data/posts/*.md");
   } catch {}
   return posts.map((post) => {
-    const slug = post.file.split("/").at(-1).slice(0, -3);
+    const uid = post.file.split("/").at(-1).slice(0, -3);
     return {
-      params: { slug },
+      params: { slug: post.frontmatter.slug },
       props: {
-        post,
+        post: {
+          uid,
+          ...post.frontmatter,
+          markdown: post.rawContent(),
+          getHeaders: post.getHeaders,
+        },
       },
     };
   });
 };
 
 const { slug } = Astro.params;
-const {
-  post: { frontmatter, rawContent, getHeaders },
-} = Astro.props;
+const { post } = Astro.props;
 
-const headers = await getHeaders();
+const headers = await post.getHeaders();
 const firstHeaderText = headers.find((h) => h.depth === 1)?.text;
 
-const shouldShowTitle = firstHeaderText !== frontmatter.title;
-
-const markdown = rawContent();
+const shouldShowTitle = firstHeaderText !== post.title;
 ---
 
-<Layout pageTitle={`${frontmatter.title} · tom`}>
+<Layout pageTitle={`${post.title} · tom`}>
   <Header actualPath={`posts/${slug}`} />
 
-  <img
-    src={frontmatter.imageUrl}
-    style="width:100%;aspect-ratio:3/2;background:#222"
-  />
-  {shouldShowTitle ? <h1>{frontmatter.title}</h1> : null}
+  {post.imageUrl ? (
+    <img
+      src={post.imageUrl}
+      style="width:100%;aspect-ratio:3/2;background:#222"
+    />
+  ) : null}
+  {shouldShowTitle ? <h1>{post.title}</h1> : null}
   <article id="article">
-    <Markdown content={markdown}>
+    <Markdown content={post.markdown}>
 
     </Markdown>
   </article>

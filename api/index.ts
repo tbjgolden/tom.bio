@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteFile, ensureFolderExists, moveFile, uuidv4 } from "easier-node";
+import { ensureFolderExists, moveFile, uuidv4 } from "easier-node";
 import { mutateMarkdown } from "./markdown";
 
 type ChangeObject = {
@@ -97,8 +97,9 @@ export const extendApi: ExtendApi = async (
       const uuid = uuidv4();
       await mutateMarkdown(`${dataPath}/posts/${uuid}.md`, {
         title: "(Title)",
-        imageUrl: "https://picsum.photos/200/300",
+        imageUrl: "",
         markdown: "(Markdown)",
+        slug: uuid,
       });
       await update();
       response
@@ -106,17 +107,17 @@ export const extendApi: ExtendApi = async (
         .header("content-type", "application/json")
         .send(
           JSON.stringify({
-            id: uuid,
+            uid: uuid,
           })
         );
     } else if (postsMatch[1] === "delete") {
-      if (typeof request.body.slug !== "string") {
+      if (typeof request.body.uid !== "string") {
         return;
       }
       await ensureFolderExists(`${dataPath}/deleted/posts`);
       await moveFile(
-        `${dataPath}/posts/${request.body.slug}.md`,
-        `${dataPath}/deleted/posts/${request.body.slug}.md`
+        `${dataPath}/posts/${request.body.uid}.md`,
+        `${dataPath}/deleted/posts/${request.body.uid}.md`
       );
       await update();
       response.status(200).send("OK");
@@ -130,6 +131,9 @@ export const extendApi: ExtendApi = async (
       }
       if (typeof request.body.imageUrl === "string") {
         changeObject.imageUrl = request.body.imageUrl;
+      }
+      if (typeof request.body.slug === "string") {
+        changeObject.slug = request.body.slug;
       }
       await mutateMarkdown(
         `${dataPath}/posts/${postsMatch[1]}.md`,
