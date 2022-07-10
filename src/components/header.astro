@@ -54,21 +54,7 @@ if (isEditMode) {
 <script
   set:html={`globalThis.actualPath=${JSON.stringify(
     actualPath
-  )};globalThis.isEditMode=${isEditMode};const nonEditablePaths = new Set(["/cv"]);const urlPath = new URL(location.href).pathname;if(!globalThis.isEditMode&&localStorage.getItem("token")&&!nonEditablePaths.has(urlPath)){const textNode=document.createTextNode(" · ");const linkNode=document.createElement("A");linkNode.setAttribute("href",urlPath.endsWith("/") ? "./edit" : urlPath + "/edit");linkNode.textContent = "edit";const linksEl = document.getElementById("links");linksEl.appendChild(textNode);linksEl.appendChild(linkNode)}if(globalThis.isEditMode&&!localStorage.getItem("token")){globalThis.location.href="."};
-  
-  globalThis.plz = (path, data) => {
-    return fetch('/api' + path, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(data),
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-    })
-  }
-    
-    `}
+  )};globalThis.isEditMode=${isEditMode};const nonEditablePaths=new Set(["/cv"]);const urlPath=new URL(location.href).pathname;if(!globalThis.isEditMode&&localStorage.getItem("token")&&!nonEditablePaths.has(urlPath)){const textNode=document.createTextNode(" · ");const linkNode=document.createElement("A");linkNode.setAttribute("href",urlPath.endsWith("/")?"./edit":urlPath+"/edit");linkNode.textContent="edit";const linksEl=document.getElementById("links");linksEl.appendChild(textNode);linksEl.appendChild(linkNode)}if(globalThis.isEditMode&&!localStorage.getItem("token")){globalThis.location.href="."};globalThis.plz=(path,data)=>(fetch('/api'+path,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)}).then((response)=>{if(!response.ok){throw new Error(response.status)}return response}))`}
 >
 
 </script>

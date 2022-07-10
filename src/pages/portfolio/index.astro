@@ -7,10 +7,9 @@ try {
   portfolios = await Astro.glob("../../../data/portfolio/*.md");
 } catch {}
 portfolios = portfolios.map((portfolio) => {
-  const slug = portfolio.file.split("/").at(-1).slice(0, -3);
   return {
-    slug,
     ...portfolio.frontmatter,
+    uid: portfolio.file.split("/").at(-1).slice(0, -3),
   };
 });
 ---

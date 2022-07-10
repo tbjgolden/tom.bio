@@ -10,13 +10,12 @@ export const getStaticPaths = async () => {
     portfolios = await Astro.glob("../../../../data/portfolio/*.md");
   } catch {}
   return portfolios.map((portfolio) => {
-    const slug = portfolio.file.split("/").at(-1).slice(0, -3);
     return {
-      params: { slug },
+      params: { slug: portfolio.frontmatter.slug },
       props: {
         portfolio: {
           ...portfolio.frontmatter,
-          slug,
+          uid: portfolio.file.split("/").at(-1).slice(0, -3),
           markdown: portfolio.rawContent(),
         },
       },
@@ -30,22 +29,23 @@ const { portfolio } = Astro.props;
 <Layout pageTitle={`${portfolio.title} · tom`}>
   <Header actualPath={`portfolio/${portfolio.slug}/edit`} />
 
-  <EditableText name={portfolio.slug} type="portfolio" objKey="title" />
-  <EditableText name={portfolio.slug} type="portfolio" objKey="flex" />
-  <EditableMd name={portfolio.slug} type="portfolio" />
+  <EditableText name={portfolio.uid} type="portfolio" objKey="title" />
+  <EditableText name={portfolio.uid} type="portfolio" objKey="flex" />
+  <EditableText name={portfolio.uid} type="portfolio" objKey="slug" />
+  <EditableMd name={portfolio.uid} type="portfolio" />
 
   <p style="text-align:center;margin-top:1.5em">
-    <button onclick={`deleteItem(event, ${JSON.stringify(portfolio.slug)})`}>
+    <button onclick={`deleteItem(event, ${JSON.stringify(portfolio.uid)})`}>
       delete item
     </button>
   </p>
 </Layout>
 <script>
-  globalThis.deleteItem = (event, slug) => {
+  globalThis.deleteItem = (event, uid) => {
     event.target.textContent = "loading...";
     event.target.setAttribute("disabled", "");
     globalThis
-      .plz(`/portfolio/delete`, { slug })
+      .plz(`/portfolio/delete`, { uid })
       .then(() => {
         globalThis.location.href = `/${globalThis.actualPath
           .split("/")

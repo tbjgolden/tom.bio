@@ -46,6 +46,7 @@ export const extendApi: ExtendApi = async (
         title: "(Title)",
         flex: "(Flex)",
         markdown: "(Markdown)",
+        slug: uuid,
       });
       await update();
       response
@@ -53,17 +54,17 @@ export const extendApi: ExtendApi = async (
         .header("content-type", "application/json")
         .send(
           JSON.stringify({
-            id: uuid,
+            uid: uuid,
           })
         );
     } else if (portfolioMatch[1] === "delete") {
-      if (typeof request.body.slug !== "string") {
+      if (typeof request.body.uid !== "string") {
         return;
       }
       await ensureFolderExists(`${dataPath}/deleted/portfolio`);
       await moveFile(
-        `${dataPath}/portfolio/${request.body.slug}.md`,
-        `${dataPath}/deleted/portfolio/${request.body.slug}.md`
+        `${dataPath}/portfolio/${request.body.uid}.md`,
+        `${dataPath}/deleted/portfolio/${request.body.uid}.md`
       );
       await update();
       response.status(200).send("OK");
@@ -77,6 +78,9 @@ export const extendApi: ExtendApi = async (
       }
       if (typeof request.body.flex === "string") {
         changeObject.flex = request.body.flex;
+      }
+      if (typeof request.body.slug === "string") {
+        changeObject.slug = request.body.slug;
       }
       await mutateMarkdown(
         `${dataPath}/portfolio/${portfolioMatch[1]}.md`,

@@ -7,10 +7,9 @@ try {
   portfolios = await Astro.glob("../../../data/portfolio/*.md");
 } catch {}
 portfolios = portfolios.map((portfolio) => {
-  const slug = portfolio.file.split("/").at(-1).slice(0, -3);
   return {
-    slug,
     ...portfolio.frontmatter,
+    uid: portfolio.file.split("/").at(-1).slice(0, -3),
   };
 });
 ---
@@ -43,14 +42,17 @@ portfolios = portfolios.map((portfolio) => {
       globalThis
         .plz("/portfolio/new", {})
         .then((response) => {
+          console.log(response);
           return response.json();
         })
         .then((data) => {
-          if (data.id) {
-            globalThis.location.href = "./" + data.id + "/edit";
+          if (data.uid) {
+            globalThis.location.href = "./" + data.uid + "/edit";
           }
         })
-        .catch(() => {});
+        .catch((error) => {
+          console.error(error);
+        });
     };
   </script>
 </Layout>
