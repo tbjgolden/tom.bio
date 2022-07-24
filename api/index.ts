@@ -53,7 +53,7 @@ export const extendApi: ExtendApi = async (
   const portfolioMatch = url.match(portfolio);
   if (portfolioMatch !== null) {
     if (portfolioMatch[1] === "new") {
-      const uuid = uuidv4();
+      const uuid = uuidv4().slice(0, 18);
       await mutateMarkdown(`${dataPath}/portfolio/${uuid}.md`, {
         title: "(Title)",
         flex: "(Flex)",
