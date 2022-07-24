@@ -26,10 +26,8 @@ portfolios = portfolios.map((portfolio) => {
     {portfolios.map(({ slug, flex }) => {
       return (
         <li>
-          <p>
-            <a href={`./${slug}/edit`}>edit</a>
-            &middot;
-            <a href={`./${slug}`}>{flex}</a>
+          <p style="text-align:center">
+            {flex} &middot;&nbsp;<a href={`./${slug}/edit`}>edit</a>
           </p>
         </li>
       )
@@ -42,7 +40,6 @@ portfolios = portfolios.map((portfolio) => {
       globalThis
         .plz("/portfolio/new", {})
         .then((response) => {
-          console.log(response);
           return response.json();
         })
         .then((data) => {
