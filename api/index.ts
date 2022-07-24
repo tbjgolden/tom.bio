@@ -1,6 +1,17 @@
 import express from "express";
-import { ensureFolderExists, moveFile, uuidv4 } from "easier-node";
+import {
+  ensureFolderExists,
+  moveFile,
+  uuidv4,
+  normalizeURL,
+  hashSecureHex,
+  joinPaths,
+  listFilesInFolder,
+  deleteFile,
+  parseURL,
+} from "easier-node";
 import { mutateMarkdown } from "./markdown";
+import { download } from "./download";
 
 type ChangeObject = {
   [k: string]: unknown;
@@ -23,6 +34,7 @@ export const extendApi: ExtendApi = async (
   dataPath,
   update
 ) => {
+  const mediaPath = joinPaths(dataPath, "../public/media");
   const url = request.url;
 
   const sectionsMatch = url.match(sections);
@@ -130,7 +142,68 @@ export const extendApi: ExtendApi = async (
         changeObject.title = request.body.title;
       }
       if (typeof request.body.imageUrl === "string") {
-        changeObject.imageUrl = request.body.imageUrl;
+        const rawMediaUrl: string = request.body.imageUrl;
+        if (
+          rawMediaUrl.startsWith("http://") ||
+          rawMediaUrl.startsWith("https://")
+        ) {
+          await ensureFolderExists(mediaPath);
+          const files = await listFilesInFolder(mediaPath);
+          const normalizedURL = normalizeURL(rawMediaUrl);
+
+          const hash = await hashSecureHex(normalizedURL);
+          if (
+            !files.some((existingFile) => existingFile.startsWith(hash + "."))
+          ) {
+            try {
+              const uuid = uuidv4();
+              const lastPart = parseURL(normalizedURL)
+                .pathname.split("/")
+                .at(-1);
+
+              const lastDotIndex = lastPart.lastIndexOf(".");
+              let extension =
+                lastDotIndex === -1 ? "" : lastPart.slice(lastDotIndex);
+
+              const contentType = await download(
+                rawMediaUrl,
+                joinPaths(mediaPath, uuid)
+              );
+
+              if (extension === "") {
+                if (contentType.includes("image/jpeg")) {
+                  extension = ".jpg";
+                } else if (contentType.includes("image/png")) {
+                  extension = ".png";
+                } else if (contentType.includes("image/bmp")) {
+                  extension = ".bmp";
+                } else if (contentType.includes("image/svg+xml")) {
+                  extension = ".svg";
+                } else if (contentType.includes("image/gif")) {
+                  extension = ".gif";
+                } else if (contentType.includes("image/webp")) {
+                  extension = ".webp";
+                }
+              }
+
+              if (extension === "") {
+                await deleteFile(joinPaths(mediaPath, uuid));
+              } else {
+                const newFile = `${hash}${extension}`;
+                await moveFile(
+                  joinPaths(mediaPath, uuid),
+                  joinPaths(mediaPath, newFile)
+                );
+                changeObject.imageUrl = `/media/${newFile}`;
+              }
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        if (!changeObject.imageUrl) {
+          changeObject.imageUrl = request.body.imageUrl;
+        }
       }
       if (typeof request.body.slug === "string") {
         changeObject.slug = request.body.slug;
