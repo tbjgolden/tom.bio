@@ -23,7 +23,7 @@ export const download = async (
 
   return new Promise<string>((resolve, reject) => {
     let request = req
-      .get(remotePath, function (response) {
+      .get(remotePath, (response) => {
         if (response.statusCode >= 200 && response.statusCode <= 299) {
           let file = fs.createWriteStream(localPath);
           response.pipe(file);
