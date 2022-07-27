@@ -1,5 +1,10 @@
 import { parse, stringify } from "yaml";
-import { readFile, writeFile } from "easier-node";
+import {
+  ensureFolderExists,
+  readFile,
+  resolvePaths,
+  writeFile,
+} from "easier-node";
 
 export const mutateMarkdown = async (
   filePath: string,
@@ -7,6 +12,7 @@ export const mutateMarkdown = async (
 ) => {
   let prevFile = "";
   try {
+    await ensureFolderExists(resolvePaths(filePath, ".."));
     prevFile = await readFile(filePath);
   } catch {}
   const prevData = markdownToObject(prevFile);

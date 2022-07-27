@@ -1,0 +1,175 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+---
+
+<Layout pageTitle="evolution of football">
+  <Header actualPath="experiments/evolution-of-football" />
+  <div style="text-align:center">
+    <div class="sr-only">
+      <h1>Evolution of football</h1>
+      <div class="container">
+        <div class="box">
+          <h6 class="box-header">China, Korea, Japan, Vietnam</h6>
+          <h5 class="box-subheader">(220 BCE)</h5>
+          <p>
+            Cuju - a game very similar to modern soccer - was played until about
+            1600.
+          </p>
+          <p>
+            Players used air-filled balls, could not use their hands and some
+            matches used goal posts with a net.
+          </p>
+          <p>There is no known connection to medieval football.</p>
+        </div>
+        <div class="box">
+          <p>
+            Greeks, Romans, Turks, Native Americans, Indigenous Australians,
+            Maori Many cultures derived football-like games independently.
+          </p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">Northwestern Europe</h6>
+          <h5 class="box-subheader">(828 - 1800)</h5>
+          <p>
+            Medieval football - the common root of 'football' - a violent game
+            with few rules.
+          </p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">Great Britain</h6>
+          <h5 class="box-subheader">(1800 - 1863)</h5>
+          <p>
+            Many British schools during this time played various forms of
+            'football' - but rules varied drastically.
+          </p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">Australia</h6>
+          <h5 class="box-subheader">(1859 - current)</h5>
+          <p>
+            Derived by an Australian upon return from Rugby School in England.
+          </p>
+          <p>
+            Uses a huge oval-shaped field (which can be also used for cricket)
+            (Aussie&nbsp;rules).
+          </p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">England</h6>
+          <h5 class="box-subheader">(1863 - current)</h5>
+          <p>
+            Standardised rules were needed - Cambridge University students, and
+            the newly formed Football Association would create a compromise set
+            of rules for the game.
+          </p>
+          <p>These rules would become 'association&nbsp;football' (soccer).</p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">England</h6>
+          <h5 class="box-subheader">(1871 - current)</h5>
+          <p>
+            Rugby football - is officially formed by the Rugby Football Union -
+            derived from the game played at 'Rugby School' (Rugby&nbsp;union).
+          </p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">United States</h6>
+          <h5 class="box-subheader">(1880 - current)</h5>
+          <p>
+            A Yale player modifies the rules of a rugby-like game to replace the
+            scrum with the snap (American&nbsp;football).
+          </p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">Ireland</h6>
+          <h5 class="box-subheader">(1887 - current)</h5>
+          <p>
+            The Gaelic Athletic Association published the rules to Gaelic
+            football.
+          </p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">Northern England</h6>
+          <h5 class="box-subheader">(1895 - current)</h5>
+          <p>
+            When the Rugby Football Union banned professionals, northern clubs
+            formed a new 'code' of laws (Rugby&nbsp;league).
+          </p>
+        </div>
+        <div class="box">
+          <h6 class="box-header">Canada</h6>
+          <h5 class="box-subheader">(1903 - current)</h5>
+          <p>
+            The Burnside rules transformed a rugby-oriented game towards an
+            American football style game (Canadian&nbsp;football).
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="img-wrapper">
+      <img class="img" src="/evolution.png" />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    margin: 24px 0;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75em;
+
+    font-size: 1em;
+  }
+
+  .box {
+    background: #333;
+    grid-column-end: span 4;
+    border: 1px solid #fff;
+    padding: 1em;
+  }
+  .box > :first-child {
+    margin-top: 0;
+  }
+  .box > :last-child {
+    margin-bottom: 0;
+  }
+  .box-header {
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+  .box-subheader {
+    margin-top: 0.25em;
+    margin-bottom: 0.5em;
+    font-size: 1em;
+    font-weight: bold;
+  }
+  p {
+    font-size: 1em;
+    margin: 0.5em 0;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .img-wrapper {
+    margin: 24px 0;
+  }
+
+  .img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: inline-block;
+    line-height: 1;
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+---
+
+<Layout pageTitle="experiments of tom">
+  <Header actualPath="experiments" />
+
+  <ul style="list-style:none;padding:0;text-align:center">
+    {[
+      {
+        slug: "evolution-of-football",
+        label: "evolution of football",
+      },
+    ].map(({ slug, label }) => {
+      return (
+        <li>
+          <p>
+            <a href={`./experiments/${slug}`}>{label}</a>
+          </p>
+        </li>
+      )
+    })}
+  </ul>
+</Layout>

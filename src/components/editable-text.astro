@@ -1,12 +1,20 @@
 ---
-import { readFile } from "easier-node";
+import { ensureFolderExists, readFile } from "easier-node";
 import EditableTextInner from "./editable-text-inner";
-import { parse } from 'yaml'
+import { parse } from "yaml";
 const { name, type, objKey } = Astro.props;
-const content = await readFile(`${process.cwd()}/data/${type}/${name}.md`);
-const frontmatterRaw = content.match(/(?:(?:^|\n)\-\-\-\n)([\s\S]*?)(?:\n\-\-\-(?:\n|$))/)[1];
-const frontmatter = parse(frontmatterRaw)
-const initialValue = frontmatter[objKey]
+let content = "";
+try {
+  await ensureFolderExists(`${process.cwd()}/data/${type}`);
+  content = await readFile(`${process.cwd()}/data/${type}/${name}.md`);
+} catch (error) {
+  console.error(error);
+}
+const frontmatterRaw =
+  content.match(/(?:(?:^|\n)\-\-\-\n)([\s\S]*?)(?:\n\-\-\-(?:\n|$))/)?.[1] ??
+  "{}";
+const frontmatter = parse(frontmatterRaw);
+const initialValue = frontmatter[objKey];
 ---
 
 <div class="editable-text">

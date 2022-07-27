@@ -1,8 +1,14 @@
 ---
-import { readFile } from "easier-node";
+import { ensureFolderExists, readFile } from "easier-node";
 import EditableInner from "./editable-md-inner";
 const { name, type } = Astro.props;
-const content = await readFile(`${process.cwd()}/data/${type}/${name}.md`);
+let content = "";
+try {
+  await ensureFolderExists(`${process.cwd()}/data/${type}`);
+  content = await readFile(`${process.cwd()}/data/${type}/${name}.md`);
+} catch (error) {
+  console.error(error);
+}
 const withoutFrontmatter = content.replace(
   /(?:(^|\n)\-\-\-\n)[\s\S]*?(\n\-\-\-(\n|$))/,
   ""
