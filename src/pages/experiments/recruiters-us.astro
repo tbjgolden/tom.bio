@@ -1,0 +1,288 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+import PieChart from "src/components/pie-chart";
+---
+
+<Layout pageTitle="evolution of football">
+  <Header actualPath="experiments/evolution-of-football" />
+  <div style="text-align:center">
+    <h1>100 Days of Recruiters (US&nbsp;Edition)</h1>
+
+    <p>
+      Like many software engineers, my inboxes are full of spam from recruiters.
+      During these 100 days, my LinkedIn status was 'Closed to Opportunities'.
+    </p>
+    <p>Here's the highlights from the last 100 days.</p>
+
+    <p>
+      <a href=""
+        >Click here for the newer
+        <span style="display:inline-block;text-decoration:inherit;">
+          (UK-based)&nbsp;version
+        </span>
+      </a>
+    </p>
+
+    <hr />
+
+    <p>There were 66 total messages<br />(compared to 300 in the UK edition)</p>
+    <p>Here is how they contacted me:</p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "LinkedIn",
+          background: "#0A66C2",
+          value: 60,
+        },
+        {
+          label: "Email",
+          background: "#fff",
+          value: 3,
+        },
+        {
+          label: "Phone",
+          background: "#f90",
+          value: 2,
+        },
+        {
+          label: "Text",
+          background: "#36cd5c",
+          value: 1,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <h2>Bullshit Score</h2>
+    <p>
+      At first, I tried to count the occurrences of specific buzzwords... but
+      there were just too many to choose from. Instead, I gave <strong
+        >each message a Bullshit Score&trade;
+      </strong>.
+    </p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "No Bullshit",
+          background: "#009900",
+          value: 10,
+        },
+        {
+          label: "Low",
+          background: "#006600",
+          value: 26,
+        },
+        {
+          label: "Moderate",
+          background: "#ff9900",
+          value: 15,
+        },
+        {
+          label: "High",
+          background: "#cc0000",
+          value: 15,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <h2>In-House Recruiters</h2>
+    <p>
+      23% of the recruiters were in-house recruiters, the rest were external
+      recruiters.
+    </p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "Internal",
+          background: "#009900",
+          value: 15,
+        },
+        {
+          label: "External",
+          background: "#cc0000",
+          value: 51,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <p>
+      Of the 51 external recruiters, only 25% were upfront with the company they
+      were hiring for.
+    </p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "Did name",
+          background: "#009900",
+          value: 13,
+        },
+        {
+          label: "Didn't name",
+          background: "#cc0000",
+          value: 38,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <h2>Copy Paste</h2>
+    <p>
+      Only 1 recruiter actually looked at this website... which is a shame as
+      web development is my job!
+    </p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "Mostly copy-paste",
+          background: "#006600",
+          value: 4,
+        },
+        {
+          label: "Full copy-paste",
+          background: "#cc0000",
+          value: 62,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <h2>Silliest Quotes</h2>
+
+    <p>There was flattery...</p>
+    <blockquote>Hey There Rock Star</blockquote>
+    <blockquote>It's like finding a unicorn in the wild!</blockquote>
+
+    <p>...and sympathy...</p>
+    <blockquote>
+      Hi Tom,<br /><br />I hope you and your loved ones are safe and healthy
+      currently.
+    </blockquote>
+    <blockquote>
+      Hey Tom,<br /><br />
+      Good Morning!<br />
+      I hope you and your loved ones are safe, healthy and prospering.
+    </blockquote>
+
+    <p>Some really sold their socks off</p>
+    <blockquote>incredible perks</blockquote>
+    <blockquote>
+      Indigo was #3 on CNBC{"\u2019"}s 2020 Top Disruptor List
+    </blockquote>
+
+    <p>Others were seemingly looking to hire a murderer</p>
+    <blockquote>Killer background</blockquote>
+    <blockquote>
+      terrific opportunity for aggressive career advancement
+    </blockquote>
+
+    <p>And some didn't do their homework</p>
+    <blockquote>
+      I know you are with a great organization
+      <div class="aside-wrapper">
+        <aside>If by organization you mean unemployed</aside>
+      </div>
+    </blockquote>
+    <blockquote>
+      i have a react js developer and location CA, client looking for 10+years
+      <div class="aside-wrapper">
+        <aside>React has only been around for 8 years</aside>
+      </div>
+    </blockquote>
+
+    <hr />
+
+    <h2>Companies</h2>
+
+    <p style="margin:24px 0;">
+      Finally, here are the companies that were named:
+    </p>
+
+    <div class="list">
+      <span>Amazon (twice)</span>
+      <span>Apple</span>
+      <span>Beachbody</span>
+      <span>Vinli</span>
+      <span>Spiff</span>
+      <span>Copy.AI</span>
+      <span>Rocket Loans</span>
+      <span>Bevy</span>
+      <span>Graphiant</span>
+      <span>Ticketmaster</span>
+      <span>ZURB</span>
+      <span>EPAM</span>
+      <span>Adobe</span>
+      <span>Collibra</span>
+      <span>Postscript.io</span>
+      <span>Reggora</span>
+      <span>Thirty Madison</span>
+      <span>Walmart</span>
+      <span>Checkr</span>
+      <span>Virtasant</span>
+      <span>Bank of America</span>
+      <span>Northwestern Mutual</span>
+      <span>HIMSS</span>
+      <span>IndigoAg</span>
+      <span>FastRadius</span>
+      <span>AlphaSights</span>
+      <span>Metaview</span>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  blockquote {
+    border: 0;
+    background: #fff;
+    padding: 12px;
+    color: #000;
+    text-align: left;
+    line-height: 1;
+    font-size: 16px;
+    font-family: Arial, Arimo, Helvetica, sans-serif;
+
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .aside-wrapper {
+    text-align: right;
+  }
+
+  aside {
+    background: #111;
+    color: #ccc;
+    font-family: -apple-system, system-ui, blinkmacsystemfont, "Helvetica Neue",
+      helvetica, arial, sans-serif;
+    font-style: italic;
+    display: inline-block;
+    padding: 8px 12px;
+    max-width: 100%;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+</style>
