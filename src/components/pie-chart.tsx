@@ -5,7 +5,7 @@ import {
   DoughnutController,
   Legend,
   Tooltip,
-} from "chart.js";
+} from "./chart.mjs";
 
 Chart.register(ArcElement, DoughnutController, Legend, Tooltip);
 Chart.defaults.font = {
