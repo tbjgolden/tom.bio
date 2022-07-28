@@ -1,0 +1,444 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+import PieChart from "src/components/pie-chart";
+---
+
+<Layout pageTitle="100 days of recruiters (uk)">
+  <Header actualPath="experiments/100-days-of-recruiters-uk" />
+  <div style="text-align:center">
+    <h1>100 Days of Recruiters (UK&nbsp;Edition)</h1>
+
+    <p>
+      Like many software engineers, my inboxes are full of spam from recruiters.
+      During these 100 days, my LinkedIn status was 'Closed to Opportunities'.
+    </p>
+    <p>Here's the highlights from the last 100 days.</p>
+
+    <p>
+      <a href="./100-days-of-recruiters-us"
+        >Click here for the older
+        <span style="display:inline-block;text-decoration:inherit;">
+          (US-based)&nbsp;version
+        </span>
+      </a>
+    </p>
+
+    <hr />
+
+    <p>
+      There were 300 (exactly!) total messages<br />(compared to 66 in the US
+      edition)
+    </p>
+    <p>Here is how they contacted me:</p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "LinkedIn",
+          background: "#0A66C2",
+          value: 268,
+        },
+        {
+          label: "Email",
+          background: "#fff",
+          value: 30,
+        },
+        {
+          label: "Phone",
+          background: "#f90",
+          value: 2,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <h2>Bullshit Score</h2>
+    <p>
+      At first, I tried to count the occurrences of specific buzzwords... but
+      there were just too many to choose from. Instead, I gave <strong
+        >each message a Bullshit Score&trade;
+      </strong>.
+    </p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "No Bullshit",
+          background: "#009900",
+          value: 15,
+        },
+        {
+          label: "Low",
+          background: "#006600",
+          value: 48,
+        },
+        {
+          label: "Moderate",
+          background: "#ff9900",
+          value: 113,
+        },
+        {
+          label: "High",
+          background: "#cc0000",
+          value: 124,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <h2>In-House Recruiters</h2>
+    <p>
+      15% of the recruiters were in-house recruiters, the rest were external
+      recruiters.
+    </p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "Internal",
+          background: "#009900",
+          value: 44,
+        },
+        {
+          label: "External",
+          background: "#cc0000",
+          value: 256,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <p>
+      Of the 256 external recruiters, only 31% were upfront with the company
+      they were hiring for.
+    </p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "Did name",
+          background: "#009900",
+          value: 67,
+        },
+        {
+          label: "Didn't name",
+          background: "#cc0000",
+          value: 149,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <h2>Copy Paste</h2>
+    <p>Yes, we know your messages are copy paste templates.</p>
+    <p>
+      One message I received this time was copy pasted, but they forgot to
+      change the names and companies... 🤦
+    </p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "Mostly copy-paste",
+          background: "#006600",
+          value: 8,
+        },
+        {
+          label: "Full copy-paste",
+          background: "#cc0000",
+          value: 292,
+        },
+      ]}
+    />
+
+    <p>
+      I make a point to reply to each message that was actually written - at
+      least in part - by a human.
+    </p>
+
+    <hr />
+
+    <h2>You Had One Job</h2>
+    <p>
+      These days I'm not much surprised when recruiters forget to list the key
+      languages or tech I'll be working on.
+    </p>
+    <p>
+      The surprise this time was that some <strong
+        >also forgot to specify whether a role was Front-End, Back-End or Full
+        Stack...
+      </strong>
+    </p>
+    <p>In this chart, incomplete means not specifying the job role.</p>
+
+    <PieChart
+      client:load
+      values={[
+        {
+          label: "Adequate job listing",
+          background: "#009900",
+          value: 253,
+        },
+        {
+          label: "Not a job advert",
+          background: "#ffcc00",
+          value: 42,
+        },
+        {
+          label: "Incomplete job listing",
+          background: "#cc0000",
+          value: 5,
+        },
+      ]}
+    />
+
+    <hr />
+
+    <h2>The Quotes</h2>
+
+    <p>
+      Unlike their American counterparts, there were far less wacky attempts at
+      recruiter clickbait.
+    </p>
+    <p>Instead, I mostly received hollow apologies for spamming.</p>
+    <blockquote>
+      I appreciate you probably get bombarded with messages from people like me
+    </blockquote>
+    <blockquote>
+      I can only imagine how flooded your inbox is with recruiter's messages
+    </blockquote>
+    <blockquote>
+      I imagine you've had a million messages (this is the 3rd alone from me!)
+    </blockquote>
+    <blockquote>
+      I appreciate you probably get bombarded with messages from people like me
+      <div class="aside-wrapper">
+        <aside>oh it's you again from yesterday</aside>
+      </div>
+    </blockquote>
+
+    <p>
+      I wonder why these folks keep spamming if they know it's annoying? <em
+        >If only someone could explain?
+      </em>
+    </p>
+    <blockquote>
+      Apologies for the double messaging, I can imagine your inbox is full of
+      similar messages, so I wanted to make sure you got this one!
+
+      <div class="aside-wrapper">
+        <aside>i.e. I'm sorry everyone else is messaging you LOL</aside>
+      </div>
+    </blockquote>
+    <blockquote>
+      I thought I'd send you a follow up as I know you must get tons of messages
+      / irrelevant spam and I wanted to stand out
+
+      <div class="aside-wrapper">
+        <aside>at least you're honest</aside>
+      </div>
+    </blockquote>
+
+    <p>Some really believed their own hype</p>
+    <blockquote>
+      I have just taken on a Full Stack Developer role within a company I'd
+      consider modern-day Eco heroes.
+
+      <div class="aside-wrapper">
+        <aside>
+          <video style="width:300px" autoplay loop>
+            <source src="/bs.mp4" type="video/mp4" />
+          </video>
+        </aside>
+      </div>
+    </blockquote>
+    <blockquote>
+      Your role is more than a Software Engineer
+
+      <div class="aside-wrapper">
+        <aside>
+          <img style="width:300px" src="/doubt.jpg" />
+        </aside>
+      </div>
+    </blockquote>
+    <blockquote>
+      Yats are self-sovereign emoji usernames... Creators use our
+      custom-designed emojis to compose beautiful works of art with deep, human
+      messages.
+
+      <div class="aside-wrapper">
+        <aside>A simple "Please join our NFT fraud scheme" would suffice</aside>
+      </div>
+    </blockquote>
+    <blockquote>
+      Hi Tom, Let's talk about Intuit, the 2nd best tech company to work for in
+      the UK
+
+      <div class="aside-wrapper">
+        <aside>Let's talk about Intuit not bribing the judges enough</aside>
+      </div>
+    </blockquote>
+
+    <p>And of course, there was a sprinkle of weird clickbait</p>
+    <blockquote>
+      Well, I can tell you that Cristiano Ronaldo's legs are insured for €100
+      million
+    </blockquote>
+    <blockquote>
+      The company could be described as a combination of Amazon, TikTok and QVC.
+
+      <div class="aside-wrapper">
+        <aside>Wish.com? Is that you?</aside>
+      </div>
+    </blockquote>
+
+    <hr />
+
+    <h2>Companies</h2>
+
+    <p style="margin:24px 0;">
+      Finally, here are the companies that were named:
+    </p>
+
+    <div class="list">
+      <span>Hyperexponential (7 times)</span>
+      <span>Ecologi (3 times)</span>
+      <span>Virgin Media (3 times)</span>
+      <span>Freetrade (2 times)</span>
+      <span>Twilio (2 times)</span>
+      <span>Cazoo (2 times)</span>
+      <span>Multiverse (2 times)</span>
+      <span>By Miles (2 times)</span>
+      <span>Facebook (2 times)</span>
+      <span>Improbable (2 times)</span>
+      <span>Zapp (2 times)</span>
+      <span>Gener8 (2 times)</span>
+      <span>Capco (2 times)</span>
+      <span>Ticketmaster (2 times)</span>
+      <span>Scouty</span>
+      <span>Plum Guide</span>
+      <span>PPC Protect</span>
+      <span>Eigen Tech</span>
+      <span>Pollen</span>
+      <span>Vestaire Collective</span>
+      <span>Flawless</span>
+      <span>Grail</span>
+      <span>Kaluza</span>
+      <span>Robin AI</span>
+      <span>Luminovo</span>
+      <span>Coremont</span>
+      <span>Riskcare</span>
+      <span>Onthebeach</span>
+      <span>Mphasis</span>
+      <span>Privitar</span>
+      <span>Hedgehog</span>
+      <span>LoyaltyLion</span>
+      <span>Shares</span>
+      <span>Xe</span>
+      <span>NHS Scotland</span>
+      <span>Lenses.io</span>
+      <span>QBE Insurance</span>
+      <span>The Spectator</span>
+      <span>William Hill</span>
+      <span>GSR</span>
+      <span>Dunelm</span>
+      <span>Confluence</span>
+      <span>Let's Do This</span>
+      <span>Oja</span>
+      <span>YuLife</span>
+      <span>Habito</span>
+      <span>JP Morgan</span>
+      <span>Converge.io</span>
+      <span>Intuit</span>
+      <span>Bother</span>
+      <span>Nous</span>
+      <span>Zen Educate</span>
+      <span>Vortexa</span>
+      <span>Brit Insurance</span>
+      <span>News UK</span>
+      <span>Red Ant</span>
+      <span>Truepill</span>
+      <span>Tari Labs</span>
+      <span>Komi</span>
+      <span>Prima UK</span>
+      <span>Ki Insurance</span>
+      <span>PassFort</span>
+      <span>Amazon</span>
+      <span>Nomo Bank</span>
+      <span>Finimize</span>
+      <span>FutureOn</span>
+      <span>BAE Systems</span>
+      <span>Global Relay</span>
+      <span>WeGift</span>
+      <span>Signal AI</span>
+      <span>Elder</span>
+      <span>Pubgenius</span>
+      <span>Unboxed</span>
+      <span>Foolproof</span>
+      <span>Neural Alpha</span>
+      <span>Hudson River Trading</span>
+      <span>iProov</span>
+      <span>Fast Break Labs</span>
+      <span>Beamery</span>
+      <span>Labelbox</span>
+      <span>Pearl Health</span>
+      <span>Miter</span>
+      <span>Cabinet</span>
+      <span>Guideline</span>
+      <span>Boost</span>
+      <span>Quit Genius</span>
+      <span>The Nerdery</span>
+      <span>Switchboard</span>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  blockquote {
+    border: 0;
+    background: #fff;
+    padding: 12px;
+    color: #000;
+    text-align: left;
+    line-height: 1.15;
+    font-size: 16px;
+    font-family: Arial, Arimo, Helvetica, sans-serif;
+
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .aside-wrapper {
+    text-align: right;
+  }
+
+  aside {
+    background: #111;
+    color: #ccc;
+    font-family: -apple-system, system-ui, blinkmacsystemfont, "Helvetica Neue",
+      helvetica, arial, sans-serif;
+    font-style: italic;
+    display: inline-block;
+    padding: 8px 12px;
+    max-width: 100%;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+</style>
