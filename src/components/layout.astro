@@ -512,6 +512,53 @@ const { pageTitle, maxWidth } = Astro.props;
         border: 1px solid #f4be00;
         border-radius: 4px;
       }
+
+      .auto {
+        > {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            > a:first-child {
+              text-decoration: none;
+
+              &:hover,
+              &:focus {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
     </style>
+
+    <script defer>
+      document
+        .querySelectorAll(
+          ".auto>h1,.auto>h2,.auto>h3,.auto>h4,.auto>h5,.auto>h6"
+        )
+        .forEach(function (el) {
+          const newNode = document.createElement("a");
+          const id = el.getAttribute("id");
+          if (id) {
+            newNode.setAttribute("href", "#" + el.getAttribute("id"));
+            const childNodes = Array.from(el.childNodes);
+            for (const childNode of childNodes) {
+              console.log(childNode, childNode.nodeType);
+              if (childNode.nodeType === 1) {
+                newNode.appendChild(childNode);
+              } else if (childNode.nodeType === 3) {
+                const textValue = childNode.data;
+                el.removeChild(childNode);
+                const textNode = document.createTextNode(textValue);
+                newNode.appendChild(textNode);
+              }
+            }
+            el.insertBefore(newNode, el.firstChild);
+          }
+        });
+    </script>
   </body>
 </html>

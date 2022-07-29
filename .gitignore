@@ -19,3 +19,4 @@ pnpm-debug.log*
 
 # the persistent data
 data
+public/media

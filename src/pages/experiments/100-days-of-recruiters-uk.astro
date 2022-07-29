@@ -6,7 +6,7 @@ import PieChart from "src/components/pie-chart";
 
 <Layout pageTitle="100 days of recruiters (uk)">
   <Header actualPath="experiments/100-days-of-recruiters-uk" />
-  <div style="text-align:center">
+  <div class="auto" style="text-align:center">
     <h1>100 Days of Recruiters (UK&nbsp;Edition)</h1>
 
     <p>
@@ -55,11 +55,11 @@ import PieChart from "src/components/pie-chart";
 
     <hr />
 
-    <h2>Bullshit Score</h2>
+    <h2 id="bs-score"><span class="bs"></span>Score</h2>
     <p>
       At first, I tried to count the occurrences of specific buzzwords... but
       there were just too many to choose from. Instead, I gave <strong
-        >each message a Bullshit Score&trade;
+        >each message a <span class="bs"></span>Score&trade;
       </strong>.
     </p>
 
@@ -67,7 +67,7 @@ import PieChart from "src/components/pie-chart";
       client:load
       values={[
         {
-          label: "No Bullshit",
+          label: "None",
           background: "#009900",
           value: 15,
         },
@@ -91,7 +91,7 @@ import PieChart from "src/components/pie-chart";
 
     <hr />
 
-    <h2>In-House Recruiters</h2>
+    <h2 id="in-house-recruiters">In-House Recruiters</h2>
     <p>
       15% of the recruiters were in-house recruiters, the rest were external
       recruiters.
@@ -138,7 +138,7 @@ import PieChart from "src/components/pie-chart";
 
     <hr />
 
-    <h2>Copy Paste</h2>
+    <h2 id="copy-paste">Copy Paste</h2>
     <p>Yes, we know your messages are copy paste templates.</p>
     <p>
       One message I received this time was copy pasted, but they forgot to
@@ -168,7 +168,7 @@ import PieChart from "src/components/pie-chart";
 
     <hr />
 
-    <h2>You Had One Job</h2>
+    <h2 id="you-had-one-job">You Had One Job</h2>
     <p>
       These days I'm not much surprised when recruiters forget to list the key
       languages or tech I'll be working on.
@@ -204,8 +204,7 @@ import PieChart from "src/components/pie-chart";
 
     <hr />
 
-    <h2>The Quotes</h2>
-
+    <h2 id="the-quotes">The Quotes</h2>
     <p>
       Unlike their American counterparts, there were far less wacky attempts at
       recruiter clickbait.
@@ -304,7 +303,7 @@ import PieChart from "src/components/pie-chart";
 
     <hr />
 
-    <h2>Companies</h2>
+    <h2 id="companies">Companies</h2>
 
     <p style="margin:24px 0;">
       Finally, here are the companies that were named:
@@ -440,5 +439,13 @@ import PieChart from "src/components/pie-chart";
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
+  }
+
+  .bs::before {
+    content: "Bulls";
+  }
+
+  .bs::after {
+    content: "hit ";
   }
 </style>
