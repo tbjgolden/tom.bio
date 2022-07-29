@@ -8,8 +8,8 @@
 <body style="overflow-x:hidden;">
   <main>
     <h1 style="font-weight:800;">Tom <span id="name"></span></h1>
-    <h2>Senior Software Engineer / Engineering Manager</h2>
-    <p>
+    <h2 style="margin-top:16px">Senior Software Engineer / Engineering Manager</h2>
+    <p style="margin-bottom:0">
       <strong style="display:block;margin-bottom:3px">
         tom.bio
         &middot;
@@ -267,13 +267,14 @@
     }
     
     h1 {
-      font-size: 30px;
+      font-size: 32px;
       font-weight: 400;
+      letter-spacing: -0.02em;
       margin-bottom: 0;
     }
     h2 {
-      font-family: 'Heuristica';
-      font-weight: 400;
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 500;
       color: rgb(168, 115, 0);
       position: relative;
       display: inline-block;
@@ -311,9 +312,9 @@
     }
 
     @font-face {
-      font-family: 'Heuristica';
-      src: local('Heuristica'), url('./Heuristica-Regular.woff2');
-      font-weight: 400;
+      font-family: 'IBM Plex Serif';
+      src: local('IBMPlexSerif'), url('./IBMPlexSerif-Medium.woff2');
+      font-weight: 500;
     }
     @font-face {
       font-family: 'Inter';
