@@ -1,0 +1,65 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+import MediaQueryPlayground from "src/components/media-query-playground";
+---
+
+<Layout pageTitle="100 days of recruiters (uk)">
+  <Header actualPath="experiments/100-days-of-recruiters-uk" />
+  <div style="text-align:center">
+    <h1>Media Query Playground</h1>
+
+    <section id="playground">
+      <MediaQueryPlayground client:load />
+    </section>
+
+    <p style="font-size:14px;color:#aaa">
+      This tool was made possible by <a
+        href="https://github.com/tbjgolden/media-query-fns"
+        set:text={"media-query-fns"}></a>, a library which parses and interprets
+      media queries in a spec compliant way.
+    </p>
+  </div>
+</Layout>
+<style is:global lang="scss">
+  #playground {
+    .media-query-input {
+      color: #000;
+      outline: 0;
+      border-color: transparent !important;
+
+      &:hover,
+      &:focus {
+        background: #fff !important;
+        border-color: currentcolor !important;
+      }
+    }
+
+    .matches {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .match {
+      display: flex;
+      align-items: center;
+    }
+    .label {
+      width: 234px;
+      text-align: left;
+    }
+    .icon {
+      margin-top: 2px;
+      margin-right: 0.3em;
+    }
+    .check {
+      color: #090;
+    }
+    .cross {
+      color: #c60;
+    }
+    .cross + .label {
+      color: #666;
+    }
+  }
+</style>

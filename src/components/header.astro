@@ -37,39 +37,54 @@ const baseUrl = import.meta.env.BASE_URL;
 
 const scriptHtml = `globalThis.actualPath=${JSON.stringify(
   actualPath
-)};globalThis.isEditMode=${isEditMode};const urlPath=new URL(location.href).pathname;if(!globalThis.isEditMode&&localStorage.getItem("secret")&&urlPath!=="/cv"&&urlPath.slice(0, 12)!=="/experiments"){const textNode=document.createTextNode(" · ");const spanNode=document.createElement("SPAN");spanNode.setAttribute("class","c-t");const linkNode=document.createElement("A");linkNode.setAttribute("href",urlPath.endsWith("/")?"./edit":urlPath+"/edit");linkNode.textContent="edit";const linksEl=document.getElementById("links");spanNode.appendChild(textNode);linksEl.appendChild(spanNode);linksEl.appendChild(linkNode)}if(globalThis.isEditMode&&!localStorage.getItem("secret")){globalThis.location.href="."};globalThis.plz=(path,data)=>(fetch('/api'+path,{method:"POST",headers:{"content-type":"application/json","x-admin-secret":localStorage.getItem("secret")},body:JSON.stringify(data)}).then((response)=>{if(!response.ok){throw new Error(response.status)}return response}))`;
+)};globalThis.isEditMode=${isEditMode};const urlPath=new URL(location.href).pathname;if(!globalThis.isEditMode&&localStorage.getItem("secret")&&urlPath!=="/cv"&&urlPath.slice(0, 12)!=="/experiments"){const linkNode=document.createElement("A");linkNode.setAttribute("href",urlPath.endsWith("/")?"./edit":urlPath+"/edit");linkNode.textContent="edit";const linksEl=document.getElementById("links");linksEl.appendChild(linkNode)}if(globalThis.isEditMode&&!localStorage.getItem("secret")){globalThis.location.href="."};globalThis.plz=(path,data)=>(fetch('/api'+path,{method:"POST",headers:{"content-type":"application/json","x-admin-secret":localStorage.getItem("secret")},body:JSON.stringify(data)}).then((response)=>{if(!response.ok){throw new Error(response.status)}return response}))`;
 ---
 
-<h1 style="text-align:center">
-  {prefix ? prefix + " " : ""}
-  {actualPath === "" ? (
-    <span class="active">tom</span>
-  ) : (
-    <a href={`${baseUrl}`}>tom</a>
-  )}
-</h1>
-<p style="text-align:center;margin-bottom:24px" id="links">
-  {menuItems.map(({ url, label }, i) => {
-    return (
-      <>
-        <span class="c-t">{i === 0 ? "" : " · "}</span>
-        {actualPath === url ? (
-          <span class="active">{label}</span>
-        ) : (
-          <a href={`${baseUrl}${url}`}>{label}</a>
-        )}
-      </>
-    )
-  })}
-</p>
+<nav id="nav">
+  <h1 style="text-align:center">
+    {prefix ? prefix + " " : ""}
+    {actualPath === "" ? (
+      <span class="title-item active">tom</span>
+    ) : (
+      <a class="title-item" href={`${baseUrl}`}>
+        tom
+      </a>
+    )}
+  </h1>
+  <p style="text-align:center;margin-bottom:24px" id="links">
+    {menuItems.map(({ url, label }, i) => {
+      return (
+        <>
+          {actualPath === url ? (
+            <span class="item active">{label}</span>
+          ) : (
+            <a class="item" href={`${baseUrl}${url}`} set:text={label} />
+          )}
+        </>
+      )
+    })}
+  </p>
+</nav>
 <script set:html={scriptHtml}>
 
 </script>
 <style>
+  :global(nav .title-item) {
+    padding: 0 6px;
+    border: 4px solid transparent;
+  }
+  :global(nav .item) {
+    padding: 2px 4px;
+    border: 2px solid transparent;
+    margin: 0 2px;
+  }
+
+  .default {
+    padding: 2px 4px;
+  }
   .active {
-    color: #000;
-    background-color: #f4be00;
-    box-shadow: -4px 0 0 #f4be00, 4px 0 0 #f4be00;
+    color: #f4be00;
+    border-color: #f4be00;
   }
   :global(.c-t) {
     color: transparent;

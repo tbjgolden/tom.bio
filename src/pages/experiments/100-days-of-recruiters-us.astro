@@ -6,7 +6,7 @@ import PieChart from "src/components/pie-chart";
 
 <Layout pageTitle="100 days of recruiters (us)">
   <Header actualPath="experiments/100-days-of-recruiters-us" />
-  <div style="text-align:center">
+  <div class="auto" style="text-align:center">
     <h1>100 Days of Recruiters (US&nbsp;Edition)</h1>
 
     <p>
@@ -57,11 +57,11 @@ import PieChart from "src/components/pie-chart";
 
     <hr />
 
-    <h2 id="bs-score">Bullshit Score</h2>
+    <h2 id="bs-score"><span class="bs"></span>Score</h2>
     <p>
       At first, I tried to count the occurrences of specific buzzwords... but
       there were just too many to choose from. Instead, I gave <strong
-        >each message a Bullshit Score&trade;
+        >each message a <span class="bs"></span>Score&trade;
       </strong>.
     </p>
 
@@ -283,5 +283,13 @@ import PieChart from "src/components/pie-chart";
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
+  }
+
+  .bs::before {
+    content: "Bulls";
+  }
+
+  .bs::after {
+    content: "hit ";
   }
 </style>

@@ -7,27 +7,28 @@ import Header from "src/components/header.astro";
   <Header actualPath="experiments" />
 
   <ul style="list-style:none;padding:0;text-align:center">
-    {[
-      {
-        slug: "evolution-of-football",
-        label: "evolution of football",
-      },
-      {
-        slug: "100-days-of-recruiters-uk",
-        label: "100 days of recruiters (uk)",
-      },
-      {
-        slug: "100-days-of-recruiters-us",
-        label: "100 days of recruiters (us)",
-      },
-    ].map(({ slug, label }) => {
-      return (
-        <li>
-          <p>
-            <a href={`./experiments/${slug}`}>{label}</a>
-          </p>
-        </li>
-      )
-    })}
+    <li>
+      <p>
+        <a href="./experiments/media-query-playground"
+          >media query playground
+        </a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a
+          href="./experiments/100-days-of-recruiters-uk"
+          set:text={"100 days of recruiters"}></a>
+        {" "}
+        <a href="./experiments/100-days-of-recruiters-uk" set:text={"(uk)"}></a>
+        {" "}
+        <a href="./experiments/100-days-of-recruiters-us">(us)</a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a href="./experiments/evolution-of-football">evolution of football</a>
+      </p>
+    </li>
   </ul>
 </Layout>
