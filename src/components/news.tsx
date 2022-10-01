@@ -116,7 +116,7 @@ export default function News() {
   }, []);
 
   return newsData ? (
-    <div style="font-size:18px;">
+    <div style="font-size:18px">
       {newsData.dailySummaries.slice(0, 2).map(({ date, sections }) => {
         return (
           <div>

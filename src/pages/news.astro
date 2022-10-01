@@ -4,11 +4,13 @@ import Header from "src/components/header.astro";
 import News from "src/components/news";
 ---
 
-<Layout pageTitle="decent news">
+<Layout pageTitle="news">
   <div style="text-align:center">
-    <h1>news</h1>
+    <h1 style="margin-top:0">news</h1>
 
-    <News client:load />
+    <div style="min-height:100vh;">
+      <News client:load />
+    </div>
 
     <hr />
 
