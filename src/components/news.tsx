@@ -26,8 +26,9 @@ type NewsData = {
   sections: Section[];
 }[];
 
+const imgRegex = /<img.*?>/g;
 async function htmlToNewsData(html: string): Promise<NewsData> {
-  sandboxEl.innerHTML = html;
+  sandboxEl.innerHTML = html.replace(imgRegex, "");
   const dailySummaries = [
     ...sandboxEl.querySelectorAll(
       ".p-current-events-events .current-events-content"
@@ -131,7 +132,6 @@ function readList(ulNode: HTMLUListElement): Array<Subsection | Fragment[]> {
           list: readList(ulNode_),
         });
       } else {
-        // .replace(/( \([^\)]*?\))+$/g, "")
         list.push(getTextFor(childEl));
       }
     }
@@ -259,11 +259,7 @@ const PageRef = ({ fragment }: { fragment: LinkFragment }) => {
           const innerEl = document.createElement("DIV");
           innerEl.className = "tooltip-inner";
           window
-            .fetch(
-              `https://en.wikipedia.org/api/rest_v1/page/summary/${fragment.url.slice(
-                6
-              )}`
-            )
+            .fetch(`/api/x/news/summary/${fragment.url.slice(6)}`)
             .then((response) => {
               if (!response.ok) {
                 throw new Error();
@@ -273,15 +269,18 @@ const PageRef = ({ fragment }: { fragment: LinkFragment }) => {
             .then((json) => {
               if (json.thumbnail) {
                 const { width, height, source } = json.thumbnail;
-                innerEl.classList.add("has-thumbnail");
-                innerEl.innerHTML =
-                  '<img class="thumbnail" style="aspect-ratio:' +
-                  width +
-                  "/" +
-                  height +
-                  '" src="' +
-                  source +
-                  '">';
+                if (source.startsWith("https://upload.wikimedia.org/")) {
+                  innerEl.classList.add("has-thumbnail");
+                  innerEl.innerHTML =
+                    '<img class="thumbnail" style="aspect-ratio:' +
+                    width +
+                    "/" +
+                    height +
+                    '" src="' +
+                    "/api/x/news/img/" +
+                    source.slice(29) +
+                    '">';
+                }
               }
               innerEl.innerHTML += json.extract_html;
               poppersElRef.current.appendChild(innerEl);

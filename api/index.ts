@@ -68,6 +68,42 @@ export const extendApi: ExtendApi = async (
     return;
   }
 
+  if (url.startsWith("/x/news/summary/")) {
+    try {
+      const json = await got
+        .get(
+          `https://en.wikipedia.org/api/rest_v1/page/summary/${url.slice(16)}`
+        )
+        .json();
+
+      response.setHeader("content-type", "application/json");
+      response.status(200).send(json);
+      return;
+    } catch (error) {
+      response.status(400).send("Not OK");
+      return;
+    }
+  }
+
+  if (url.startsWith("/x/news/img/")) {
+    try {
+      await new Promise<void>((resolve) => {
+        const req = got.stream.get(
+          `https://upload.wikimedia.org/${url.slice(12)}`
+        );
+        const stream = req.pipe(response);
+        stream.on("finish", () => {
+          resolve();
+        });
+      });
+      return;
+    } catch (error) {
+      console.error(error);
+      response.status(400).send("Not OK");
+      return;
+    }
+  }
+
   const sectionsMatch = url.match(sections);
   if (sectionsMatch !== null) {
     const filePath = `${dataPath}/sections/${sectionsMatch[1]}.md`;
