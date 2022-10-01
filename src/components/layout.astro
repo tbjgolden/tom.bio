@@ -9,7 +9,7 @@ const { pageTitle, maxWidth } = Astro.props;
     <title>{pageTitle ?? "tom"}</title>
   </head>
   <body>
-    <main class="px" style="text-align:center">
+    <main class="px" style="text-align:center;max-width:100%;overflow:hidden">
       <div
         class="rm-margin"
         style={`display:inline-block;max-width:${
