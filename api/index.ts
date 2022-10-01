@@ -10,6 +10,7 @@ import {
   deleteFile,
   parseURL,
 } from "easier-node";
+import { got } from "got";
 import { mutateMarkdown } from "./markdown";
 import { download } from "./download";
 
@@ -28,6 +29,9 @@ const sections = /^\/sections\/([^\/]{1,100})\/?$/;
 const portfolio = /^\/portfolio\/([^\/]{1,100})\/?$/;
 const posts = /^\/posts\/([^\/]{1,100})\/?$/;
 
+let lastHtml: string | null = null;
+let lastTime = 0;
+
 export const extendApi: ExtendApi = async (
   request,
   response,
@@ -36,6 +40,33 @@ export const extendApi: ExtendApi = async (
 ) => {
   const mediaPath = joinPaths(dataPath, "../public/media");
   const url = request.url;
+
+  if (url === "/x/news" || url === "/x/news/") {
+    if (Date.now() - lastTime > 300000) {
+      try {
+        const response = await got
+          .get(
+            `https://en.wikipedia.org/w/api.php?action=parse&format=json&page=Portal:Current%20events`
+          )
+          .json<{ parse?: { text?: { "*"?: string } } } | null>();
+        const currentEventsHtml = response?.parse?.text?.["*"] ?? "";
+
+        if (!currentEventsHtml) {
+          throw new Error();
+        }
+
+        lastHtml = currentEventsHtml;
+        lastTime = Date.now();
+      } catch (error) {
+        response.status(400).send("Not OK");
+        return;
+      }
+    }
+
+    response.setHeader("content-type", "text/html");
+    response.status(200).send(lastHtml);
+    return;
+  }
 
   const sectionsMatch = url.match(sections);
   if (sectionsMatch !== null) {
