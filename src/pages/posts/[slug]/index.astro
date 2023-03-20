@@ -1,5 +1,4 @@
 ---
-import { Markdown } from "astro/components";
 import Layout from "src/components/layout.astro";
 import Header from "src/components/header.astro";
 export const getStaticPaths = async () => {
@@ -15,8 +14,8 @@ export const getStaticPaths = async () => {
         post: {
           uid,
           ...post.frontmatter,
-          markdown: post.rawContent(),
-          getHeaders: post.getHeaders,
+          html: post.compiledContent(),
+          getHeadings: post.getHeadings,
         },
       },
     };
@@ -26,8 +25,8 @@ export const getStaticPaths = async () => {
 const { slug } = Astro.params;
 const { post } = Astro.props;
 
-const headers = await post.getHeaders();
-const firstHeaderText = headers.find((h) => h.depth === 1)?.text;
+const headings = await post.getHeadings();
+const firstHeaderText = headings.find((h) => h.depth === 1)?.text;
 
 const shouldShowTitle = firstHeaderText !== post.title;
 ---
@@ -35,16 +34,14 @@ const shouldShowTitle = firstHeaderText !== post.title;
 <Layout pageTitle={`${post.title} · tom`}>
   <Header actualPath={`posts/${slug}`} />
 
-  {post.imageUrl ? (
-    <img
-      src={post.imageUrl}
-      style="width:100%;aspect-ratio:3/2;background:#222"
-    />
-  ) : null}
+  {
+    post.imageUrl ? (
+      <img
+        src={post.imageUrl}
+        style="width:100%;aspect-ratio:3/2;background:#222"
+      />
+    ) : null
+  }
   {shouldShowTitle ? <h1>{post.title}</h1> : null}
-  <article class="auto">
-    <Markdown content={post.markdown}>
-
-    </Markdown>
-  </article>
+  <article class="auto" set:html={post.html} />
 </Layout>

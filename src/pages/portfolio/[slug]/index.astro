@@ -1,7 +1,6 @@
 ---
 import Layout from "src/components/layout.astro";
 import Header from "src/components/header.astro";
-import { Markdown } from "astro/components";
 
 export const getStaticPaths = async () => {
   let portfolios = [];
@@ -15,7 +14,7 @@ export const getStaticPaths = async () => {
         portfolio: {
           ...portfolio.frontmatter,
           uid: portfolio.file.split("/").at(-1).slice(0, -3),
-          markdown: portfolio.rawContent(),
+          html: portfolio.compiledContent(),
         },
       },
     };
@@ -30,9 +29,5 @@ const { portfolio } = Astro.props;
 
   <h1>{portfolio.title}</h1>
 
-  <article class="auto">
-    <Markdown content={portfolio.markdown}>
-
-    </Markdown>
-  </article>
+  <article class="auto" set:html={portfolio.html} />
 </Layout>
