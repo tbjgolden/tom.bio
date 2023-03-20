@@ -1,20 +1,14 @@
 ---
-import { readFile } from "easier-node";
-import { Markdown } from "astro/components";
-
 const { name } = Astro.props;
 let content = "";
 try {
-  content = await readFile(`${process.cwd()}/data/sections/${name}.md`);
+  const posts = await Astro.glob("../../data/sections/*.md");
+  content = posts
+    .find(({ file }) => file.endsWith(`${name}.md`))
+    .compiledContent();
 } catch (error) {
   console.error(error);
 }
-const withoutFrontmatter = content.replace(
-  /(?:(^|\n)\-\-\-\n)[\s\S]*?(\n\-\-\-(\n|$))/,
-  ""
-);
 ---
 
-<Markdown content={withoutFrontmatter}>
-
-</Markdown>
+<div set:html={content}></div>
