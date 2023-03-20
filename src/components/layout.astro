@@ -16,7 +16,7 @@ const { pageTitle, maxWidth } = Astro.props;
           maxWidth || 500
         }px;width:100%;text-align:left`}
       >
-        <slot></slot>
+        <slot />
       </div>
     </main>
     <style is:global lang="scss">
@@ -472,6 +472,14 @@ const { pageTitle, maxWidth } = Astro.props;
 
       .rm-margin {
         > :first-child {
+          margin-top: 0;
+        }
+
+        > style:first-child + * {
+          margin-top: 0;
+        }
+
+        > style:first-child + script + * {
           margin-top: 0;
         }
 

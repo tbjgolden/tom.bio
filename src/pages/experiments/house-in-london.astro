@@ -1,0 +1,225 @@
+---
+import Layout from "src/components/layout.astro";
+import Header from "src/components/header.astro";
+---
+
+<Layout pageTitle="house in london" maxWidth="1600">
+  <Header actualPath="experiments/house-in-london" />
+  <article>
+    <h1>House in London</h1>
+    <p>
+      <div id="controls">
+        <div id="val">&nbsp;</div>
+        <input
+          id="range"
+          type="range"
+          min="1"
+          max="99"
+          value="70"
+          style="width:100%;max-width:480px"
+          oninput="globalThis.updateMap(Number.parseInt(event.target.value))"
+        />
+        <div id="context">&nbsp;</div>
+      </div>
+    </p>
+    <div style="width:100%;aspect-ratio:1838/1579;position:relative">
+      <img id="image" src="/london.png" />
+      <div id="canvasWrapper"></div>
+    </div>
+
+    <h3>What precisely is this?</h3>
+    <p>A map that shows great areas in London to live using recent data.</p>
+
+    <h3>How are you measuring "great"?</h3>
+    <p>The three main factors considered are commute time, safety and price.</p>
+    <hr />
+    <p>
+      Approximating an area's price per floor area is possible; and in an
+      earlier version of the analysis, I made a tool to calculate it by cross
+      referencing sale data with EPC certificate data.
+    </p>
+    <p>
+      Alas, that tool is too slow to be used as part of an interactive web tool,
+      so affordability is not factored in at all.
+    </p>
+    <hr />
+    <p>
+      For the purpose of this map, safety is calculated by counting the numbers
+      of crimes in an area - and adjacent areas - over the last 3 years.
+    </p>
+    <hr />
+    <p>
+      Calculating commute times for the whole of London to every possible job
+      location can't be reasonably achieved in an interactive map, as it takes a
+      few hours to calculate a commute time map to a specific point.
+    </p>
+    <p>
+      Instead, an approximation of London's centre was chosen to avoid favouring
+      any particular individual method of getting there. The exact measurement
+      used on the interactive map is: <em
+        >duration of the fastest commute (excl. bikes and cars), arriving at
+        (51.513878,-0.135156) at or before 9am on a strike free day</em
+      >. Calculation includes newer transport options, including the Elizabeth
+      line.
+    </p>
+    <hr />
+    <p>
+      With this data, the percentiles were then calculated for each metric. The
+      score of an area was determined as the minimum of the two percentiles.
+    </p>
+  </article>
+
+  <style>
+    article {
+      text-align: center;
+    }
+
+    hr {
+      max-width: 60px;
+      margin: 16px auto !important;
+    }
+
+    p {
+      max-width: 66ch;
+      margin: 0 auto;
+    }
+
+    #val {
+      margin-left: 4px;
+      border: 0;
+      background: none;
+    }
+
+    #image {
+      display: inline-block;
+      height: 100%;
+      width: auto;
+      position: relative;
+      z-index: 1;
+      filter: invert(1) saturate(0);
+    }
+
+    #canvasWrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    #context {
+      font-size: 12px;
+      line-height: 1.3;
+      margin: -2px 0 8px;
+    }
+
+    #part-map {
+      max-width: 480px;
+      margin: 0 auto;
+      aspect-ratio: 1096/1138;
+    }
+  </style>
+  <script>
+    const context = JSON.parse(
+      `{"travelTime":[null,90,86,84,82,80,79,78,77,76,75,74,73,72,72,71,70,70,69,69,68,68,67,67,66,66,65,65,64,64,63,63,63,62,62,61,61,61,60,60,60,59,59,59,58,58,57,57,57,56,56,56,55,55,55,54,54,54,53,53,53,52,52,52,51,51,51,50,50,49,49,49,48,48,47,47,46,46,45,45,44,44,43,43,42,41,41,40,39,39,38,37,36,35,34,32,31,29,26,22,0],"crimeCount":[null,2358,1851,1576,1412,1283,1184,1101,1028,967,914,864,825,787,752,718,687,659,634,608,584,563,542,523,504,486,469,454,438,423,410,397,385,373,361,350,340,329,319,309,300,291,283,274,265,257,249,241,232,225,218,210,203,196,189,182,176,170,164,158,152,146,141,135,129,124,118,113,107,102,100,99,94,89,84,78,74,69,64,59,54,50,45,41,36,32,28,23,19,15,11,8,6,4,3,3,2,1,1,1,0]}`
+    );
+
+    globalThis.updateMap = () => {};
+
+    globalThis
+      .fetch("/tilesLite.json")
+      .then(async (res) => {
+        const result: Record<string, [number, number]> = await res.json();
+        return result;
+      })
+      .then((json) => {
+        const rangeEl = document.getElementById("range") as HTMLInputElement;
+        const valEl = document.getElementById("val") as HTMLDivElement;
+        const contextEl = document.getElementById("context") as HTMLDivElement;
+        let timeout;
+
+        globalThis.updateMap = (threshold) => {
+          if (Number.parseInt(rangeEl.value) !== threshold) {
+            rangeEl.value = threshold.toString();
+          }
+
+          let ordinalSuffix = "th";
+          if (threshold < 4 || threshold > 20) {
+            const remainder = threshold % 10;
+            if (remainder === 1) ordinalSuffix = "st";
+            else if (remainder === 2) ordinalSuffix = "nd";
+            else if (remainder === 3) ordinalSuffix = "rd";
+          }
+
+          valEl.innerText =
+            threshold.toString() + ordinalSuffix + " percentile or better";
+          contextEl.innerText = `≤${
+            context.travelTime[threshold]
+          }mins to centre AND ≤${context.crimeCount[threshold]} crime${
+            context.crimeCount[threshold] === 1 ? "" : "s"
+          } in area in last 3yrs`;
+
+          const entries = Object.entries(json);
+
+          let S = Infinity;
+          let N = -Infinity;
+          let W = Infinity;
+          let E = -Infinity;
+
+          for (const [tile] of entries) {
+            const [i, j] = tile.split("_").map((n) => Number.parseInt(n));
+            if (i < S) S = i;
+            if (i > N) N = i;
+            if (j < W) W = j;
+            if (j > E) E = j;
+          }
+
+          const map = new Map(entries);
+
+          const nsCount = 1 + N - S;
+          const weCount = 1 + E - W;
+
+          document.getElementById(
+            "canvasWrapper"
+          ).innerHTML = `<canvas id="canvas" width="${weCount}" height="${nsCount}" style="position:absolute;bottom:0;left:0;height:100%;width:100%"></canvas>`;
+          const canvasEl = document.getElementById(
+            "canvas"
+          ) as HTMLCanvasElement;
+          const ctx = canvasEl.getContext("2d");
+
+          for (let i = N; i >= S; i--) {
+            const y = i - S;
+            for (let j = W; j <= E; j++) {
+              const x = j - W;
+
+              const score = Math.min(...map.get(`${i}_${j}`));
+
+              ctx.fillStyle = `hsla(${score + score}deg 100% 50% / ${
+                score < threshold ? 0 : 50
+              }%)`;
+              ctx.fillRect(x, y, 1, 1);
+            }
+          }
+
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            globalThis.history.replaceState(
+              {},
+              "",
+              `${globalThis.location.href.slice(
+                0,
+                -globalThis.location.search.length
+              )}?p=${threshold}`
+            );
+          }, 200);
+        };
+
+        globalThis.updateMap(
+          Number.parseInt(
+            new URLSearchParams(globalThis.location.search).get("p") ?? "70"
+          )
+        );
+      });
+  </script>
+</Layout>
