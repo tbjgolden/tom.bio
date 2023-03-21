@@ -15,7 +15,7 @@ import Header from "src/components/header.astro";
           type="range"
           min="1"
           max="99"
-          value="70"
+          value="80"
           style="width:100%;max-width:480px"
           oninput="globalThis.updateMap(Number.parseInt(event.target.value))"
         />
@@ -217,7 +217,7 @@ import Header from "src/components/header.astro";
 
         globalThis.updateMap(
           Number.parseInt(
-            new URLSearchParams(globalThis.location.search).get("p") ?? "70"
+            new URLSearchParams(globalThis.location.search).get("p") ?? "80"
           )
         );
       });
