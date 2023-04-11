@@ -22,7 +22,9 @@ import Header from "src/components/header.astro";
         <div id="context">&nbsp;</div>
       </div>
     </p>
-    <div style="width:100%;aspect-ratio:1838/1579;position:relative">
+    <div
+      style="width:100%;aspect-ratio:1838/1579;position:relative;overflow:hidden"
+    >
       <img id="image" src="/london.webp" />
       <div id="canvasWrapper"></div>
     </div>
@@ -92,9 +94,12 @@ import Header from "src/components/header.astro";
 
     #image {
       display: inline-block;
-      height: 100%;
-      width: auto;
-      position: relative;
+      height: auto;
+      width: 100.1%;
+      max-width: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
       z-index: 1;
       filter: invert(1) saturate(0);
     }
@@ -182,7 +187,9 @@ import Header from "src/components/header.astro";
 
           document.getElementById(
             "canvasWrapper"
-          ).innerHTML = `<canvas id="canvas" width="${weCount}" height="${nsCount}" style="position:absolute;bottom:0;left:0;height:100%;width:100%"></canvas>`;
+          ).innerHTML = `<canvas id="canvas" width="${weCount * 16}" height="${
+            nsCount * 16
+          }" style="position:absolute;bottom:0;left:0;height:100%;width:100%"></canvas>`;
           const canvasEl = document.getElementById(
             "canvas"
           ) as HTMLCanvasElement;
@@ -198,7 +205,7 @@ import Header from "src/components/header.astro";
               ctx.fillStyle = `hsla(${score + score}deg 100% 50% / ${
                 score < threshold ? 0 : 50
               }%)`;
-              ctx.fillRect(x, y, 1, 1);
+              ctx.fillRect(x * 16, y * 16, 16, 16);
             }
           }
 
