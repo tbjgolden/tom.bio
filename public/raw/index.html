@@ -8,7 +8,7 @@
 <body style="overflow-x:hidden;">
   <main>
     <h1 style="font-weight:800;">Tom <span id="name"></span></h1>
-    <h2 style="margin-top:16px">Senior Software Engineer / Engineering Manager</h2>
+    <h2 style="margin-top:16px">Senior Software Engineer</h2>
     <p style="margin-bottom:0">
       <strong style="display:block;margin-bottom:3px">
         tom.bio
@@ -34,6 +34,24 @@
 
     <div class="job">
       <h3 class="company-name">
+        EO Charging
+      </h3>
+      <div class="role-location">
+        Remote
+      </div>
+      <div class="role-name">
+        Senior Front-End Developer
+      </div>
+      <div class="dates">
+        08/22 - current
+      </div>
+      <p class="description">
+        Developing a web dashboard used by companies including Amazon and Tesco to charge their UK electric fleets.  <span class="pills"><span class="pill">React</span> <span class="pill">TypeScript</span></span>
+      </p>
+    </div>
+
+    <div class="job">
+      <h3 class="company-name">
         Cabinet Office / Number 10
       </h3>
       <div class="role-location">
@@ -46,7 +64,7 @@
         04/22 - 06/22
       </div>
       <p class="description">
-        Short-term contract role where I built a tool that allowed employees in 10 Downing Street to anonymously raise concerns to HR.
+        Short-term contract role where I built a tool that allowed employees in 10 Downing Street to anonymously raise concerns to HR.  <span class="pills"><span class="pill">React</span> <span class="pill">TypeScript</span> <span class="pill">Node.js</span></span>
       </p>
     </div>
 
@@ -64,7 +82,7 @@
         01/21 - 06/21
       </div>
       <p class="description">
-        Worked for 24 hours per week at a San Francisco based seed-stage startup.
+        Worked for 24 hours per week at a San Francisco based seed-stage startup.  <span class="pills"><span class="pill">React</span> <span class="pill">TypeScript</span> <span class="pill">Python</span> <span class="pill">Django</span></span>
       </p>
     </div>
 
@@ -97,22 +115,9 @@
         Software Engineer for an consumer-facing grocery shopping and delivery application based in San Francisco.
       </p>
       <p class="description">
-        As team lead I was responsible for leading a team of 8 engineers to complete our app, which was completely
+        As team lead I was responsible for leading a team of 8 engineers to complete our web app, which was completely
         built from scratch. It launched in the midst of COVID-19 pandemic panic buying. Our primary customer was a
-        large regional supermarket chain.
-      </p>
-    </div>
-
-    <div class="job">
-      <h3 class="company-name">
-        willtheygo.com
-      </h3>
-      <div class="dates">
-        05/18 - current
-      </div>
-      <p class="description">
-        Developing an automated passive-income football analytical engine. The aim is to develop an API that
-        can be accessed by football websites to provide up to date transfer rumours.
+        large regional supermarket chain. <span class="pills"><span class="pill">React</span> <span class="pill">TypeScript</span></span>
       </p>
     </div>
 
@@ -138,7 +143,7 @@
       <p class="description">
         Developed Shipt's front end through its Android, iOS and Web applications.
         Was their first web developer where I helped build their React web app. Shipt was bought by Target for $550m in Dec 2017.
-        Switched team where I would help build their primary product - a mobile app used by millions.
+        Switched team where I would help build their primary product - a mobile app used by millions. <span class="pills"><span class="pill">React</span> <span class="pill">Angular.js</span> <span class="pill">Ionic</span></span>
       </p>
     </div>
 
@@ -196,7 +201,6 @@
       </p>
     </div>
 
-
     <h2 class="line">Education</h2>
 
     <div class="edu">
@@ -215,18 +219,18 @@
         </em>
       </p>
     </div>
-    <div class="edu">
-      <h3 class="school-name">
-        Blundell's School
-      </h3>
-      <div class="edu-qual">
-        A Levels: A*A*A
-      </div>
+
+
+    <h2 class="line">Relevant Interests</h2>
+
+    <div class="interest">
+      <h3>Open Source Developer</h3>
+      <p>I develop free and open source software as an occasional hobby. My most successful project is <code>media-query-parser</code> which has had over 10 million downloads.</p>
     </div>
 
     <h2 class="line">Skills</h2>
 
-    <p style="margin-bottom:.5em">Technical experience with:<br><strong>JavaScript (ES6, ES7 via Babel), React, Next.js, GraphQL, Apollo, Rust, React Native, Node, UX/UI Design, </strong><small>Jest, Express.js, Astro, OpenGL, Git, MacOS, Linux, Java, Python, Docker, SQL, Dart, Flutter, Ionic, WASM, Haskell, C, AWS, MATLAB</small></p>
+    <p style="margin-bottom:.5em">Technical experience with:<br><strong>JavaScript (ES6, ES7 via Babel), React, Next.js, TypeScript, GraphQL, Apollo, Rust, React Native, Node, UX/UI Design, </strong><small>Jest, Express.js, Astro, OpenGL, Git, MacOS, Linux, Java, Python, Docker, SQL, Dart, Flutter, Ionic, WASM, Haskell, C, AWS</small></p>
 
     <p style="margin-top:.5em">Particularly effective at maintaining team harmony, resolving interpersonal conflicts and problem-solving.</p>
   </main>
@@ -339,6 +343,18 @@
         background: #fff;
       }
     }
+    .interest {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .interest h3 {
+      margin: 1em 0 0;
+    }
+    .interest p {
+      margin: .5em 0 0;
+    }
+
     .job {
       display: grid;
       grid-template-columns: 1fr 16ch;
@@ -384,6 +400,20 @@
     }
     .edu-qual {
       font-weight: 700;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0 .35em;
+      font-size: 12px;
+      line-height: 16px;
+      border: 1px solid #000;
+      border-radius: 9999px;
+      vertical-align: 6%;
+    }
+    .pills {
+      display: inline-block;
+      padding: 2px 2;
     }
 
     #name::before {
