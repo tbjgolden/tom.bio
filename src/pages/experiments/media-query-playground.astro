@@ -4,7 +4,7 @@ import Header from "src/components/header.astro";
 import MediaQueryPlayground from "src/components/media-query-playground";
 ---
 
-<Layout pageTitle="100 days of recruiters (uk)">
+<Layout pageTitle="media query playground">
   <Header actualPath="experiments/100-days-of-recruiters-uk" />
   <div style="text-align:center">
     <h1>Media Query Playground</h1>
@@ -16,8 +16,9 @@ import MediaQueryPlayground from "src/components/media-query-playground";
     <p style="font-size:14px;color:#aaa">
       This tool was made possible by <a
         href="https://github.com/tbjgolden/media-query-fns"
-        set:text={"media-query-fns"}></a>, a library which parses and interprets
-      media queries in a spec compliant way.
+        set:text={"media-query-fns"}
+      />, a library which parses and interprets media queries in a spec
+      compliant way.
     </p>
   </div>
 </Layout>
